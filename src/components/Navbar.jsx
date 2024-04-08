@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { Link } from "react-router-dom"
 
 function Navbar() {
   const [hoveredCategory, setHoveredCategory] = useState(null)
@@ -134,6 +135,9 @@ function Navbar() {
           <li className="mx-3">
             <p>Bons plans</p>
           </li>
+          <Link to="/Dashboard" className="mx-3">
+            <p>Dashboard</p>
+          </Link>
         </ul>
       </nav>
       {/* mobile nav */}
