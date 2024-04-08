@@ -1,23 +1,35 @@
 import React from "react"
+import Slider from "react-slick"
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
+import PostCard from "../components/PostCard"
 
 function Home() {
   return (
     <div className="flex flex-col items-center">
-      <div className="w-[55%] h-40 border-2 border-black flex justify-center items-center ">
-        <p className="text-4xl font-bold">Banniére pub</p>
+      <div className="w-[55%]  border-2 border-black flex justify-center items-center ">
+        <img
+          src="/images/logo-ooredoo.png"
+          alt=""
+          className="object-contain "
+        />
       </div>
 
       {/* carroussel de publications importantes */}
-      <div className="rounded-xl w-[75%] min-h-48 border-2 border-black lg:mt-5 flex flex-col items-center">
-        <p className="mt-10 text-3xl font-bold">
-          Carroussel de publications importantes
+
+      <div className="rounded-xl w-[85%]   lg:my-20 ">
+        <p className="text-2xl font-semibold text-center mb-4">
+          Les postes les plus importants ou les plus récents....{" "}
         </p>
-        <div className="flex mt-28 mb-4">
-          <div className="size-4 rounded-full bg-black mx-2" />
-          <div className="size-4 rounded-full bg-black mx-2" />
-          <div className="size-4 rounded-full bg-yellow-400 mx-2" />
-          <div className="size-4 rounded-full bg-black mx-2" />
-        </div>
+        <Slider autoplay slidesToScroll={2} centerMode slidesToShow={2}>
+          <PostCard />
+          <PostCard />
+          <PostCard />
+          <PostCard />
+          <PostCard />
+          <PostCard />
+          <PostCard />
+        </Slider>
       </div>
 
       {/* DERNIERS ARTICLES */}
