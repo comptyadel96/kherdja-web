@@ -5,11 +5,21 @@ import BaseUrl from "../components/BaseUrl"
 import Modal from "react-modal"
 Modal.setAppElement("#root")
 import "../App.css"
+import ReactDatePicker, { setDefaultLocale } from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
+import CustomFileInput from "../components/CustomFileInput"
+
+import { registerLocale } from "react-datepicker"
+import { fr } from "date-fns/locale/fr"
+registerLocale("fr", fr)
+setDefaultLocale("fr")
 
 const Dashboard = () => {
   const [previewImage, setPreviewImage] = useState(null)
   const [isOpen, setIsOpen] = useState(false)
   const [selectedOption, setSelectedOption] = useState(null)
+  const [startTime, setStartTime] = useState(new Date())
+  const [startDate, setStartDate] = useState(new Date())
 
   const toggleModal = () => {
     setIsOpen(!isOpen)
@@ -73,18 +83,6 @@ const Dashboard = () => {
     "Bons plans",
   ]
 
-  const handleImageChange = (event, setFieldValue) => {
-    const selectedImage = event.currentTarget.files[0]
-    setFieldValue("photo", selectedImage)
-
-    // Affichage de l'image sélectionnée
-    const reader = new FileReader()
-    reader.onload = () => {
-      setPreviewImage(reader.result)
-    }
-    reader.readAsDataURL(selectedImage)
-  }
-
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
       const formData = new FormData()
@@ -113,7 +111,7 @@ const Dashboard = () => {
       </h2>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         {({ isSubmitting, setFieldValue, handleSubmit }) => (
-          <Form className="flex flex-col bg-gray-200 lg:min-w-[25%] lg:p-5 mb-4 ">
+          <Form className="flex flex-col bg-gray-200 lg:min-w-[45%] lg:p-5 mb-4">
             <label className="font-semibold" htmlFor="titre">
               Titre de l'article :
             </label>
@@ -125,9 +123,10 @@ const Dashboard = () => {
             />
             <ErrorMessage name="titre" component="p" />
 
-            <label className="font-semibold" htmlFor="photo">
-              Image du poste
+            <label className="font-semibold lg:my-1" htmlFor="photo">
+              Image de l&apos;article
             </label>
+
             {previewImage ? (
               <img
                 src={previewImage}
@@ -136,39 +135,38 @@ const Dashboard = () => {
                 className="my-2 object-contain"
               />
             ) : (
-              <input
-                type="file"
-                name="photo"
-                accept="image/*"
-                onChange={(event) => handleImageChange(event, setFieldValue)}
-                className="file:bg-yellow-300 file:rounded-md"
+              <CustomFileInput
+                onChange={(selectedImage) =>
+                  setFieldValue("photo", selectedImage)
+                }
               />
             )}
+
             <ErrorMessage name="photo" component="div" />
 
             {/* paragraphe */}
-            <label className="font-semibold" htmlFor="paragraphe">
+            <label className="font-semibold lg:my-3" htmlFor="paragraphe">
               Contenu texte de l&apos;article
             </label>
             <textarea
-              className="min-h-44 bg-white shadow-md rounded-md border border-black lg:my-3 pl-2 pt-2"
+              className="min-h-44 bg-white shadow-md rounded-md border border-black  pl-2 pt-2"
               placeholder="blablablablablablaaaaaaaaa"
             />
 
+            <p className="my-3 font-semibold">Catégorie de l&apos;article</p>
+
             {/* catégorie du poste */}
-            <div className="relative">
+            <div className="relative flex items-center  self-center w-full mb-3">
               {!selectedOption ? (
                 <div
-                  
-                  className="bg-white mb-2 border border-black rounded-md cursor-pointer max-w-[44%] px-2 flex items-center"
+                  className="bg-white border border-black rounded-md cursor-pointer px-2 flex items-center"
                   onClick={toggleModal}
                 >
                   Choisir une catégorie
                 </div>
               ) : (
                 <div
-                  
-                  className="bg-white mb-2 border border-black rounded-md cursor-pointer max-w-[44%] px-2 flex items-center"
+                  className="bg-white border border-black rounded-md cursor-pointer px-2 flex items-center"
                   onClick={toggleModal}
                 >
                   {selectedOption}
@@ -198,10 +196,63 @@ const Dashboard = () => {
               </Modal>
             </div>
 
+            <p className="font-semibold">Date du début</p>
+
+            {/* date picker */}
+
+            <ReactDatePicker
+              locale={"fr"}
+              className="my-3 pl-2 border border-black rounded-md"
+              showFullMonthYearPicker
+              placeholderText="Jour du début"
+              onChange={(date) => setStartDate(date)}
+              selected={startDate}
+            />
+
+            {/* time picker */}
+
+            <ReactDatePicker
+              selected={startTime}
+              onChange={(time) => setStartTime(time)}
+              showTimeSelect
+              showTimeSelectOnly
+              timeIntervals={15}
+              timeCaption="Heure"
+              dateFormat="h:mm aa"
+              locale={"fr"}
+              className="my-3 pl-2 border border-black rounded-md"
+              placeholderText="Heure de début"
+            />
+
+            {/* prix */}
+            <label className="font-semibold my-1" htmlFor="prix">
+              Prix d&apos;entrée
+            </label>
+            <Field
+              type="text"
+              name="prix"
+              className="shadow-md ml-2 my-2 border border-black rounded-md pl-1"
+              placeholder="exemple: 600 da"
+            />
+            <ErrorMessage name="prix" component="p" />
+
+            {/* organisateur */}
+
+            <label className="font-semibold my-1" htmlFor="organisateur">
+              Organisateur
+            </label>
+            <Field
+              type="text"
+              name="titre"
+              className="shadow-md ml-2 my-2 border border-black rounded-md pl-1"
+              placeholder="Kherdja inc, djezzy ....."
+            />
+            <ErrorMessage name="organisateur" component="p" />
+
             {/* bouton valider */}
             <button
               onClick={handleSubmit}
-              className="bg-gradient-to-b from-yellow-300 to bg-yellow-400 px-3 py-1 mb-3 rounded-md"
+              className="bg-gradient-to-b from-yellow-300 to bg-yellow-400 px-3 py-1 my-3 rounded-md"
               type="submit"
               disabled={isSubmitting}
             >

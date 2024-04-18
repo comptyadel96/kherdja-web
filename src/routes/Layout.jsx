@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar"
 import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa"
 function Layout() {
   return (
-    <div className="flex flex-col min-h-screen bg-white lg:pt-3 pt-2 px-0">
+    <div className="flex flex-col min-h-screen bg-white lg:pt-8 pt-2 px-0">
       <div className="flex lg:flex-row flex-col items-center justify-between ">
         <Link to="/" className="lg:w-[25%]">
           <img
@@ -16,20 +16,17 @@ function Layout() {
         </Link>
 
         <div className="flex flex-col mr-10">
-          <p className="lg:text-2xl text-lg">SUIVEZ- NOUS SUR</p>
+          <p className="lg:text-2xl text-lg">Suivez-nous sur:</p>
           <div className="flex items-center">
-            <div className="p-2  mx-2 rounded-full bg-blue-500 text-white">
-              <FaFacebook />
-            </div>
-            <div className="p-2  mx-2 rounded-full bg-gradient-to-br from-rose-400  to-yellow-400 text-white">
-              <FaInstagram />
-            </div>
-            <div className="p-2  mx-2 rounded-full bg-red-700 text-white">
-              <FaYoutube />
-            </div>
+            <FaFacebook className="mx-2 text-blue-600 text-2xl" />
+
+            <FaInstagram className="mx-2 text-pink-600 text-2xl" />
+
+            <FaYoutube className="mx-2 text-pink-600 text-2xl" />
           </div>
         </div>
       </div>
+
       <Navbar />
 
       <Outlet />

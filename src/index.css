@@ -17,3 +17,31 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+
+@font-face {
+  font-family: ClashGrotesk-Regular;
+  src: url(./assets/fonts/ClashGrotesk-Regular.ttf);
+}
+
+@font-face {
+  font-family: ClashGrotesk-Semibold;
+  src: url(./assets/fonts/ClashGrotesk-Semibold.ttf);
+}
+
+@font-face {
+  font-family: ClashGrotesk-Medium;
+  src: url(./assets/fonts/ClashGrotesk-Medium.ttf);
+}
+
+h1,
+h2,
+h3,
+h4,
+button,
+a {
+  font-family: ClashGrotesk-Medium !important;
+}
+
+p {
+  font-family: ClashGrotesk-Regular;
+}

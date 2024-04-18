@@ -17,14 +17,18 @@ function Home() {
 
       {/* carroussel de publications importantes */}
 
-      <div className="rounded-xl w-[85%]   lg:my-20 ">
-        <p className="text-2xl font-semibold text-center mb-4">
+      <div className="rounded-xl w-[95%]   lg:my-20 ">
+        <h2 className="lg:text-4xl text-center lg:mb-6">
           Les postes les plus importants ou les plus récents....{" "}
-        </p>
-        <Slider autoplay slidesToScroll={2} centerMode slidesToShow={2}>
-          <PostCard />
-          <PostCard />
-          <PostCard />
+        </h2>
+        <Slider
+          className="lg:py-16 bg-gray-100 border"
+          autoplay
+          slidesToScroll={4}
+          centerMode
+          slidesToShow={4}
+        >
+          <PostCard photo="/images/a.jpg" />
           <PostCard />
           <PostCard />
           <PostCard />

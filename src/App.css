@@ -5,7 +5,7 @@
   right: 40px;
   bottom: 40px;
   background-color: white;
-  padding:3rem;
+  padding: 3rem;
   border: 3px solid rgb(220, 204, 24);
   border-radius: 15px;
 }
@@ -17,4 +17,15 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.7);
+}
+
+.file-input-container {
+  /* Votre style par défaut */
+  border: 2px dashed #3c3c3c;
+
+  background-color: #f2f2f2;
+}
+
+.file-input-container.dragging {
+  background-color: rgb(235, 224, 66);
 }

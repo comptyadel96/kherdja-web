@@ -1,5 +1,10 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
+import { GiNewspaper, GiReceiveMoney } from "react-icons/gi"
+import { ImSpoonKnife } from "react-icons/im"
+import { MdSportsEsports, MdOutlineFamilyRestroom } from "react-icons/md"
+import { BiSolidPlaneAlt } from "react-icons/bi"
+
 
 function Navbar() {
   const [hoveredCategory, setHoveredCategory] = useState(null)
@@ -18,14 +23,16 @@ function Navbar() {
   return (
     <>
       {/* desktop nav */}
-      <nav className="lg:flex hidden shadow-md items-center mb-4 justify-center relative">
-        <ul className="bg-gradient-to-br from-yellow-300 to-yellow-400 py-3  w-full flex  font-semibold justify-center text-xl">
+      <nav className="lg:flex hidden shadow-md items-center mb-4 justify-center relative mt-5">
+        <ul className="bg-gradient-to-br from-yellow-300 to-yellow-400 py-3 gap-3 w-full flex font-semibold justify-center text-xl">
           <li
             className="mx-3"
             onMouseEnter={() => handleMouseEnter("Actus")}
             onMouseLeave={handleMouseLeave}
           >
-            <p className="cursor-pointer hover:text-red-700">Actus</p>
+            <a className="cursor-pointer flex items-center gap-2 hover:text-red-700">
+              <GiNewspaper size={26} /> Actus
+            </a>
             {hoveredCategory === "Actus" && (
               <div className="absolute shadow border px-4 py-2   bg-white flex flex-col text-base  ">
                 <a className="cursor-pointer my-2 hover:text-red-600">News</a>
@@ -39,7 +46,15 @@ function Navbar() {
             onMouseEnter={() => handleMouseEnter("Culture")}
             onMouseLeave={handleMouseLeave}
           >
-            <a className="cursor-pointer">Culture</a>
+            <a className="cursor-pointer flex items-center gap-2">
+              {" "}
+              <img
+                src="/images/cult.png"
+                className="object-contain h-6"
+                alt=""
+              />{" "}
+              Culture
+            </a>
             {hoveredCategory === "Culture" && (
               <div className="absolute shadow border px-4 py-2   bg-white flex flex-col text-base  ">
                 <a className="cursor-pointer my-2 hover:text-red-600">
@@ -65,7 +80,9 @@ function Navbar() {
             onMouseEnter={() => handleMouseEnter("Ou manger")}
             onMouseLeave={handleMouseLeave}
           >
-            <a className="cursor-pointer">Ou manger ?</a>
+            <a className="cursor-pointer flex items-center gap-2">
+              <ImSpoonKnife size={20} /> Ou manger
+            </a>
             {hoveredCategory === "Ou manger" && (
               <div className=" absolute shadow border px-4 py-2 bg-white  text-base flex flex-col ">
                 <a className="cursor-pointer my-2 hover:text-red-600">
@@ -92,7 +109,10 @@ function Navbar() {
             onMouseEnter={() => handleMouseEnter("Loisir")}
             onMouseLeave={handleMouseLeave}
           >
-            <a className="cursor-pointer">Loisirs</a>
+            <a className="cursor-pointer flex items-center gap-2">
+              {" "}
+              <MdSportsEsports size={26} /> Loisirs
+            </a>
             {hoveredCategory === "Loisir" && (
               <div className=" absolute shadow border px-4 py-2   bg-white  text-base flex flex-col ">
                 <a className="cursor-pointer my-2 hover:text-red-600">
@@ -116,7 +136,9 @@ function Navbar() {
             onMouseEnter={() => handleMouseEnter("Voyage")}
             onMouseLeave={handleMouseLeave}
           >
-            <a className="cursor-pointer">Voyages</a>
+            <a className="cursor-pointer flex items-center gap-2">
+              <BiSolidPlaneAlt size={27} /> Voyages
+            </a>
             {hoveredCategory === "Voyage" && (
               <div className=" absolute shadow border px-4 py-2  font-normal   bg-white text-base flex flex-col ">
                 <a className="cursor-pointer my-2 hover:text-red-600">Hôtels</a>
@@ -130,13 +152,16 @@ function Navbar() {
             )}
           </li>
           <li className="mx-3">
-            <a className="cursor-pointer">Famille et kids</a>
+            <a className="cursor-pointer flex items-center gap-2">
+              <MdOutlineFamilyRestroom size={24} /> Famille et kids
+            </a>
           </li>
-          <li className="mx-3">
-            <p>Bons plans</p>
+          <li className="mx-3 flex items-center gap-2 ">
+            <GiReceiveMoney size={26}/>
+            <a>Bons plans</a>
           </li>
           <Link to="/Dashboard" className="mx-3">
-            <p>Dashboard</p>
+            <a>Dashboard</a>
           </Link>
         </ul>
       </nav>
