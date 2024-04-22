@@ -8,6 +8,7 @@ import ErrorPage from "./routes/ErrorPage"
 import Home from "./routes/Home"
 import Layout from "./routes/Layout"
 import Profil from "./routes/Profil"
+import Login from "./routes/Login"
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "/Dashboard",
         element: <Dashboard />,
+      },
+      {
+        path: "/Login",
+        element: <Login />,
       },
     ],
   },

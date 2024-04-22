@@ -1,10 +1,13 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
-import { GiNewspaper, GiReceiveMoney } from "react-icons/gi"
+import { GiNewspaper } from "react-icons/gi"
 import { ImSpoonKnife } from "react-icons/im"
-import { MdSportsEsports, MdOutlineFamilyRestroom } from "react-icons/md"
+import {
+  MdSportsEsports,
+  MdOutlineFamilyRestroom,
+  MdDiscount,
+} from "react-icons/md"
 import { BiSolidPlaneAlt } from "react-icons/bi"
-
 
 function Navbar() {
   const [hoveredCategory, setHoveredCategory] = useState(null)
@@ -23,7 +26,7 @@ function Navbar() {
   return (
     <>
       {/* desktop nav */}
-      <nav className="lg:flex hidden shadow-md items-center mb-4 justify-center relative mt-5">
+      <nav className="lg:flex hidden shadow-md items-center mb-4 justify-center relative mt-5 z-50">
         <ul className="bg-gradient-to-br from-yellow-300 to-yellow-400 py-3 gap-3 w-full flex font-semibold justify-center text-xl">
           <li
             className="mx-3"
@@ -157,11 +160,15 @@ function Navbar() {
             </a>
           </li>
           <li className="mx-3 flex items-center gap-2 ">
-            <GiReceiveMoney size={26}/>
-            <a>Bons plans</a>
+            <MdDiscount size={26} />
+            <>Bons plans</>
           </li>
           <Link to="/Dashboard" className="mx-3">
             <a>Dashboard</a>
+          </Link>
+
+          <Link to="/Login" className="mx-3">
+            <>Login</>
           </Link>
         </ul>
       </nav>

@@ -18,9 +18,14 @@ function Home() {
       {/* carroussel de publications importantes */}
 
       <div className="rounded-xl w-[95%]   lg:my-20 ">
-        <h2 className="lg:text-4xl text-center lg:mb-6">
-          Les postes les plus importants ou les plus récents....{" "}
-        </h2>
+        <div className="flex items-center justify-center  mx-auto lg:mb-16">
+          <div className="h-1 lg:w-20 bg-yellow-300 mx-2" />
+          <h2 className="lg:text-4xl text-center ">
+            Les postes les plus importants ou les plus récents....{" "}
+          </h2>
+          <div className="h-1 lg:w-20 bg-yellow-300 mx-2" />
+        </div>
+
         <Slider
           className="lg:py-16 bg-gray-100 border"
           autoplay
@@ -37,7 +42,12 @@ function Home() {
       </div>
 
       {/* DERNIERS ARTICLES */}
-      <p className="text-2xl font-bold lg:my-5">DERNIERS ARTICLES</p>
+      <div className="lg:my-5 flex items-center">
+        <div className="h-1 lg:w-14 bg-yellow-300 mx-2" />
+        <h2 className="lg:text-4xl font-bold">DERNIERS ARTICLES</h2>
+        <div className="h-1 lg:w-14 bg-yellow-300 mx-2" />
+      </div>
+
       <div className="flex mb-5">
         <div className="size-80 border-2 border-black mx-6 rounded-md"></div>
         <div className="size-80 border-2 border-black mx-6 rounded-md"></div>
