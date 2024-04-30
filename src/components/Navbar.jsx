@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import { GiNewspaper } from "react-icons/gi"
 import { ImSpoonKnife } from "react-icons/im"
 import {
@@ -33,13 +33,25 @@ function Navbar() {
             onMouseEnter={() => handleMouseEnter("Actus")}
             onMouseLeave={handleMouseLeave}
           >
-            <a className="cursor-pointer flex items-center gap-2 hover:text-red-700">
+            <h2 className="cursor-pointer flex items-center gap-2">
               <GiNewspaper size={26} /> Actus
-            </a>
+            </h2>
             {hoveredCategory === "Actus" && (
               <div className="absolute shadow border px-4 py-2   bg-white flex flex-col text-base  ">
-                <a className="cursor-pointer my-2 hover:text-red-600">News</a>
-                <a className="cursor-pointer my-2 hover:text-red-600">Poeple</a>
+                <NavLink
+                  to="/Posts"
+                  state={{ type: "News" }}
+                  className="cursor-pointer my-2 hover:text-red-600"
+                >
+                  News
+                </NavLink>
+                <NavLink
+                  to="/Posts"
+                  state={{ type: "Poeple" }}
+                  className="cursor-pointer my-2 hover:text-red-600"
+                >
+                  Poeple
+                </NavLink>
               </div>
             )}
           </li>
@@ -49,32 +61,51 @@ function Navbar() {
             onMouseEnter={() => handleMouseEnter("Culture")}
             onMouseLeave={handleMouseLeave}
           >
-            <a className="cursor-pointer flex items-center gap-2">
-              {" "}
+            <li className="cursor-pointer flex items-center gap-2">
               <img
                 src="/images/cult.png"
                 className="object-contain h-6"
                 alt=""
-              />{" "}
+              />
               Culture
-            </a>
+            </li>
             {hoveredCategory === "Culture" && (
               <div className="absolute shadow border px-4 py-2   bg-white flex flex-col text-base  ">
-                <a className="cursor-pointer my-2 hover:text-red-600">
+                <NavLink
+                  to="/Posts"
+                  state={{ type: "Concert et musique" }}
+                  className="cursor-pointer my-2 hover:text-red-600"
+                >
                   Concert et musique
-                </a>
-                <a className="cursor-pointer my-2 hover:text-red-600">
+                </NavLink>
+                <NavLink
+                  to="/Posts"
+                  state={{ type: "Cinéma et séries Tv" }}
+                  className="cursor-pointer my-2 hover:text-red-600"
+                >
                   Cinéma et séries Tv
-                </a>
-                <a className="cursor-pointer my-2 hover:text-red-600">
+                </NavLink>
+                <NavLink
+                  to="/Posts"
+                  state={{ type: "Spectacle et humour" }}
+                  className="cursor-pointer my-2 hover:text-red-600"
+                >
                   Spectacle et humour
-                </a>
-                <a className="cursor-pointer my-2 hover:text-red-600">
+                </NavLink>
+                <NavLink
+                  to="/Posts"
+                  state={{ type: "Théâtre" }}
+                  className="cursor-pointer my-2 hover:text-red-600"
+                >
                   Théâtre
-                </a>
-                <a className="cursor-pointer my-2 hover:text-red-600">
+                </NavLink>
+                <NavLink
+                  to="/Posts"
+                  state={{ type: "Musées et expositions" }}
+                  className="cursor-pointer my-2 hover:text-red-600"
+                >
                   Musées et expositions
-                </a>
+                </NavLink>
               </div>
             )}
           </li>
@@ -83,26 +114,46 @@ function Navbar() {
             onMouseEnter={() => handleMouseEnter("Ou manger")}
             onMouseLeave={handleMouseLeave}
           >
-            <a className="cursor-pointer flex items-center gap-2">
+            <li className="cursor-pointer flex items-center gap-2">
               <ImSpoonKnife size={20} /> Ou manger
-            </a>
+            </li>
             {hoveredCategory === "Ou manger" && (
               <div className=" absolute shadow border px-4 py-2 bg-white  text-base flex flex-col ">
-                <a className="cursor-pointer my-2 hover:text-red-600">
+                <NavLink
+                  to="/Posts"
+                  state={{ type: "Restaurents" }}
+                  className="cursor-pointer my-2 hover:text-red-600"
+                >
                   Restaurents
-                </a>
-                <a className="cursor-pointer my-2 hover:text-red-600">
+                </NavLink>
+                <NavLink
+                  to="/Posts"
+                  state={{ type: "Street Food" }}
+                  className="cursor-pointer my-2 hover:text-red-600"
+                >
                   Street Food
-                </a>
-                <a className="cursor-pointer my-2 hover:text-red-600">
+                </NavLink>
+                <NavLink
+                  to="/Posts"
+                  state={{ type: "Brunch et Café" }}
+                  className="cursor-pointer my-2 hover:text-red-600"
+                >
                   Brunch et Café
-                </a>
-                <a className="cursor-pointer my-2 hover:text-red-600">
+                </NavLink>
+                <NavLink
+                  to="/Posts"
+                  state={{ type: "Pâtisseries et gâteaux" }}
+                  className="cursor-pointer my-2 hover:text-red-600"
+                >
                   Pâtisseries et gâteaux
-                </a>
-                <a className="cursor-pointer my-2 hover:text-red-600">
+                </NavLink>
+                <NavLink
+                  to="/Posts"
+                  state={{ type: "Tendance Food" }}
+                  className="cursor-pointer my-2 hover:text-red-600"
+                >
                   Tendance Food
-                </a>
+                </NavLink>
               </div>
             )}
           </li>
@@ -112,25 +163,46 @@ function Navbar() {
             onMouseEnter={() => handleMouseEnter("Loisir")}
             onMouseLeave={handleMouseLeave}
           >
-            <a className="cursor-pointer flex items-center gap-2">
-              {" "}
+            <li className="cursor-pointer flex items-center gap-2">
               <MdSportsEsports size={26} /> Loisirs
-            </a>
+            </li>
             {hoveredCategory === "Loisir" && (
               <div className=" absolute shadow border px-4 py-2   bg-white  text-base flex flex-col ">
-                <a className="cursor-pointer my-2 hover:text-red-600">
+                <NavLink
+                  to="/Posts"
+                  state={{ type: "Sport et bien-être" }}
+                  className="cursor-pointer my-2 hover:text-red-600"
+                >
                   Sport et bien-être
-                </a>
-                <a className="cursor-pointer my-2 hover:text-red-600">
+                </NavLink>
+                <NavLink
+                  to="/Posts"
+                  state={{ type: "Plages et piscines" }}
+                  className="cursor-pointer my-2 hover:text-red-600"
+                >
                   Plages et piscines
-                </a>
-                <a className="cursor-pointer my-2 hover:text-red-600">
+                </NavLink>
+                <NavLink
+                  to="/Posts"
+                  state={{ type: "Foires et salons" }}
+                  className="cursor-pointer my-2 hover:text-red-600"
+                >
                   Foires et salons
-                </a>
-                <a className="cursor-pointer my-2 hover:text-red-600">
+                </NavLink>
+                <NavLink
+                  to="/Posts"
+                  state={{ type: "Shopping et mode" }}
+                  className="cursor-pointer my-2 hover:text-red-600"
+                >
                   Shopping et mode
-                </a>
-                <a className="cursor-pointer my-2 hover:text-red-600">Gaming</a>
+                </NavLink>
+                <NavLink
+                  to="/Posts"
+                  state={{ type: "Gaming" }}
+                  className="cursor-pointer my-2 hover:text-red-600"
+                >
+                  Gaming
+                </NavLink>
               </div>
             )}
           </li>
@@ -139,37 +211,63 @@ function Navbar() {
             onMouseEnter={() => handleMouseEnter("Voyage")}
             onMouseLeave={handleMouseLeave}
           >
-            <a className="cursor-pointer flex items-center gap-2">
+            <li
+              to="/Posts"
+              state={{ type: "" }}
+              className="cursor-pointer flex items-center gap-2"
+            >
               <BiSolidPlaneAlt size={27} /> Voyages
-            </a>
+            </li>
             {hoveredCategory === "Voyage" && (
               <div className=" absolute shadow border px-4 py-2  font-normal   bg-white text-base flex flex-col ">
-                <a className="cursor-pointer my-2 hover:text-red-600">Hôtels</a>
-                <a className="cursor-pointer my-2 hover:text-red-600">
+                <NavLink
+                  to="/Posts"
+                  state={{ type: "Hôtels" }}
+                  className="cursor-pointer my-2 hover:text-red-600"
+                >
+                  Hôtels
+                </NavLink>
+                <NavLink
+                  to="/Posts"
+                  state={{ type: "Maisons d'hôtes" }}
+                  className="cursor-pointer my-2 hover:text-red-600"
+                >
                   Maisons d'hôtes
-                </a>
-                <a className="cursor-pointer my-2 hover:text-red-600">
+                </NavLink>
+                <NavLink
+                  to="/Posts"
+                  state={{ type: "Excursions" }}
+                  className="cursor-pointer my-2 hover:text-red-600"
+                >
                   Excursions
-                </a>
+                </NavLink>
               </div>
             )}
           </li>
           <li className="mx-3">
-            <a className="cursor-pointer flex items-center gap-2">
+            <NavLink
+              to="/Posts"
+              state={{ type: "Famille et kids" }}
+              className="cursor-pointer flex items-center gap-2"
+            >
               <MdOutlineFamilyRestroom size={24} /> Famille et kids
-            </a>
+            </NavLink>
           </li>
-          <li className="mx-3 flex items-center gap-2 ">
+          <NavLink
+            to={"Posts"}
+            state={{ type: "Bons plans" }}
+            className="mx-3 flex items-center gap-2 "
+          >
             <MdDiscount size={26} />
             <>Bons plans</>
-          </li>
-          <Link to="/Dashboard" className="mx-3">
-            <a>Dashboard</a>
-          </Link>
+          </NavLink>
+          <NavLink to="/Dashboard" className="mx-3">
+            Dashboard
+          </NavLink>
 
-          <Link to="/Login" className="mx-3">
+          <NavLink to="/Login" className="mx-3">
             <>Login</>
-          </Link>
+          </NavLink>
         </ul>
       </nav>
       {/* mobile nav */}

@@ -1,6 +1,38 @@
-import React from "react"
+import axios from "axios"
+import React, { useState } from "react"
+import BaseUrl from "../components/BaseUrl"
+import { useNavigate } from "react-router-dom"
 
 function Login() {
+  const [nom, setNom] = useState()
+  const [prenom, setPrenom] = useState()
+  const [email, setEmail] = useState()
+  const [password, setPassword] = useState()
+
+  const navigate = useNavigate()
+
+  const register = async () => {
+    try {
+      const register = await axios.post(
+        `${BaseUrl}/users`,
+        {
+          nom,
+          prenom,
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      if (register.status == 200) {
+        navigate("/Profil")
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className="flex lg:flex-row flex-col justify-evenly items-center lg:px-4 lg:py-10 relative bg-black overflow-hidden">
       <svg
@@ -18,10 +50,10 @@ function Login() {
       </svg>
 
       {/* image tourist */}
-      <div className="self-start rounded-3xl z-20 relative">
+      <div className="self-start  z-20 relative">
         <img
           src="/images/tourist.png"
-          className="object-contain lg:w-[20rem]"
+          className="object-contain lg:w-[20rem] rounded-3xl"
           alt=""
         />
       </div>
@@ -66,18 +98,32 @@ function Login() {
         </div>
 
         <p className="text-white lg:max-w-80 text-center">
-          Inscrivez-vous gratuitement, et recevez toute l’actualité des bons
-          plans sorties, et l’agenda culturel, pour ne rien rater.
+          Inscrivez-vous gratuitement, et recevez toute l&apos;actualité des
+          bons plans sorties, et l&apos;agenda culturel, pour ne rien rater.
         </p>
         <input
           type="text"
           className="bg-white shadow-md rounded-lg pl-3 py-1"
+          placeholder="Prénom"
+          onChange={(e) => setPrenom(e.target.value)}
+        />
+        <input
+          type="text"
+          className="bg-white shadow-md rounded-lg pl-3 py-1"
+          placeholder="Nom"
+          onChange={(e) => setNom(e.target.value)}
+        />
+        <input
+          type="text"
+          className="bg-white shadow-md rounded-lg pl-3 py-1"
           placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
           className="bg-white shadow-md rounded-lg pl-3 py-1"
           placeholder="Choisir un Mot de passe"
+          onChange={(e) => setPassword(e.target.value)}
         />
         <input
           type="password"
@@ -85,12 +131,15 @@ function Login() {
           placeholder="Confirmer le Mot de passe"
         />
         <p className="text-white lg:max-w-60 text-center">
-          En créant un compte kherdja.com J’accepte les
+          En créant un compte kherdja.com J&apos;accepte les
           <a href="" className="text-yellow-300 ml-1">
             Conditions d&apos;utilisation
           </a>
         </p>
-        <button className="px-3 py-1 bg-yellow-300 rounded-md">
+        <button
+          onClick={register}
+          className="px-3 py-1 bg-yellow-300 rounded-md"
+        >
           Inscription
         </button>
       </div>

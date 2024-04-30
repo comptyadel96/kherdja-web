@@ -1,20 +1,21 @@
 import React, { useState } from "react"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import axios from "axios"
-import BaseUrl from "../components/BaseUrl"
+import BaseUrl from "../../components/BaseUrl"
 import Modal from "react-modal"
 Modal.setAppElement("#root")
 import "../App.css"
 import ReactDatePicker, { setDefaultLocale } from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
-import CustomFileInput from "../components/CustomFileInput"
+import CustomFileInput from "../../components/CustomFileInput"
 
 import { registerLocale } from "react-datepicker"
 import { fr } from "date-fns/locale/fr"
+
 registerLocale("fr", fr)
 setDefaultLocale("fr")
 
-const Dashboard = () => {
+const AddPost = () => {
   const [previewImage, setPreviewImage] = useState(null)
   const [isOpen, setIsOpen] = useState(false)
   const [selectedOption, setSelectedOption] = useState(null)
@@ -84,9 +85,17 @@ const Dashboard = () => {
   ]
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    console.log(values)
     try {
       const formData = new FormData()
       formData.append("titre", values.titre)
+      formData.append("paragraphe", values.paragrpahe)
+      formData.append("dateDebut", values.dateDebut)
+      formData.append("heureDebut", values.heureDebut)
+      formData.append("prix", values.prix)
+      formData.append("organisateur", values.organisateur)
+      formData.append("type", values.type)
+      formData.append("lieu", values.lieu)
       formData.append("photo", values.photo)
 
       await axios.post(`${BaseUrl}/posts`, formData, {
@@ -97,6 +106,7 @@ const Dashboard = () => {
 
       resetForm()
       setPreviewImage(null) // Supprimer l'image affichée après l'envoi du formulaire
+      alert("Article publier avec succeés !")
     } catch (error) {
       console.error("Erreur lors de l'envoi de la requête:", error)
     } finally {
@@ -116,7 +126,6 @@ const Dashboard = () => {
               Titre de l'article :
             </label>
             <Field
-              type="text"
               name="titre"
               className="shadow-md ml-2 my-2 border border-black rounded-md pl-1"
               placeholder="Le grand event arrive..."
@@ -151,6 +160,7 @@ const Dashboard = () => {
             <textarea
               className="min-h-44 bg-white shadow-md rounded-md border border-black  pl-2 pt-2"
               placeholder="blablablablablablaaaaaaaaa"
+              name="paragraphe"
             />
 
             <p className="my-3 font-semibold">Catégorie de l&apos;article</p>
@@ -205,7 +215,13 @@ const Dashboard = () => {
               className="my-3 pl-2 border border-black rounded-md"
               showFullMonthYearPicker
               placeholderText="Jour du début"
-              onChange={(date) => setStartDate(date)}
+              name="dateDebut"
+              onChange={(date) => {
+                setStartDate(date)
+                setFieldValue("dateDebut", date)
+                console.log(date)
+              }}
+              dateFormat={"YYYY-MM-d"}
               selected={startDate}
             />
 
@@ -213,7 +229,10 @@ const Dashboard = () => {
 
             <ReactDatePicker
               selected={startTime}
-              onChange={(time) => setStartTime(time)}
+              onChange={(time) => {
+                setStartTime(time)
+                setFieldValue("heureDebut", time)
+              }}
               showTimeSelect
               showTimeSelectOnly
               timeIntervals={15}
@@ -265,4 +284,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default AddPost

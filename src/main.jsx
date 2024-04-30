@@ -1,14 +1,15 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom/client"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import { AuthProvider } from "../contexts/authContext"
 import "./index.css"
-import Dashboard from "./routes/Dashboard"
-import ErrorPage from "./routes/ErrorPage"
-import Home from "./routes/Home"
-import Layout from "./routes/Layout"
-import Profil from "./routes/Profil"
-import Login from "./routes/Login"
+import Dashboard from "./screens/Dashboard"
+import ErrorPage from "./screens/ErrorPage"
+import Home from "./screens/Home"
+import Layout from "./screens/Layout"
+import Profil from "./screens/Profil"
+import Login from "./screens/Login"
+import Posts from "./screens/Posts"
+import PostDetails from "./screens/PostDetails"
 
 const router = createBrowserRouter([
   {
@@ -32,14 +33,22 @@ const router = createBrowserRouter([
         path: "/Login",
         element: <Login />,
       },
+      {
+        path: "/Posts",
+        element: <Posts />,
+        children: [
+          {
+            path: "/:id",
+            element: <PostDetails />,
+          },
+        ],
+      },
     ],
   },
 ])
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <RouterProvider router={router} />
   </React.StrictMode>
 )

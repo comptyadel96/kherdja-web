@@ -25,20 +25,22 @@ function Home() {
           </h2>
           <div className="h-1 lg:w-20 bg-yellow-300 mx-2" />
         </div>
-
-        <Slider
-          className="lg:py-16 bg-gray-100 border"
-          autoplay
-          slidesToScroll={4}
-          centerMode
-          slidesToShow={4}
-        >
-          <PostCard photo="/images/a.jpg" />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-        </Slider>
+        <div className="lg:py-16 relative bg-black">
+          {/* <div className="absolute right-0 h-full bg-yellow-300 w-1/2 bottom-0 skew-y-[10rem]" /> */}
+          <Slider
+            // className=" border"
+            autoplay
+            slidesToScroll={4}
+            centerMode
+            slidesToShow={4}
+          >
+            <PostCard photo="/images/a.jpg" />
+            <PostCard />
+            <PostCard />
+            <PostCard />
+            <PostCard />
+          </Slider>
+        </div>
       </div>
 
       {/* DERNIERS ARTICLES */}
