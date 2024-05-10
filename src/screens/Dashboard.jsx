@@ -1,6 +1,7 @@
 import React from "react"
 import { BiUserCircle } from "react-icons/bi"
 import { MdAddAPhoto, MdArticle } from "react-icons/md"
+import { Link } from "react-router-dom"
 
 function Dashboard() {
   return (
@@ -14,10 +15,10 @@ function Dashboard() {
         </div>
 
         {/* ajouter un post */}
-        <div className="lg:p-5 shadow-md border bg-white flex flex-col items-center gap-3">
+        <Link to="/AddPost" className="lg:p-5 shadow-md border bg-white flex flex-col items-center gap-3">
           <MdAddAPhoto size={54} />
           <h2 className="lg:text-xl">Ajouter un article</h2>
-        </div>
+        </Link>
 
         {/* voir le trafic du site  */}
         <div className="lg:p-5 shadow-md border bg-white flex flex-col items-center gap-3">

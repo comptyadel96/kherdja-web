@@ -1,13 +1,14 @@
 import axios from "axios"
 import React, { useEffect, useState, Suspense } from "react"
 import Lottie from "lottie-react"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate, Outlet } from "react-router-dom"
 import BaseUrl from "../components/BaseUrl"
 import PostCard from "../components/PostCard"
 import Tourist from "../assets/animations/tourist.json"
 
 function Posts() {
   const location = useLocation()
+  const navigate = useNavigate()
   const selectedType = location.state ? location.state.type : null
 
   const [posts, setPosts] = useState([])
@@ -30,17 +31,19 @@ function Posts() {
   const Loading = () => {
     return (
       <div className="lg:w-60 object-contain">
-        <Lottie animationData={Tourist} />
+        <Lottie autoPlay loop animationData={Tourist} />
       </div>
     )
   }
   return (
     <div className="flex flex-col items-center lg:py-6 lg:min-h-[14rem] w-full">
-      <div className="flex items-center gap-3">
-        <div className="h-1 lg:w-20 bg-yellow-300" />
-        <h1 className="lg:text-5xl lg:mb-6"> {selectedType} </h1>
-        <div className="h-1 lg:w-20 bg-yellow-300" />
-      </div>
+      {selectedType && (
+        <div className="flex items-center gap-3">
+          <div className="h-1 lg:w-20 bg-yellow-300" />
+          <h1 className="lg:text-5xl lg:mb-6"> {selectedType} </h1>
+          <div className="h-1 lg:w-20 bg-yellow-300" />
+        </div>
+      )}
       <div className="flex items-center gap-3 flex-wrap w-full">
         <Suspense fallback={<Loading />}>
           {posts.map((post, index) => (
@@ -51,10 +54,12 @@ function Posts() {
                 ""
               )}`}
               key={index}
+              onClick={() => navigate("details/" + post._id)}
             />
           ))}
         </Suspense>
       </div>
+      <Outlet />
     </div>
   )
 }

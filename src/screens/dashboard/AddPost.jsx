@@ -4,7 +4,7 @@ import axios from "axios"
 import BaseUrl from "../../components/BaseUrl"
 import Modal from "react-modal"
 Modal.setAppElement("#root")
-import "../App.css"
+import "../../App.css"
 import ReactDatePicker, { setDefaultLocale } from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import CustomFileInput from "../../components/CustomFileInput"

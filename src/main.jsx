@@ -10,6 +10,7 @@ import Profil from "./screens/Profil"
 import Login from "./screens/Login"
 import Posts from "./screens/Posts"
 import PostDetails from "./screens/PostDetails"
+import AddPost from "./screens/dashboard/AddPost"
 
 const router = createBrowserRouter([
   {
@@ -38,10 +39,14 @@ const router = createBrowserRouter([
         element: <Posts />,
         children: [
           {
-            path: "/:id",
+            path: "details/:id",
             element: <PostDetails />,
           },
         ],
+      },
+      {
+        path: "/AddPost",
+        element: <AddPost />,
       },
     ],
   },
