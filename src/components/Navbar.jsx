@@ -8,10 +8,14 @@ import {
   MdDiscount,
 } from "react-icons/md"
 import { BiSolidPlaneAlt } from "react-icons/bi"
+import axios from "axios"
+import BaseUrl from "./BaseUrl"
+import { useEffect } from "react"
 
 function Navbar() {
   const [hoveredCategory, setHoveredCategory] = useState(null)
   const [subCategoryVisible, setSubCategoryVisible] = useState(false)
+  const [connected, setConnected] = useState(false)
 
   const handleMouseEnter = (category) => {
     setHoveredCategory(category)
@@ -22,6 +26,28 @@ function Navbar() {
     setHoveredCategory(null)
     setSubCategoryVisible(false)
   }
+  const isUserConnected = async () => {
+    try {
+      const currUser = await axios(`${BaseUrl}/isAuthenticated`, {
+        withCredentials: true,
+        // validateStatus: function (status) {
+        //   return status < 400 // Resolve only if the status code is less than 400
+        // },
+      })
+      if (currUser.status === 200) {
+        setConnected(true)
+        console.log(currUser.data)
+      } else {
+        setConnected(false)
+      }
+    } catch (error) {
+      console.log("navbar error", error.message)
+    }
+  }
+
+  useEffect(() => {
+    isUserConnected(), [connected]
+  })
 
   return (
     <>
@@ -265,8 +291,8 @@ function Navbar() {
             Dashboard
           </NavLink>
 
-          <NavLink to="/Login" className="mx-3">
-            <>Login</>
+          <NavLink to={connected ? "/profil" : "/Login"} className="mx-3">
+            {connected ? <>Profil</> : <>Se connecter</>}
           </NavLink>
         </ul>
       </nav>

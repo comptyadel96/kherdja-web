@@ -89,7 +89,7 @@ const AddPost = () => {
     try {
       const formData = new FormData()
       formData.append("titre", values.titre)
-      formData.append("paragraphe", values.paragrpahe)
+      formData.append("paragraphe", values.paragraphe)
       formData.append("dateDebut", values.dateDebut)
       formData.append("heureDebut", values.heureDebut)
       formData.append("prix", values.prix)
@@ -161,6 +161,7 @@ const AddPost = () => {
               className="min-h-44 bg-white shadow-md rounded-md border border-black  pl-2 pt-2"
               placeholder="blablablablablablaaaaaaaaa"
               name="paragraphe"
+              onChange={(e) => setFieldValue("paragraphe", e.target.value)}
             />
 
             <p className="my-3 font-semibold">Catégorie de l&apos;article</p>
@@ -262,7 +263,7 @@ const AddPost = () => {
             </label>
             <Field
               type="text"
-              name="titre"
+              name="organisateur"
               className="shadow-md ml-2 my-2 border border-black rounded-md pl-1"
               placeholder="Kherdja inc, djezzy ....."
             />

@@ -3,8 +3,29 @@ import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import PostCard from "../components/PostCard"
+import { useState } from "react"
+import axios from "axios"
+import BaseUrl from "../components/BaseUrl"
+import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
 function Home() {
+  const navigate = useNavigate()
+  const [lastPosts, setlastPosts] = useState([])
+
+  const fetchPosts = async () => {
+    try {
+      const posts = await axios.get(`${BaseUrl}/posts`)
+      setlastPosts(posts.data.posts)
+      console.log(posts.data.posts)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchPosts()
+  }, [])
   return (
     <div className="flex flex-col items-center">
       <div className="w-[55%]  border-2 border-black flex justify-center items-center ">
@@ -21,7 +42,7 @@ function Home() {
         <div className="flex items-center justify-center  mx-auto lg:mb-16">
           <div className="h-1 lg:w-20 bg-yellow-300 mx-2" />
           <h2 className="lg:text-4xl text-center ">
-            Les postes les plus importants ou les plus récents....{" "}
+            Les postes les plus récents....{" "}
           </h2>
           <div className="h-1 lg:w-20 bg-yellow-300 mx-2" />
         </div>
@@ -34,11 +55,17 @@ function Home() {
             centerMode
             slidesToShow={4}
           >
-            <PostCard photo="/images/a.jpg" />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
+            {lastPosts.map((post) => (
+              <PostCard
+                photo={`http://localhost:3000/${post.photo.replace(
+                  "public",
+                  ""
+                )}`}
+                onClick={() => navigate("/posts/details/" + post._id)}
+                title={post.titre}
+                key={post._id}
+              />
+            ))}
           </Slider>
         </div>
       </div>

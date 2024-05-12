@@ -53,8 +53,8 @@ function Posts() {
                 "public",
                 ""
               )}`}
-              key={index}
               onClick={() => navigate("details/" + post._id)}
+              key={index}
             />
           ))}
         </Suspense>

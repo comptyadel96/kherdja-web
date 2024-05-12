@@ -1,13 +1,37 @@
 import axios from "axios"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import BaseUrl from "../components/BaseUrl"
 import { useNavigate } from "react-router-dom"
+import Profil from "./Profil"
 
 function Login() {
   const [nom, setNom] = useState()
   const [prenom, setPrenom] = useState()
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
+
+  const [user, setUser] = useState()
+  const [loading, setLoading] = useState(true)
+
+  // fetch user friom database
+  const getCurrentUser = async () => {
+    try {
+      const user = await axios(`${BaseUrl}/isAuthenticated`, {
+        withCredentials: true,
+      })
+      if (user.status === 200) {
+        setUser(user.data)
+        setLoading(false)
+      }
+    } catch (error) {
+      console.log(error)
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    getCurrentUser()
+  }, [])
 
   const navigate = useNavigate()
 
@@ -26,12 +50,35 @@ function Login() {
         }
       )
       if (register.status == 200) {
-        navigate("/Profil")
+        navigate("/profil")
       }
     } catch (error) {
       console.log(error)
     }
   }
+
+  const login = async () => {
+    console.log(email, password)
+    try {
+      const loginState = await axios.post(
+        `${BaseUrl}/users/login`,
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      )
+      if (loginState.status === 200) {
+        navigate("/profil", { replace: true })
+      }
+    } catch (error) {
+      alert(error)
+    }
+  }
+
+  // if (user) {
+  //   return <Profil />
+  // }
 
   return (
     <div className="flex lg:flex-row flex-col justify-evenly items-center lg:px-4 lg:py-10 relative bg-black overflow-hidden">
@@ -77,13 +124,15 @@ function Login() {
           type="text"
           className="bg-white shadow-md rounded-lg pl-3 py-1"
           placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
           className="bg-white shadow-md rounded-lg pl-3 py-1"
           placeholder="Mot de passe"
+          onChange={(e) => setPassword(e.target.value)}
         />
-        <button className="px-3 py-1 bg-yellow-300 rounded-md">
+        <button onClick={login} className="px-3 py-1 bg-yellow-300 rounded-md">
           Connexion
         </button>
       </div>
