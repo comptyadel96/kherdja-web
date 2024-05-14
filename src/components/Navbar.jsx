@@ -16,6 +16,8 @@ function Navbar() {
   const [hoveredCategory, setHoveredCategory] = useState(null)
   const [subCategoryVisible, setSubCategoryVisible] = useState(false)
   const [connected, setConnected] = useState(false)
+   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+ 
 
   const handleMouseEnter = (category) => {
     setHoveredCategory(category)
@@ -28,11 +30,11 @@ function Navbar() {
   }
   const isUserConnected = async () => {
     try {
-      const currUser = await axios(`${BaseUrl}/isAuthenticated`, {
+      const currUser = await axios.get(`${BaseUrl}/isAuthenticated`, {
         withCredentials: true,
-        // validateStatus: function (status) {
-        //   return status < 400 // Resolve only if the status code is less than 400
-        // },
+        validateStatus: function (status) {
+          return status <= 400 // Resolve only if the status code is less or equal to 400
+        },
       })
       if (currUser.status === 200) {
         setConnected(true)
@@ -45,14 +47,20 @@ function Navbar() {
     }
   }
 
+
+
   useEffect(() => {
     isUserConnected(), [connected]
   })
 
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen)
+  }
+
   return (
     <>
       {/* desktop nav */}
-      <nav className="lg:flex hidden shadow-md items-center mb-4 justify-center relative mt-5 z-50">
+      <nav className="lg:flex hidden shadow-md items-center mb-4 justify-center relative mt-5 z-40">
         <ul className="bg-gradient-to-br from-yellow-300 to-yellow-400 py-3 gap-3 w-full flex font-semibold justify-center text-xl">
           <li
             className="mx-3"
@@ -273,7 +281,7 @@ function Navbar() {
           <li className="mx-3">
             <NavLink
               to="/Posts"
-              state={{ type: "Famille et kids" }}
+              state={{ type: "Famille et Kids" }}
               className="cursor-pointer flex items-center gap-2"
             >
               <MdOutlineFamilyRestroom size={24} /> Famille et kids
@@ -287,9 +295,9 @@ function Navbar() {
             <MdDiscount size={26} />
             <>Bons plans</>
           </NavLink>
-          <NavLink to="/Dashboard" className="mx-3">
+          {/* <NavLink to="/Dashboard" className="mx-3">
             Dashboard
-          </NavLink>
+          </NavLink> */}
 
           <NavLink to={connected ? "/profil" : "/Login"} className="mx-3">
             {connected ? <>Profil</> : <>Se connecter</>}
@@ -297,7 +305,72 @@ function Navbar() {
         </ul>
       </nav>
       {/* mobile nav */}
-      <nav className="lg:hidden flex"></nav>
+
+      {/* mobile nav */}
+      <nav className="lg:hidden flex justify-between items-center shadow-md p-4">
+        <div>
+          <img
+            src="/images/kherdja-black.png"
+            className="object-contain w-[6rem] "
+            alt=""
+          />
+        </div>
+        <div className="block lg:hidden">
+          <button onClick={toggleMobileMenu}>
+            <svg
+              className="w-6 h-6 duration-700"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d={
+                  mobileMenuOpen
+                    ? "M6 18L18 6M6 6l12 12"
+                    : "M4 6h16M4 12h16m-7 6h7"
+                }
+              />
+            </svg>
+          </button>
+        </div>
+      </nav>
+      <div
+        className={`${
+          mobileMenuOpen ? "block" : "hidden"
+        } lg:hidden bg-white p-4 shadow-md duration-700`}
+      >
+        <ul className="text-lg font-semibold">
+          {/* Les éléments de menu de la version de bureau */}
+          <li className="mx-3">
+            <h2 className="cursor-pointer flex items-center gap-2">
+              <GiNewspaper size={26} /> Actus
+            </h2>
+            {subCategoryVisible && hoveredCategory === "Actus" && (
+              <div className="absolute shadow border px-4 py-2   bg-white flex flex-col text-base">
+                <NavLink
+                  to="/Posts"
+                  state={{ type: "News" }}
+                  className="cursor-pointer my-2 hover:text-red-600"
+                >
+                  News
+                </NavLink>
+                <NavLink
+                  to="/Posts"
+                  state={{ type: "Poeple" }}
+                  className="cursor-pointer my-2 hover:text-red-600"
+                >
+                  Poeple
+                </NavLink>
+              </div>
+            )}
+          </li>
+          {/* Répétez les autres éléments de menu de la version de bureau */}
+        </ul>
+      </div>
     </>
   )
 }

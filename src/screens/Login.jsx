@@ -51,6 +51,7 @@ function Login() {
       )
       if (register.status == 200) {
         navigate("/profil")
+        window.location.reload()
       }
     } catch (error) {
       console.log(error)
@@ -76,9 +77,9 @@ function Login() {
     }
   }
 
-  // if (user) {
-  //   return <Profil />
-  // }
+  if (user) {
+    return <Profil />
+  }
 
   return (
     <div className="flex lg:flex-row flex-col justify-evenly items-center lg:px-4 lg:py-10 relative bg-black overflow-hidden">

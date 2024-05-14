@@ -6,6 +6,7 @@ import { FaPerson } from "react-icons/fa6"
 import Login from "./Login"
 import { BiTime } from "react-icons/bi"
 import { useNavigate } from "react-router-dom"
+import Dashboard from "./Dashboard"
 
 function Profil() {
   const [user, setUser] = useState()
@@ -19,10 +20,14 @@ function Profil() {
       const user = await axios(`${BaseUrl}/isAuthenticated`, {
         withCredentials: true,
       })
+      console.log(user.data)
       if (user.status === 200) {
         setUser(user.data)
         setLoading(false)
       }
+      setTimeout(() => {
+        setLoading(false)
+      }, 1000)
     } catch (error) {
       console.log(error)
       setLoading(false)
@@ -52,7 +57,11 @@ function Profil() {
   if (loading) return <Loading />
 
   if (!loading && !user) {
+    // window.location.reload()
     return <Login />
+  }
+  if (user && user.isAdmin) {
+    return <Dashboard />
   }
 
   return (

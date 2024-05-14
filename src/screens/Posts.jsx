@@ -12,26 +12,49 @@ function Posts() {
   const selectedType = location.state ? location.state.type : null
 
   const [posts, setPosts] = useState([])
+  const [noPosts, setnoPosts] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   // fetch specified type
   const getPosts = async () => {
-    const posts = await axios.get(`${BaseUrl}/posts?type=${selectedType}`)
-    setPosts(posts.data.posts)
-    // console.log(posts.data.posts[0].photo.replace("public", ""))
+    try {
+      const posts = await axios.get(`${BaseUrl}/posts?type=${selectedType}`)
+      setPosts(posts.data.posts)
+      setnoPosts(false)
+      setTimeout(() => {
+        setLoading(false)
+      }, 700)
+      console.log(posts.data.posts)
+      if (posts.status == 404) {
+        setnoPosts(true)
+      }
+    } catch (error) {
+      setnoPosts(true)
+    }
   }
 
   useEffect(() => {
-    try {
-      getPosts()
-    } catch (error) {
-      console.log(error)
-    }
+    getPosts()
   }, [selectedType])
 
   const Loading = () => {
     return (
-      <div className="lg:w-60 object-contain">
+      <div className="lg:w-96 object-contain flex justify-center items-center ">
         <Lottie autoPlay loop animationData={Tourist} />
+      </div>
+    )
+  }
+
+  if (noPosts && !loading) {
+    return (
+      <div className="flex flex-col w-full items-center lg:py-10">
+        <img
+          src="/images/noarticle.png"
+          alt=""
+          className="lg:w-40 w-36 my-3 "
+        />
+        <h1 className="text-4xl">Aucun poste trouver...</h1>
+        <p>esseyer de rechercher dans une autre catégorie</p>
       </div>
     )
   }
@@ -53,7 +76,10 @@ function Posts() {
                 "public",
                 ""
               )}`}
-              onClick={() => navigate("details/" + post._id)}
+              onClick={() => {
+                navigate("details/" + post._id)
+                // window.location.reload()
+              }}
               key={index}
             />
           ))}

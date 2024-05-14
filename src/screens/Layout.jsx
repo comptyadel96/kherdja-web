@@ -3,6 +3,8 @@ import { Link, Outlet } from "react-router-dom"
 import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa"
+import { BiSearch } from "react-icons/bi"
+import SearchBar from "../components/SearchBar"
 
 function Layout() {
   return (
@@ -15,6 +17,10 @@ function Layout() {
             className=" object-contain mb-2"
           />
         </Link>
+
+        {/* search bar */}
+
+        <SearchBar />
 
         <div className="flex flex-col mr-10">
           <p className="lg:text-2xl text-lg">Suivez-nous sur :</p>

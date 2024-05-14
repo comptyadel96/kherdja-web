@@ -18,10 +18,10 @@ function PostDetails() {
 
   useEffect(() => {
     getPost()
-  }, [])
+  }, [id])
 
   return (
-    <div className="flex flex-col items-center lg:py-10">
+    <div className="flex flex-col items-center lg:py-10 w-full">
       {post && (
         <img
           src={`http://localhost:3000/${post.photo.replace("public", "")}`}
@@ -29,9 +29,13 @@ function PostDetails() {
           className="h-96 object-contain"
         />
       )}
-      <h1 className="lg:text-4xl lg:mt-5">{post && post.titre} </h1>
+      <h1 className="lg:text-4xl lg:my-5 lg:max-w-[75%] truncate text-wrap ">{post && post.titre} </h1>
 
-      
+      {post && (
+        <div className="flex flex-col lg:px-6">
+          <p> {post.paragraphe} </p>
+        </div>
+      )}
     </div>
   )
 }

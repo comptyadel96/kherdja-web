@@ -49,11 +49,36 @@ function Home() {
         <div className="lg:py-16 relative bg-black">
           {/* <div className="absolute right-0 h-full bg-yellow-300 w-1/2 bottom-0 skew-y-[10rem]" /> */}
           <Slider
-            // className=" border"
             autoplay
             slidesToScroll={4}
             centerMode
             slidesToShow={4}
+            responsive={[
+              {
+                breakpoint: 1024,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 3,
+                  infinite: true,
+                  dots: true,
+                },
+              },
+              {
+                breakpoint: 760,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 2,
+                  initialSlide: 2,
+                },
+              },
+              {
+                breakpoint: 480,
+                settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
+                },
+              },
+            ]}
           >
             {lastPosts.map((post) => (
               <PostCard
