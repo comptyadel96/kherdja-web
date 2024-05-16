@@ -2,7 +2,7 @@ import React from "react"
 import { Link, Outlet } from "react-router-dom"
 import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
-import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa"
+import { FaFacebook, FaInstagram, FaLinkedin, FaTiktok, FaYoutube } from "react-icons/fa"
 import { BiSearch } from "react-icons/bi"
 import SearchBar from "../components/SearchBar"
 
@@ -27,7 +27,7 @@ function Layout() {
           <div className="flex items-center gap-3">
             <FaFacebook className=" text-blue-600 text-2xl" />
 
-            <FaInstagram className=" text-pink-600 text-2xl" />
+            <FaTiktok className="text-2xl" />
 
             <FaYoutube className=" text-pink-600 text-3xl" />
 

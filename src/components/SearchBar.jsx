@@ -22,7 +22,7 @@ const SearchBar = () => {
     }
 
     // Ne déclenche la recherche que si la valeur de recherche n'est pas vide
-    if (searchValue.length >= 2) {
+    if (searchValue.length >= 3) {
       fetchData()
     } else {
       setSearchResults([]) // Efface les résultats si la recherche est vide
@@ -34,7 +34,7 @@ const SearchBar = () => {
     const regex = new RegExp(`(${searchValue})`, "gi")
     return title.split(regex).map((part, index) =>
       regex.test(part) ? (
-        <span key={index} className="text-yellow-500 font-bold">
+        <span key={index} className="text-yellow-500  ">
           {part}
         </span>
       ) : (
@@ -44,12 +44,12 @@ const SearchBar = () => {
   }
 
   return (
-    <div className="flex flex-col items-center  gap-2 relative   border border-black rounded-t-md  ">
+    <div className="flex flex-col items-center  gap-2 relative   border border-black rounded-md pr-1">
       <div className="flex items-center ">
-        <BiSearch size={24} />
+        <BiSearch size={24} className="mx-1" />
         <input
           type="text"
-          className="px-3 py-1  rounded-md  focus:outline-none "
+          className="px-3 py-1   focus:outline-none border-l border-l-black"
           placeholder="rechercher un article"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
@@ -58,11 +58,12 @@ const SearchBar = () => {
 
       {searchResults.length > 0 && (
         <div className="flex flex-col gap-2 px-2 py-1 absolute top-[102%] border z-50 w-full bg-white pt-2 overflow-y-auto max-h-32">
-          {searchResults.map((post) => (
+          {searchResults.map((post, index) => (
             <Link
               to={"/posts/details/" + post._id}
-              className="flex items-center gap-2 cursor-pointer"
+              className="flex items-center gap-2 cursor-pointer hover:bg-gray-100"
               onClick={() => setSearchValue("")}
+              key={index}
             >
               <img
                 src={`http://localhost:3000/${post.photo.replace(

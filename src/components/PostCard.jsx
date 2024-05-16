@@ -20,10 +20,10 @@ function PostCard({
       onMouseLeave={() => {
         setHover(false)
       }}
-      className="flex flex-col z-10 items-center relative bg-white border rounded-lg shadow-md mx-2 gap-3 p-4 max-w-lg cursor-pointer "
+      className="flex flex-col z-10 items-center relative bg-white pb-2  rounded-lg shadow-md mx-2 gap-3 lg: max-w-lg cursor-pointer "
     >
-      <img src={photo} alt={title} className="h-64 w-full object-contain" />
-      <h3 className="font-semibold text-lg truncate lg:max-w-[17rem]">
+      <img src={photo} alt={title} className="lg:h-[14rem] w-80 object-fill " />
+      <h3 className="font-semibold text-lg  truncate lg:max-w-[17rem]">
         {title}
       </h3>
       <div className="flex items-center">
@@ -40,8 +40,8 @@ function PostCard({
       )}
       {/* like button */}
       <div className="absolute left-5 bottom-2 z-20 bg-white p-1 hover:border hover:border-gray-200 shadow-md border border-transparent rounded-full">
-        <FaRegHeart size={24} title="Ajouter au favoris" color="gray" />
-        {liked && <FaHeart size={24} title="Ajouter au favoris" color="red" />}
+        <FaRegHeart size={18} title="Ajouter au favoris" color="gray" />
+        {liked && <FaHeart size={18} title="Ajouter au favoris" color="red" />}
       </div>
     </div>
   )

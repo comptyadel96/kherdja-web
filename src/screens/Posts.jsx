@@ -21,6 +21,7 @@ function Posts() {
       const posts = await axios.get(`${BaseUrl}/posts?type=${selectedType}`)
       setPosts(posts.data.posts)
       setnoPosts(false)
+      console.log(posts.status)
       setTimeout(() => {
         setLoading(false)
       }, 700)
@@ -78,7 +79,9 @@ function Posts() {
               )}`}
               onClick={() => {
                 navigate("details/" + post._id)
-                // window.location.reload()
+                setTimeout(() => {
+                  window.location.reload()
+                }, 100)
               }}
               key={index}
             />

@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik"
 import axios from "axios"
 import BaseUrl from "../../components/BaseUrl"
 import Modal from "react-modal"
+import * as Yup from "yup"
 Modal.setAppElement("#root")
 import "../../App.css"
 import ReactDatePicker, { setDefaultLocale } from "react-datepicker"
@@ -21,6 +22,24 @@ const AddPost = () => {
   const [selectedOption, setSelectedOption] = useState(null)
   const [startTime, setStartTime] = useState(new Date())
   const [startDate, setStartDate] = useState(new Date())
+
+  // titre: "",
+  // photo: null,
+  // paragraphe: "",
+  // lieu: "",
+  // dateDebut: "",
+  // heureDebut: "",
+  // prix: "",
+  // organisateur: "",
+  const validationSchema = Yup.object().shape({
+    titre: Yup.string()
+      .min(4, "titre trop court ... plus court que l'éspoir en algérie")
+      .max(100, "woow c quoi ce titre de malade ")
+      .required("vous avez oublier de mettre un titre c'est pas sérieux XD"),
+    paragraphe: Yup.string()
+      .min(4, "c'est pas un paragraphe ça ...")
+      .required("le contenu de l'article doit etre écrit"),
+  })
 
   const toggleModal = () => {
     setIsOpen(!isOpen)
@@ -119,7 +138,11 @@ const AddPost = () => {
       <h2 className="lg:text-5xl font-semibold lg:my-4">
         Formulaire d&apos;ajout de poste{" "}
       </h2>
-      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
         {({ isSubmitting, setFieldValue, handleSubmit }) => (
           <Form className="flex flex-col bg-gray-200 lg:min-w-[45%] lg:p-5 mb-4">
             <label className="font-semibold" htmlFor="titre">
@@ -130,7 +153,7 @@ const AddPost = () => {
               className="shadow-md ml-2 my-2 border border-black rounded-md pl-1"
               placeholder="Le grand event arrive..."
             />
-            <ErrorMessage name="titre" component="p" />
+            <ErrorMessage name="titre" component="p" className="text-red-500" />
 
             <label className="font-semibold lg:my-1" htmlFor="photo">
               Image de l&apos;article
@@ -252,12 +275,11 @@ const AddPost = () => {
               type="text"
               name="prix"
               className="shadow-md ml-2 my-2 border border-black rounded-md pl-1"
-              placeholder="exemple: 600 da"
+              placeholder="exemple: 600 (pas la peine d'ecrire da)"
             />
             <ErrorMessage name="prix" component="p" />
 
             {/* organisateur */}
-
             <label className="font-semibold my-1" htmlFor="organisateur">
               Organisateur
             </label>
@@ -266,6 +288,19 @@ const AddPost = () => {
               name="organisateur"
               className="shadow-md ml-2 my-2 border border-black rounded-md pl-1"
               placeholder="Kherdja inc, djezzy ....."
+            />
+            <ErrorMessage name="organisateur" component="p" />
+
+            {/* lieu */}
+
+            <label className="font-semibold my-1" htmlFor="organisateur">
+              Lieu de l&apos;évènement
+            </label>
+            <Field
+              type="text"
+              name="lieu"
+              className="shadow-md ml-2 my-2 border border-black rounded-md pl-1"
+              placeholder="Alger centre"
             />
             <ErrorMessage name="organisateur" component="p" />
 

@@ -8,6 +8,7 @@ import axios from "axios"
 import BaseUrl from "../components/BaseUrl"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import { FaArrowCircleRight, FaArrowLeft } from "react-icons/fa"
 
 function Home() {
   const navigate = useNavigate()
@@ -39,7 +40,7 @@ function Home() {
       {/* carroussel de publications importantes */}
 
       <div className="rounded-xl w-[95%]   lg:my-20 ">
-        <div className="flex items-center justify-center  mx-auto lg:mb-16">
+        <div className="flex items-center justify-center  mx-auto lg:mb-10">
           <div className="h-1 lg:w-20 bg-yellow-300 mx-2" />
           <h2 className="lg:text-4xl text-center ">
             Les postes les plus récents....{" "}
@@ -51,8 +52,12 @@ function Home() {
           <Slider
             autoplay
             slidesToScroll={4}
-            centerMode
+            // centerMode
             slidesToShow={4}
+            speed={1000}
+            arrows={true}
+            nextArrow={<FaArrowCircleRight />}
+            prevArrow={<FaArrowLeft />}
             responsive={[
               {
                 breakpoint: 1024,
@@ -94,17 +99,68 @@ function Home() {
           </Slider>
         </div>
       </div>
+      {/* banniére pub 2 */}
+      <div className="w-full flex justify-center">
+        <img
+          src="/images/samsung.jpeg"
+          alt=""
+          className="object-fill lg:w-[70%] w-full h-44"
+        />
+      </div>
 
-      {/* DERNIERS ARTICLES */}
+      {/* en ce moment */}
       <div className="lg:my-5 flex items-center">
         <div className="h-1 lg:w-14 bg-yellow-300 mx-2" />
-        <h2 className="lg:text-4xl font-bold">DERNIERS ARTICLES</h2>
+        <h2 className="lg:text-4xl font-bold">En ce moment</h2>
         <div className="h-1 lg:w-14 bg-yellow-300 mx-2" />
       </div>
 
       <div className="flex mb-5">
-        <div className="size-80 border-2 border-black mx-6 rounded-md"></div>
-        <div className="size-80 border-2 border-black mx-6 rounded-md"></div>
+        <div className="size-36 border border-black mx-6 rounded-md"></div>
+        <div className="size-36 border border-black mx-6 rounded-md"></div>
+        <div className="size-36 border border-black mx-6 rounded-md"></div>
+        <div className="size-36 border border-black mx-6 rounded-md"></div>
+        <div className="size-36 border border-black mx-6 rounded-md"></div>
+        <div className="size-36 border border-black mx-6 rounded-md"></div>
+      </div>
+      <div className="flex mb-5">
+        <div className="size-36 border border-black mx-6 rounded-md"></div>
+        <div className="size-36 border border-black mx-6 rounded-md"></div>
+        <div className="size-36 border border-black mx-6 rounded-md"></div>
+        <div className="size-36 border border-black mx-6 rounded-md"></div>
+        <div className="size-36 border border-black mx-6 rounded-md"></div>
+        <div className="size-36 border border-black mx-6 rounded-md"></div>
+      </div>
+      {/* banniére pub 3 */}
+      <div className="w-full flex justify-center mb-5">
+        <img
+          src="/images/fanta.jpg"
+          alt=""
+          className="object-fill lg:w-[60%] w-full h-44"
+        />
+      </div>
+      {/* prochainement */}
+      <div className="lg:my-5 flex items-center">
+        <div className="h-1 lg:w-14 bg-yellow-300 mx-2" />
+        <h2 className="lg:text-4xl font-bold">Prochainement</h2>
+        <div className="h-1 lg:w-14 bg-yellow-300 mx-2" />
+      </div>
+      <div className="flex mb-5">
+        <div className="size-36 border border-black mx-6 rounded-md"></div>
+        <div className="size-36 border border-black mx-6 rounded-md"></div>
+        <div className="size-36 border border-black mx-6 rounded-md"></div>
+        <div className="size-36 border border-black mx-6 rounded-md"></div>
+        <div className="size-36 border border-black mx-6 rounded-md"></div>
+        <div className="size-36 border border-black mx-6 rounded-md"></div>
+      </div>
+
+      <div className="flex mb-5">
+        <div className="size-36 border border-black mx-6 rounded-md"></div>
+        <div className="size-36 border border-black mx-6 rounded-md"></div>
+        <div className="size-36 border border-black mx-6 rounded-md"></div>
+        <div className="size-36 border border-black mx-6 rounded-md"></div>
+        <div className="size-36 border border-black mx-6 rounded-md"></div>
+        <div className="size-36 border border-black mx-6 rounded-md"></div>
       </div>
     </div>
   )
