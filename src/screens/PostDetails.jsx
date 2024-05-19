@@ -3,7 +3,7 @@ import React, { Suspense, useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import BaseUrl from "../components/BaseUrl"
 import PostShareButtons from "../components/PostShareButtons"
-import { FaCalendar, FaDollarSign, FaMapMarker, FaMarker } from "react-icons/fa"
+import { FaCalendar, FaDollarSign, FaMapMarker } from "react-icons/fa"
 import { FaPerson } from "react-icons/fa6"
 
 function PostDetails() {
@@ -39,16 +39,20 @@ function PostDetails() {
 
       {post && (
         <div className="flex flex-col lg:px-6 gap-6 w-full  items-center">
-          <p className=" lg:max-w-[65%] leading-loose lg:text-xl "> {post.paragraphe} </p>
+          <p className=" lg:max-w-[65%] leading-loose text-center lg:text-xl ">
+            {" "}
+            {post.paragraphe}{" "}
+          </p>
 
           <div className="flex items-center gap-10 self-start">
             {/* infos */}
-            <div className="flex flex-col gap-3 p-5 border self-start bg-white shadow-lg rounded-md">
-              <h2 className="lg:text-2xl text-lg">informations</h2>
+            <div className="flex flex-col gap-3 p-8 border self-start bg-white shadow-lg rounded-md">
+              <h2 className="lg:text-3xl text-lg">informations</h2>
               {/* lieu */}
               {post.lieu && (
                 <div className="flex items-center gap-2">
                   <FaMapMarker />
+                  <p>{post.lieu} </p>
                 </div>
               )}
               {/* date debut et heure */}
@@ -88,8 +92,11 @@ function PostDetails() {
                 </div>
               )}
               {post.createdAt && (
-                <p className="text-gray-400 text-sm">
-                  Publier le : {post.createdAt.slice(0, 10)}{" "}
+                <p className="">
+                  Publier le :{" "}
+                  <span className="text-gray-400 text-sm">
+                    {post.createdAt.slice(0, 10)}{" "}
+                  </span>
                 </p>
               )}
             </div>

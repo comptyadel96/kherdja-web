@@ -12,25 +12,19 @@ import CustomFileInput from "../../components/CustomFileInput"
 
 import { registerLocale } from "react-datepicker"
 import { fr } from "date-fns/locale/fr"
+import CustomFilesInput from "../../components/CustomFilesInput"
 
 registerLocale("fr", fr)
 setDefaultLocale("fr")
 
 const AddPost = () => {
   const [previewImage, setPreviewImage] = useState(null)
+  const [previewImages, setPreviewImages] = useState([])
   const [isOpen, setIsOpen] = useState(false)
   const [selectedOption, setSelectedOption] = useState(null)
   const [startTime, setStartTime] = useState(new Date())
   const [startDate, setStartDate] = useState(new Date())
 
-  // titre: "",
-  // photo: null,
-  // paragraphe: "",
-  // lieu: "",
-  // dateDebut: "",
-  // heureDebut: "",
-  // prix: "",
-  // organisateur: "",
   const validationSchema = Yup.object().shape({
     titre: Yup.string()
       .min(4, "titre trop court ... plus court que l'éspoir en algérie")
@@ -39,6 +33,7 @@ const AddPost = () => {
     paragraphe: Yup.string()
       .min(4, "c'est pas un paragraphe ça ...")
       .required("le contenu de l'article doit etre écrit"),
+    type: Yup.string().required("le type de poste lazem ya l'équipe ... lol"),
   })
 
   const toggleModal = () => {
@@ -74,6 +69,8 @@ const AddPost = () => {
     heureDebut: "",
     prix: "",
     organisateur: "",
+    images: [],
+    videos: [],
   }
 
   // tous les types de postes :
@@ -103,6 +100,75 @@ const AddPost = () => {
     "Bons plans",
   ]
 
+  // const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+  //   console.log(values)
+  //   try {
+  //     const formData = new FormData()
+  //     formData.append("titre", values.titre)
+  //     formData.append("paragraphe", values.paragraphe)
+  //     formData.append("dateDebut", values.dateDebut)
+  //     formData.append("heureDebut", values.heureDebut)
+  //     formData.append("prix", values.prix)
+  //     formData.append("organisateur", values.organisateur)
+  //     formData.append("type", values.type)
+  //     formData.append("lieu", values.lieu)
+  //     formData.append("photo", values.photo)
+  //     values.images.forEach((image) => {
+  //       formData.append("images", image)
+  //     })
+  //     await axios.post(`${BaseUrl}/posts`, formData, {
+  //       headers: {
+  //         "Content-Type": "multipart/form-data",
+  //       },
+  //     })
+  //     resetForm()
+  //     setPreviewImage(null) // Supprimer l'image affichée après l'envoi du formulaire
+  //     setPreviewImages([])
+
+  //     alert("Article publier avec succeés !")
+  //   } catch (error) {
+  //     console.error("Erreur lors de l'envoi de la requête:", error)
+  //   } finally {
+  //     setSubmitting(false)
+  //   }
+  // }
+
+  // const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+  //   console.log(values)
+  //   try {
+  //     const formData = new FormData()
+  //     formData.append("titre", values.titre)
+  //     formData.append("paragraphe", values.paragraphe)
+  //     formData.append("dateDebut", values.dateDebut)
+  //     formData.append("heureDebut", values.heureDebut)
+  //     formData.append("prix", values.prix)
+  //     formData.append("organisateur", values.organisateur)
+  //     formData.append("type", values.type)
+  //     formData.append("lieu", values.lieu)
+  //     formData.append("photo", values.photo)
+  //     values.images.forEach((image) => {
+  //       formData.append("images", image)
+  //     })
+  //     values.videos.forEach((video) => {
+  //       formData.append("videos", video)
+  //     })
+
+  //     await axios.post(`${BaseUrl}/posts`, formData, {
+  //       headers: {
+  //         "Content-Type": "multipart/form-data",
+  //       },
+  //     })
+  //     resetForm()
+  //     setPreviewImage(null)
+  //     setPreviewImages([])
+  //     alert("Article publié avec succès !")
+  //   } catch (error) {
+  //     console.error("Erreur lors de l'envoi de la requête:", error)
+  //   } finally {
+  //     setSubmitting(false)
+  //   }
+  // }
+
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     console.log(values)
     try {
@@ -115,17 +181,25 @@ const AddPost = () => {
       formData.append("organisateur", values.organisateur)
       formData.append("type", values.type)
       formData.append("lieu", values.lieu)
-      formData.append("photo", values.photo)
+      if (values.photo) {
+        formData.append("photo", values.photo)
+      }
+      values.images.forEach((image) => {
+        formData.append("images", image)
+      })
+      values.videos.forEach((video) => {
+        formData.append("videos", video)
+      })
 
       await axios.post(`${BaseUrl}/posts`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
-
-      resetForm()
-      setPreviewImage(null) // Supprimer l'image affichée après l'envoi du formulaire
-      alert("Article publier avec succeés !")
+      // resetForm()
+      // setPreviewImage(null)
+      // setPreviewImages([])
+      alert("Article publié avec succès !")
     } catch (error) {
       console.error("Erreur lors de l'envoi de la requête:", error)
     } finally {
@@ -154,11 +228,9 @@ const AddPost = () => {
               placeholder="Le grand event arrive..."
             />
             <ErrorMessage name="titre" component="p" className="text-red-500" />
-
             <label className="font-semibold lg:my-1" htmlFor="photo">
               Image de l&apos;article
             </label>
-
             {previewImage ? (
               <img
                 src={previewImage}
@@ -173,8 +245,32 @@ const AddPost = () => {
                 }
               />
             )}
-
             <ErrorMessage name="photo" component="div" />
+
+            {/* images gallerie */}
+            <div className="my-3  ">
+              <CustomFilesInput
+                // onChange={(selectedImages) => {
+                //   setPreviewImages(Array.from(selectedImages))
+                //   setFieldValue("images", selectedImages)
+                // }}
+                onChange={(selectedFiles) => {
+                  setPreviewImages(selectedFiles)
+                  setFieldValue(
+                    "images",
+                    selectedFiles.filter((file) =>
+                      file.type.startsWith("image")
+                    )
+                  )
+                  setFieldValue(
+                    "videos",
+                    selectedFiles.filter((file) =>
+                      file.type.startsWith("video")
+                    )
+                  )
+                }}
+              />
+            </div>
 
             {/* paragraphe */}
             <label className="font-semibold lg:my-3" htmlFor="paragraphe">
@@ -186,9 +282,7 @@ const AddPost = () => {
               name="paragraphe"
               onChange={(e) => setFieldValue("paragraphe", e.target.value)}
             />
-
             <p className="my-3 font-semibold">Catégorie de l&apos;article</p>
-
             {/* catégorie du poste */}
             <div className="relative flex items-center  self-center w-full mb-3">
               {!selectedOption ? (
@@ -230,10 +324,13 @@ const AddPost = () => {
               </Modal>
             </div>
 
+            <ErrorMessage
+              name="type"
+              component="div"
+              className="text-red-600"
+            />
             <p className="font-semibold">Date du début</p>
-
             {/* date picker */}
-
             <ReactDatePicker
               locale={"fr"}
               className="my-3 pl-2 border border-black rounded-md"
@@ -248,9 +345,7 @@ const AddPost = () => {
               dateFormat={"YYYY-MM-d"}
               selected={startDate}
             />
-
             {/* time picker */}
-
             <ReactDatePicker
               selected={startTime}
               onChange={(time) => {
@@ -266,7 +361,6 @@ const AddPost = () => {
               className="my-3 pl-2 border border-black rounded-md"
               placeholderText="Heure de début"
             />
-
             {/* prix */}
             <label className="font-semibold my-1" htmlFor="prix">
               Prix d&apos;entrée
@@ -278,7 +372,6 @@ const AddPost = () => {
               placeholder="exemple: 600 (pas la peine d'ecrire da)"
             />
             <ErrorMessage name="prix" component="p" />
-
             {/* organisateur */}
             <label className="font-semibold my-1" htmlFor="organisateur">
               Organisateur
@@ -290,9 +383,7 @@ const AddPost = () => {
               placeholder="Kherdja inc, djezzy ....."
             />
             <ErrorMessage name="organisateur" component="p" />
-
             {/* lieu */}
-
             <label className="font-semibold my-1" htmlFor="organisateur">
               Lieu de l&apos;évènement
             </label>
@@ -303,7 +394,6 @@ const AddPost = () => {
               placeholder="Alger centre"
             />
             <ErrorMessage name="organisateur" component="p" />
-
             {/* bouton valider */}
             <button
               onClick={handleSubmit}

@@ -155,10 +155,10 @@ function Navbar() {
               <div className=" absolute shadow border px-4 py-2 bg-white  text-base flex flex-col ">
                 <NavLink
                   to="/Posts"
-                  state={{ type: "Restaurents" }}
+                  state={{ type: "Restaurant" }}
                   className="cursor-pointer my-2 hover:text-red-600"
                 >
-                  Restaurents
+                  Restaurant
                 </NavLink>
                 <NavLink
                   to="/Posts"
