@@ -19,7 +19,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/profil",
+        path: "profil",
         element: <Profil />,
       },
       {
@@ -27,27 +27,23 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/Dashboard",
+        path: "dashboard",
         element: <Dashboard />,
       },
       {
-        path: "/Login",
+        path: "login",
         element: <Login />,
       },
       {
-        path: "/Posts",
+        path: "posts",
         element: <Posts />,
-
-        children: [
-          {
-            path: "details/:id",
-            element: <PostDetails />,
-            index:true
-          },
-        ],
       },
       {
-        path: "/AddPost",
+        path: "posts/details/:id",
+        element: <PostDetails />,
+      },
+      {
+        path: "addpost",
         element: <AddPost />,
       },
     ],

@@ -57,7 +57,7 @@ const SearchBar = () => {
       </div>
 
       {searchResults.length > 0 && (
-        <div className="flex flex-col gap-2 px-2 py-1 absolute top-[102%] border z-50 w-full bg-white pt-2 overflow-y-auto max-h-32">
+        <div className="flex flex-col gap-2 px-2 py-1 absolute lg:top-[102%] top-[105%] border z-50 w-full bg-white pt-2 overflow-y-auto max-h-32">
           {searchResults.map((post, index) => (
             <Link
               to={"/posts/details/" + post._id}
@@ -71,7 +71,7 @@ const SearchBar = () => {
                   ""
                 )}`}
                 alt=""
-                className="lg:w-12"
+                className="lg:w-12 w-8"
               />
               <div className="  w-full truncate " key={post._id}>
                 {renderHighlightedTitle(post.titre)}

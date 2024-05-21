@@ -5,15 +5,21 @@ import BaseUrl from "../components/BaseUrl"
 import PostShareButtons from "../components/PostShareButtons"
 import { FaCalendar, FaDollarSign, FaMapMarker } from "react-icons/fa"
 import { FaPerson } from "react-icons/fa6"
+import Tourist from "../assets/animations/tourist.json"
+import Lottie from "lottie-react"
 
 function PostDetails() {
   const { id } = useParams()
   const [post, setPost] = useState()
+  const [loading, setLoading] = useState(true)
   const getPost = async () => {
     try {
       const post = await axios.get(`${BaseUrl}/posts/${id}`)
       console.log(post.data)
       setPost(post.data)
+      setTimeout(() => {
+        setLoading(false)
+      }, 1000)
     } catch (error) {
       console.log(error)
     }
@@ -23,6 +29,19 @@ function PostDetails() {
     getPost()
   }, [id])
 
+  const Loading = () => (
+    <div className="lg:w-96 object-contain flex justify-center items-center ">
+      <Lottie autoPlay loop animationData={Tourist} />
+    </div>
+  )
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center">
+        <Loading />
+      </div>
+    )
+  }
   return (
     <div className="flex flex-col items-center lg:py-10 w-full">
       <PostShareButtons post={post} />
@@ -39,7 +58,7 @@ function PostDetails() {
 
       {post && (
         <div className="flex flex-col lg:px-6 gap-6 w-full  items-center">
-          <p className=" lg:max-w-[65%] leading-loose text-center lg:text-xl ">
+          <p className=" lg:max-w-[85%] leading-loose  lg:text-xl ">
             {" "}
             {post.paragraphe}{" "}
           </p>
@@ -95,33 +114,45 @@ function PostDetails() {
                 <p className="">
                   Publier le :{" "}
                   <span className="text-gray-400 text-sm">
-                    {post.createdAt.slice(0, 10)}{" "}
+                    {post.createdAt.slice(0, 10)}
                   </span>
                 </p>
               )}
             </div>
 
             {/* gallerie photo */}
-            <div className="flex flex-col gap-2">
-              <h3 className="lg:text-2xl"> Gallerie photo </h3>
-              <div className="flex items-center gap-6">
-                <img
-                  src="/images/tourist.png"
-                  alt=""
-                  className="object-contain w-40 "
-                />
-                <img
-                  src="/images/article.png"
-                  alt=""
-                  className="object-contain w-40 "
-                />
-                <img
-                  src="/images/upload.png"
-                  alt=""
-                  className="object-contain w-40 "
-                />
+            {post.images && post.images.length > 0 && (
+              <div className="flex flex-col gap-2">
+                <h3 className="lg:text-2xl"> Gallerie photo </h3>
+                <div className="flex items-center gap-6">
+                  {post.images.map((img, index) => (
+                    <img
+                      src={`http://localhost:3000/${img.replace("public", "")}`}
+                      alt="img"
+                      className="size-40"
+                      key={index}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
+
+            {/* vidéos */}
+            {post.videos && post.videos.length > 0 && (
+              <div className="flex flex-col gap-2">
+                <h3 className="lg:text-2xl"> Vidéos :</h3>
+                <div className="flex items-center gap-6">
+                  {post.videos.map((vdo, index) => (
+                    <video
+                      src={`http://localhost:3000/${vdo.replace("public", "")}`}
+                      controls
+                      className=""
+                      key={index}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}

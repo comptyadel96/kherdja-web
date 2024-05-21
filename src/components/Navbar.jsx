@@ -11,13 +11,13 @@ import { BiSolidPlaneAlt } from "react-icons/bi"
 import axios from "axios"
 import BaseUrl from "./BaseUrl"
 import { useEffect } from "react"
+import { FaFacebook, FaLinkedin, FaTiktok, FaYoutube } from "react-icons/fa"
 
 function Navbar() {
   const [hoveredCategory, setHoveredCategory] = useState(null)
   const [subCategoryVisible, setSubCategoryVisible] = useState(false)
   const [connected, setConnected] = useState(false)
-   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
- 
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const handleMouseEnter = (category) => {
     setHoveredCategory(category)
@@ -46,8 +46,6 @@ function Navbar() {
       console.log("navbar error", error.message)
     }
   }
-
-
 
   useEffect(() => {
     isUserConnected(), [connected]
@@ -307,13 +305,17 @@ function Navbar() {
       {/* mobile nav */}
 
       {/* mobile nav */}
-      <nav className="lg:hidden flex justify-between items-center shadow-md p-4">
-        <div>
-          <img
-            src="/images/kherdja-black.png"
-            className="object-contain w-[6rem] "
-            alt=""
-          />
+      <nav className="lg:hidden flex justify-between relative items-center shadow-md p-2 mt-4 mb-6 bg-gray-200">
+        <div className="flex lg:hidden  mr-10">
+          <div className="flex items-center gap-3">
+            <FaFacebook className=" text-blue-600 text-2xl" />
+
+            <FaTiktok className="text-2xl" />
+
+            <FaYoutube className=" text-pink-600 text-3xl" />
+
+            <FaLinkedin className="text-3xl text-blue-500" />
+          </div>
         </div>
         <div className="block lg:hidden">
           <button onClick={toggleMobileMenu}>
@@ -337,40 +339,42 @@ function Navbar() {
             </svg>
           </button>
         </div>
+        <div
+          className={`${
+            mobileMenuOpen ? "max-h-[60rem] " : "max-h-0"
+          }  bg-white lg:hidden shadow-md duration-700 transition-all overflow-hidden absolute top-full ${
+            mobileMenuOpen ? "p-4" : "p-0"
+          }  left-0 w-full`}
+        >
+          <ul className="text-lg font-semibold">
+            {/* Les éléments de menu de la version de bureau */}
+            <li className="mx-3">
+              <h2 className="cursor-pointer flex items-center gap-2">
+                <GiNewspaper size={26} /> Actus
+              </h2>
+              {subCategoryVisible && hoveredCategory === "Actus" && (
+                <div className="absolute shadow border px-4 py-2   bg-white flex flex-col text-base">
+                  <NavLink
+                    to="/Posts"
+                    state={{ type: "News" }}
+                    className="cursor-pointer my-2 hover:text-red-600"
+                  >
+                    News
+                  </NavLink>
+                  <NavLink
+                    to="/Posts"
+                    state={{ type: "Poeple" }}
+                    className="cursor-pointer my-2 hover:text-red-600"
+                  >
+                    Poeple
+                  </NavLink>
+                </div>
+              )}
+            </li>
+            {/* Répétez les autres éléments de menu de la version de bureau */}
+          </ul>
+        </div>
       </nav>
-      <div
-        className={`${
-          mobileMenuOpen ? "block" : "hidden"
-        } lg:hidden bg-white p-4 shadow-md duration-700`}
-      >
-        <ul className="text-lg font-semibold">
-          {/* Les éléments de menu de la version de bureau */}
-          <li className="mx-3">
-            <h2 className="cursor-pointer flex items-center gap-2">
-              <GiNewspaper size={26} /> Actus
-            </h2>
-            {subCategoryVisible && hoveredCategory === "Actus" && (
-              <div className="absolute shadow border px-4 py-2   bg-white flex flex-col text-base">
-                <NavLink
-                  to="/Posts"
-                  state={{ type: "News" }}
-                  className="cursor-pointer my-2 hover:text-red-600"
-                >
-                  News
-                </NavLink>
-                <NavLink
-                  to="/Posts"
-                  state={{ type: "Poeple" }}
-                  className="cursor-pointer my-2 hover:text-red-600"
-                >
-                  Poeple
-                </NavLink>
-              </div>
-            )}
-          </li>
-          {/* Répétez les autres éléments de menu de la version de bureau */}
-        </ul>
-      </div>
     </>
   )
 }
