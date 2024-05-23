@@ -229,7 +229,8 @@ function Home() {
           </h2>
           <div className="h-1 lg:w-20 w-12 bg-yellow-300 mx-2" />
         </div>
-        <div className="lg:py-16 py-4 relative bg-dot">
+
+        <div className="lg:py-16 py-4 relative bg-dot flex flex-col">
           <Slider
             autoplay
             slidesToScroll={4}
@@ -280,6 +281,9 @@ function Home() {
               />
             ))}
           </Slider>
+          <button className="hover:bg-yellow-300 border border-yellow-300 text-yellow-300 hover:text-black mx-auto px-3 mt-5 rounded-md">
+            Voir tous les posts récents
+          </button>
         </div>
       </div>
 
@@ -338,7 +342,7 @@ function Home() {
       {/* Prochainement */}
       <div className="lg:my-5 flex items-center">
         <div className="h-1 lg:w-14 w-7 bg-yellow-300 mx-2" />
-        <h2 className="lg:text-4xl text-xl font-bold">Prochainement</h2>
+        <h2 className="lg:text-4xl text-2xl font-bold">Prochainement</h2>
         <div className="h-1 lg:w-14 w-7 bg-yellow-300 mx-2" />
       </div>
       <div className="flex mb-5 gap-4 flex-wrap justify-center">

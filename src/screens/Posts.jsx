@@ -86,6 +86,11 @@ function Posts() {
     }
   }, [page])
 
+    const getDateFromDB = (date) => {
+      return (
+        date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
+      )
+    }
 
   const Loading = () => (
     <div className="lg:w-96 object-contain flex justify-center items-center ">
@@ -138,6 +143,7 @@ function Posts() {
                 navigate("details/" + post._id)
               }}
               ref={index === posts.length - 1 ? lastPostElementRef : null}
+              date={getDateFromDB(new Date(post.dateDebut))}
             />
           ))}
         </Suspense>

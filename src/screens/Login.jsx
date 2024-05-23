@@ -98,10 +98,10 @@ function Login() {
       </svg>
 
       {/* image tourist */}
-      <div className="self-start  z-20 relative">
+      <div className="lg:self-start  justify-center flex z-20 relative">
         <img
           src="/images/tourist.png"
-          className="object-contain lg:w-[20rem] rounded-3xl"
+          className="object-contain lg:w-[20rem] w-[96%]  lg:rounded-3xl"
           alt=""
         />
       </div>
@@ -133,7 +133,7 @@ function Login() {
           placeholder="Mot de passe"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={login} className="px-3 py-1 bg-yellow-300 rounded-md">
+        <button onClick={login} className="px-3 py-1 bg-yellow-300 rounded-md lg:mb-0 mb-5">
           Connexion
         </button>
       </div>
@@ -147,7 +147,7 @@ function Login() {
           <div className="bg-yellow-300 h-1 w-5 mx-2" />
         </div>
 
-        <p className="text-white lg:max-w-80 text-center">
+        <p className="text-white lg:max-w-80 max-w-[90%] text-center">
           Inscrivez-vous gratuitement, et recevez toute l&apos;actualité des
           bons plans sorties, et l&apos;agenda culturel, pour ne rien rater.
         </p>
@@ -180,7 +180,7 @@ function Login() {
           className="bg-white shadow-md rounded-lg pl-3 py-1"
           placeholder="Confirmer le Mot de passe"
         />
-        <p className="text-white lg:max-w-60 text-center">
+        <p className="text-white lg:max-w-60 max-w-[80%] text-center">
           En créant un compte kherdja.com J&apos;accepte les
           <a href="" className="text-yellow-300 ml-1">
             Conditions d&apos;utilisation
@@ -188,7 +188,7 @@ function Login() {
         </p>
         <button
           onClick={register}
-          className="px-3 py-1 bg-yellow-300 rounded-md"
+          className="px-3 py-1 bg-yellow-300 rounded-md lg:my-0 my-4"
         >
           Inscription
         </button>

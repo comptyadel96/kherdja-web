@@ -2,7 +2,7 @@ import React from "react"
 import { Link, Outlet } from "react-router-dom"
 import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
-import { FaFacebook, FaLinkedin, FaTiktok, FaYoutube } from "react-icons/fa"
+import { FaFacebook, FaInstagram, FaLinkedin, FaTiktok, FaYoutube } from "react-icons/fa"
 import SearchBar from "../components/SearchBar"
 
 function Layout() {
@@ -28,7 +28,7 @@ function Layout() {
 
             <FaTiktok className="text-2xl" />
 
-            <FaYoutube className=" text-pink-600 text-3xl" />
+            <FaInstagram className=" text-pink-300 text-3xl" />
 
             <FaLinkedin className="text-3xl text-blue-500" />
           </div>

@@ -23,12 +23,13 @@ const PostCard = React.forwardRef(
     return (
       <div
         ref={ref}
+        onClick={onClick}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => {
           setHover(false)
         }}
         className={`flex flex-col ${
-          isHome && "bg-gray-900"
+          isHome && "bg-black"
         } z-10 items-center relative my-3 overflow-hidden pb-3 rounded-lg shadow-md mx-2 gap-3 lg:max-w-lg max-w-sm cursor-pointer `}
       >
         <img
@@ -44,12 +45,12 @@ const PostCard = React.forwardRef(
           {title}
         </h3>
 
-
-        <div className="flex items-center">
-          <FaClock className={`${isHome && "text-yellow-300"}`} />
-          {date && <p className="ml-1 text-sm text-gray-400">{date}</p>}
-        </div>
-
+        {date && (
+          <div className="flex items-center">
+            <FaClock className={`${isHome && "text-yellow-300"}`} />
+            <p className="ml-1 text-sm text-gray-400">{date}</p>
+          </div>
+        )}
 
         {/* voir plus d'infos */}
         {hover && (
@@ -60,7 +61,7 @@ const PostCard = React.forwardRef(
           </div>
         )}
         {/* like button */}
-        <div
+        {/* <div
           className={`absolute left-5 bottom-2 z-20  ${
             !isHome && "bg-white"
           }  p-1 hover:border hover:border-gray-200 shadow-md border border-transparent rounded-full`}
@@ -69,7 +70,7 @@ const PostCard = React.forwardRef(
           {liked && (
             <FaHeart size={18} title="Ajouter au favoris" color="red" />
           )}
-        </div>
+        </div> */}
       </div>
     )
   }

@@ -43,13 +43,13 @@ function PostDetails() {
     )
   }
   return (
-    <div className="flex flex-col items-center lg:py-10 w-full">
+    <div className="flex flex-col items-center lg:py-10 py-5 w-full">
       <PostShareButtons post={post} />
       {post && (
         <img
           src={`http://localhost:3000/${post.photo.replace("public", "")}`}
           alt=""
-          className="h-96 object-contain"
+          className="lg:h-96 max-h-96 object-contain  mt-3"
         />
       )}
       <h1 className="lg:text-4xl text-2xl lg:my-5 my-3 lg:max-w-[75%] max-w-[85%] truncate text-wrap ">
@@ -58,80 +58,99 @@ function PostDetails() {
 
       {post && (
         <div className="flex flex-col lg:px-6 gap-6 w-full  items-center">
-          <p className=" lg:max-w-[85%] leading-loose  lg:text-xl ">
+          <p className="max-w-[85%] leading-loose text-center  lg:text-xl ">
             {" "}
             {post.paragraphe}{" "}
           </p>
 
-          <div className="flex items-center gap-10 self-start">
+          <div className="flex items-center gap-10 self-start relative flex-wrap px-4">
             {/* infos */}
-            <div className="flex flex-col gap-3 p-8 border self-start bg-white shadow-lg rounded-md">
-              <h2 className="lg:text-3xl text-lg">informations</h2>
-              {/* lieu */}
-              {post.lieu && (
-                <div className="flex items-center gap-2">
-                  <FaMapMarker />
-                  <p>{post.lieu} </p>
+            <div className="relative flex">
+              <div className="flex flex-col gap-3 p-8 self-start z-30 bg-white border border-black shadow-lg rounded-md">
+                <div className="flex items-center gap-2 self-start">
+                  <div className="w-7 h-1 bg-yellow-300 " />
+                  <h2 className="lg:text-3xl text-lg">Informations</h2>
                 </div>
-              )}
-              {/* date debut et heure */}
-              {post.dateDebut && (
-                <div className="flex items-center gap-2">
-                  <FaCalendar />
 
-                  <p>
-                    {new Date(post.dateDebut).getFullYear()}
-                    {"-"}
-                    {new Date(post.dateDebut).getMonth() + 1}
-                    {"-"}
-                    {new Date(post.dateDebut).getDate()}
+                {/* lieu */}
+                {post.lieu && (
+                  <div className="flex items-center gap-2">
+                    <FaMapMarker />
+                    <p>{post.lieu} </p>
+                  </div>
+                )}
+                {/* date debut et heure */}
+                {post.dateDebut && (
+                  <div className="flex items-center gap-2">
+                    <FaCalendar />
+
+                    <p>
+                      {new Date(post.dateDebut).getFullYear()}
+                      {"-"}
+                      {new Date(post.dateDebut).getMonth() + 1}
+                      {"-"}
+                      {new Date(post.dateDebut).getDate()}
+                    </p>
+
+                    {post.heureDebut && (
+                      <p> à {new Date(post.heureDebut).getHours()}h </p>
+                    )}
+                  </div>
+                )}
+                {/* prix */}
+                {post.prix && (
+                  <div className="flex items-center gap-2">
+                    <FaDollarSign />
+                    <p>
+                      {post.prix}{" "}
+                      <span className="text-red-500 font-bold"> Da</span>{" "}
+                    </p>
+                  </div>
+                )}
+
+                {/* organisateur */}
+                {post.organisateur && (
+                  <div className="flex items-center gap-2">
+                    <FaPerson />
+                    <p> {post.organisateur}</p>
+                  </div>
+                )}
+                {post.createdAt && (
+                  <p className="">
+                    Publier le :{" "}
+                    <span className="text-gray-400 text-sm">
+                      {post.createdAt.slice(0, 10)}
+                    </span>
                   </p>
+                )}
+              </div>
 
-                  {post.heureDebut && (
-                    <p> à {new Date(post.heureDebut).getHours()}h </p>
-                  )}
-                </div>
-              )}
-              {/* prix */}
-              {post.prix && (
-                <div className="flex items-center gap-2">
-                  <FaDollarSign />
-                  <p>
-                    {post.prix}{" "}
-                    <span className="text-red-500 font-bold"> Da</span>{" "}
-                  </p>
-                </div>
-              )}
-
-              {/* organisateur */}
-              {post.organisateur && (
-                <div className="flex items-center gap-2">
-                  <FaPerson />
-                  <p> {post.organisateur}</p>
-                </div>
-              )}
-              {post.createdAt && (
-                <p className="">
-                  Publier le :{" "}
-                  <span className="text-gray-400 text-sm">
-                    {post.createdAt.slice(0, 10)}
-                  </span>
-                </p>
-              )}
+              <div className="absolute w-[90%] z-10 bg-yellow-300 h-[100%] -right-[1rem] top-3 border border-black rounded-md" />
             </div>
 
             {/* gallerie photo */}
             {post.images && post.images.length > 0 && (
-              <div className="flex flex-col gap-2">
-                <h3 className="lg:text-2xl"> Gallerie photo </h3>
-                <div className="flex items-center gap-6">
+              <div className="flex flex-col gap-2 bg-gray-100 lg:p-6 ">
+                <h3 className="lg:text-2xl text-xl"> Gallerie photo </h3>
+                <div className="flex items-center gap-6 flex-wrap">
                   {post.images.map((img, index) => (
-                    <img
-                      src={`http://localhost:3000/${img.replace("public", "")}`}
-                      alt="img"
-                      className="size-40"
-                      key={index}
-                    />
+                    <a
+                      href={`http://localhost:3000${img.replace(
+                        "public",
+                        ""
+                      )}`}
+                      target="_blank"
+                    >
+                      <img
+                        src={`http://localhost:3000/${img.replace(
+                          "public",
+                          ""
+                        )}`}
+                        alt="img"
+                        className="size-40"
+                        key={index}
+                      />
+                    </a>
                   ))}
                 </div>
               </div>
@@ -139,8 +158,8 @@ function PostDetails() {
 
             {/* vidéos */}
             {post.videos && post.videos.length > 0 && (
-              <div className="flex flex-col gap-2">
-                <h3 className="lg:text-2xl"> Vidéos :</h3>
+              <div className="flex flex-col gap-2  lg:max-w-[30%] ">
+                <h3 className="lg:text-2xl text-xl"> Vidéo(s) :</h3>
                 <div className="flex items-center gap-6">
                   {post.videos.map((vdo, index) => (
                     <video
