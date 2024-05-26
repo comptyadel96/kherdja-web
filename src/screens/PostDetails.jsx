@@ -47,7 +47,10 @@ function PostDetails() {
       <PostShareButtons post={post} />
       {post && (
         <img
-          src={`https://kherdja-backend.onrender.com/${post.photo.replace("public", "")}`}
+          src={`https://kherdja-backend.onrender.com/${post.photo.replace(
+            "public",
+            ""
+          )}`}
           alt=""
           className="lg:h-96 max-h-96 object-contain  mt-3"
         />
@@ -58,9 +61,12 @@ function PostDetails() {
 
       {post && (
         <div className="flex flex-col lg:px-6 gap-6 w-full  items-center">
-          <p className="max-w-[85%] leading-loose text-center  lg:text-xl ">
-            {" "}
-            {post.paragraphe}{" "}
+          <p
+            // className="max-w-[85%] leading-loose  lg:text-xl "
+            className="px-4 text-justify leading-loose  lg:text-xl"
+            style={{ wordWrap: "break-word", overflowWrap: "break-word" }}
+          >
+            {post.paragraphe}
           </p>
 
           <div className="flex items-center gap-10 self-start relative flex-wrap px-4">
@@ -163,7 +169,10 @@ function PostDetails() {
                 <div className="flex items-center gap-6">
                   {post.videos.map((vdo, index) => (
                     <video
-                      src={`https://kherdja-backend.onrender.com/${vdo.replace("public", "")}`}
+                      src={`https://kherdja-backend.onrender.com/${vdo.replace(
+                        "public",
+                        ""
+                      )}`}
                       controls
                       className=""
                       key={index}
