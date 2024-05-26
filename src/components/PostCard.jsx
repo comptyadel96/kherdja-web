@@ -28,9 +28,9 @@ const PostCard = React.forwardRef(
         onMouseLeave={() => {
           setHover(false)
         }}
-        className={`flex flex-col ${
-          isHome && "bg-black"
-        } z-10 items-center relative my-3 overflow-hidden pb-3 rounded-lg shadow-md mx-2 gap-3 lg:max-w-lg max-w-sm cursor-pointer `}
+        className={`flex flex-col 
+        ${isHome && "bg-black"} 
+        z-10 items-center relative my-3 overflow-hidden pb-3 rounded-lg shadow-md mx-2 gap-3 lg:max-w-lg max-w-sm cursor-pointer `}
       >
         <img
           src={photo}
