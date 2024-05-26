@@ -12,6 +12,7 @@ function PostDetails() {
   const { id } = useParams()
   const [post, setPost] = useState()
   const [loading, setLoading] = useState(true)
+  const [noPost, setNoPost] = useState(false)
 
   const getPost = async () => {
     try {
@@ -23,6 +24,7 @@ function PostDetails() {
       }, 1000)
     } catch (error) {
       console.log(error)
+      setNoPost(true)
     }
   }
 
@@ -40,6 +42,14 @@ function PostDetails() {
     return (
       <div className="flex justify-center items-center">
         <Loading />
+      </div>
+    )
+  }
+
+  if (noPost) {
+    return (
+      <div className="flex justify-center items-center">
+        <p>OOps, ce post à été supprimer ou bien déplacer</p>
       </div>
     )
   }
