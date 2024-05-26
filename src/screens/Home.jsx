@@ -122,7 +122,7 @@ function Home() {
           >
             {lastPosts.map((post) => (
               <PostCard
-                photo={`https://kherdja.netlify.app/${post.photo.replace(
+                photo={`https://kherdja-backend.onrender.com/${post.photo.replace(
                   "public",
                   ""
                 )}`}
@@ -170,7 +170,7 @@ function Home() {
         ) : (
           currentEvents.map((post) => (
             <PostCard
-              photo={`https://kherdja.netlify.app/${post.photo.replace(
+              photo={`https://kherdja-backend.onrender.com/${post.photo.replace(
                 "public",
                 ""
               )}`}
@@ -204,7 +204,7 @@ function Home() {
         ) : (
           upcomingEvents.map((post) => (
             <PostCard
-              photo={`https://kherdja.netlify.app/${post.photo.replace(
+              photo={`https://kherdja-backend.onrender.com/${post.photo.replace(
                 "public",
                 ""
               )}`}

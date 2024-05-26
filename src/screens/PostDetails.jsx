@@ -47,7 +47,7 @@ function PostDetails() {
       <PostShareButtons post={post} />
       {post && (
         <img
-          src={`https://kherdja.netlify.app/${post.photo.replace("public", "")}`}
+          src={`https://kherdja-backend.onrender.com/${post.photo.replace("public", "")}`}
           alt=""
           className="lg:h-96 max-h-96 object-contain  mt-3"
         />
@@ -135,14 +135,14 @@ function PostDetails() {
                 <div className="flex items-center gap-6 flex-wrap">
                   {post.images.map((img, index) => (
                     <a
-                      href={`https://kherdja.netlify.app${img.replace(
+                      href={`https://kherdja-backend.onrender.com/${img.replace(
                         "public",
                         ""
                       )}`}
                       target="_blank"
                     >
                       <img
-                        src={`https://kherdja.netlify.app/${img.replace(
+                        src={`https://kherdja-backend.onrender.com/${img.replace(
                           "public",
                           ""
                         )}`}
@@ -163,7 +163,7 @@ function PostDetails() {
                 <div className="flex items-center gap-6">
                   {post.videos.map((vdo, index) => (
                     <video
-                      src={`https://kherdja.netlify.app/${vdo.replace("public", "")}`}
+                      src={`https://kherdja-backend.onrender.com/${vdo.replace("public", "")}`}
                       controls
                       className=""
                       key={index}
