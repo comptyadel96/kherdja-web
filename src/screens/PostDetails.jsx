@@ -12,6 +12,7 @@ function PostDetails() {
   const { id } = useParams()
   const [post, setPost] = useState()
   const [loading, setLoading] = useState(true)
+
   const getPost = async () => {
     try {
       const post = await axios.get(`${BaseUrl}/posts/${id}`)
@@ -42,6 +43,7 @@ function PostDetails() {
       </div>
     )
   }
+
   return (
     <div className="flex flex-col items-center lg:py-10 py-5 w-full">
       <PostShareButtons post={post} />
@@ -52,7 +54,7 @@ function PostDetails() {
             ""
           )}`}
           alt=""
-          className="lg:h-96 max-h-96 object-contain  mt-3"
+          className="lg:h-96 max-h-96 object-contain mt-3"
         />
       )}
       <h1 className="lg:text-4xl text-2xl lg:my-5 my-3 lg:max-w-[75%] max-w-[85%] truncate text-wrap ">
@@ -60,10 +62,9 @@ function PostDetails() {
       </h1>
 
       {post && (
-        <div className="flex flex-col lg:px-6 gap-6 w-full  items-center">
+        <div className="flex flex-col lg:px-6 gap-6 w-full items-center">
           <p
-            // className="max-w-[85%] leading-loose  lg:text-xl "
-            className="px-4 text-justify leading-loose  lg:text-xl"
+            className="px-4 text-justify leading-loose lg:text-xl break-words"
             style={{ wordWrap: "break-word", overflowWrap: "break-word" }}
           >
             {post.paragraphe}
@@ -74,7 +75,7 @@ function PostDetails() {
             <div className="relative flex">
               <div className="flex flex-col gap-3 p-8 self-start z-30 bg-white border border-black shadow-lg rounded-md">
                 <div className="flex items-center gap-2 self-start">
-                  <div className="w-7 h-1 bg-yellow-300 " />
+                  <div className="w-7 h-1 bg-yellow-300" />
                   <h2 className="lg:text-3xl text-lg">Informations</h2>
                 </div>
 
@@ -89,7 +90,6 @@ function PostDetails() {
                 {post.dateDebut && (
                   <div className="flex items-center gap-2">
                     <FaCalendar />
-
                     <p>
                       {new Date(post.dateDebut).getFullYear()}
                       {"-"}
@@ -97,7 +97,6 @@ function PostDetails() {
                       {"-"}
                       {new Date(post.dateDebut).getDate()}
                     </p>
-
                     {post.heureDebut && (
                       <p> à {new Date(post.heureDebut).getHours()}h </p>
                     )}
@@ -136,7 +135,7 @@ function PostDetails() {
 
             {/* gallerie photo */}
             {post.images && post.images.length > 0 && (
-              <div className="flex flex-col gap-2 bg-gray-100 lg:p-6 ">
+              <div className="flex flex-col gap-2 bg-gray-100 lg:p-6">
                 <h3 className="lg:text-2xl text-xl"> Gallerie photo </h3>
                 <div className="flex items-center gap-6 flex-wrap">
                   {post.images.map((img, index) => (
@@ -146,6 +145,8 @@ function PostDetails() {
                         ""
                       )}`}
                       target="_blank"
+                      rel="noopener noreferrer"
+                      key={index}
                     >
                       <img
                         src={`https://kherdja-backend.onrender.com/${img.replace(
@@ -154,7 +155,6 @@ function PostDetails() {
                         )}`}
                         alt="img"
                         className="size-40"
-                        key={index}
                       />
                     </a>
                   ))}
@@ -164,9 +164,9 @@ function PostDetails() {
 
             {/* vidéos */}
             {post.videos && post.videos.length > 0 && (
-              <div className="flex flex-col gap-2  lg:max-w-[30%] ">
+              <div className="flex flex-col gap-2 lg:max-w-[30%]">
                 <h3 className="lg:text-2xl text-xl"> Vidéo(s) :</h3>
-                <div className="flex items-center gap-6">
+                <div className="flex items-center gap-6 flex-wrap">
                   {post.videos.map((vdo, index) => (
                     <video
                       src={`https://kherdja-backend.onrender.com/${vdo.replace(
