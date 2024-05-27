@@ -135,7 +135,7 @@ function Posts() {
             <PostCard
               key={post._id}
               title={post.titre}
-              photo={`https://kherdja.netlify.app/${post.photo.replace(
+              photo={`https://kherdja.netlify.app${post.photo.replace(
                 "public",
                 ""
               )}`}

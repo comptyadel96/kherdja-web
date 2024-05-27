@@ -59,7 +59,7 @@ function PostDetails() {
       <PostShareButtons post={post} />
       {post && (
         <img
-          src={`https://kherdja-backend.onrender.com/${post.photo.replace(
+          src={`https://kherdja-backend.onrender.com${post.photo.replace(
             "public",
             ""
           )}`}

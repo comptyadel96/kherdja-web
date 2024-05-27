@@ -6,10 +6,8 @@ import PostCard from "../components/PostCard"
 import axios from "axios"
 import BaseUrl from "../components/BaseUrl"
 import { useNavigate } from "react-router-dom"
-import { FaArrowCircleRight, FaArrowLeft } from "react-icons/fa"
 
 import "../index.css"
-import Sandstorm from "../components/Sandstorm"
 
 function Home() {
   const navigate = useNavigate()
@@ -78,29 +76,20 @@ function Home() {
           <div className="h-1 lg:w-20 w-12 bg-yellow-300 mx-2" />
         </div>
 
-        {/* sandstorm */}
-        {/* <div className="h-96 w-full relative my-6">
-        <Sandstorm/>
-        </div> */}
-
         <div className="lg:py-16 py-4 relative bg-dot flex flex-col">
           <Slider
             autoplay
-            slidesToScroll={4}
+            slidesToScroll={1}
             slidesToShow={4}
             speed={1000}
-            // className="flex items-center justify-center"
-            arrows={true}
-            nextArrow={<FaArrowCircleRight />}
-            prevArrow={<FaArrowLeft />}
+            vertical={false} // Assurez-vous que vertical soit défini sur false
             responsive={[
               {
                 breakpoint: 1024,
                 settings: {
-                  slidesToShow: 3,
+                  slidesToShow: 1,
                   slidesToScroll: 3,
                   infinite: true,
-                  dots: true,
                 },
               },
               {
@@ -120,21 +109,22 @@ function Home() {
               },
             ]}
           >
-            {lastPosts.map((post) => (
-              <PostCard
-                photo={`https://kherdja-backend.onrender.com/${post.photo.replace(
-                  "public",
-                  ""
-                )}`}
-                onClick={() => navigate("/posts/details/" + post._id)}
-                title={post.titre}
-                key={post._id}
-                isHome
-                date={getDateFromDB(new Date(post.dateDebut))}
-              />
+            {lastPosts.map((post, index) => (
+              <div key={index} className="px-2">
+                <PostCard
+                  photo={`https://kherdja-backend.onrender.com/${post.photo.replace(
+                    "public",
+                    ""
+                  )}`}
+                  onClick={() => navigate("/posts/details/" + post._id)}
+                  title={post.titre}
+                  isHome
+                  date={getDateFromDB(new Date(post.dateDebut))}
+                />
+              </div>
             ))}
           </Slider>
-          <button className="hover:bg-yellow-300 border border-yellow-300 text-yellow-300 hover:text-black mx-auto px-3 mt-5 rounded-md">
+          <button className="hover:bg-yellow-300 border border-yellow-300 text-yellow-300 hover:text-black mx-auto px-3 py-1 mt-5 rounded-md">
             Voir tous les posts récents
           </button>
         </div>
