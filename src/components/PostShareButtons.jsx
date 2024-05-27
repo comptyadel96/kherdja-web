@@ -4,7 +4,9 @@ import { FaSquareXTwitter } from "react-icons/fa6"
 
 const PostShareButtons = ({ post }) => {
   // URL du post
-  const postUrl = `http://localhost:5173/posts/details/${post && post._id}`
+  const postUrl = `https://kherdja.netlify.app/posts/details/${
+    post && post._id
+  }`
 
   // Titre du post
   const postTitle = post && post.titre
