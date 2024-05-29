@@ -416,11 +416,11 @@ const AddPost = () => {
       </Formik>
       {/* Barre de progression */}
       {uploadProgress > 0 && uploadProgress < 100 && (
-        <div className="w-full bg-blue-400  my-10">
+        <div className="w-[50%] mx-auto bg-gray-200  my-10">
           <div
-            className="bg-green-500 h-[2rem]"
+            className="bg-green-500 h-[2rem] flex justify-center items-center"
             style={{ width: `${uploadProgress}%` }}
-          />
+          > {uploadProgress}% </div>
         </div>
       )}
     </div>
