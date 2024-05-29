@@ -147,22 +147,12 @@ function PostDetails() {
                 <div className="flex items-center gap-6 flex-wrap">
                   {post.images.map((img, index) => (
                     <a
-                      href={`https://kherdja-backend.onrender.com/${img.replace(
-                        "public",
-                        ""
-                      )}`}
+                      href={img}
                       target="_blank"
                       rel="noopener noreferrer"
                       key={index}
                     >
-                      <img
-                        src={`https://kherdja-backend.onrender.com/${img.replace(
-                          "public",
-                          ""
-                        )}`}
-                        alt="img"
-                        className="size-40"
-                      />
+                      <img src={img} alt="img" className="size-40" />
                     </a>
                   ))}
                 </div>
