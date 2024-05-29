@@ -24,6 +24,7 @@ const AddPost = () => {
   const [selectedOption, setSelectedOption] = useState(null)
   const [startTime, setStartTime] = useState(new Date())
   const [startDate, setStartDate] = useState(new Date())
+  const [uploadProgress, setUploadProgress] = useState(0)
 
   const validationSchema = Yup.object().shape({
     titre: Yup.string()
@@ -170,7 +171,6 @@ const AddPost = () => {
   // }
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-    console.log(values)
     try {
       const formData = new FormData()
       formData.append("titre", values.titre)
@@ -190,12 +190,20 @@ const AddPost = () => {
       values.videos.forEach((video) => {
         formData.append("videos", video)
       })
-
-      await axios.post(`${BaseUrl}/posts`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
+      // Configurer Axios pour suivre la progression
+      const config = {
+        onUploadProgress: (progressEvent) => {
+          const { loaded, total } = progressEvent
+          const progress = Math.round((loaded * 100) / total)
+          setUploadProgress(progress)
+          console.log(progress)
         },
-      })
+        headers: {
+          "Content-Type": "multipart/form-data", // Garder cet en-tête
+        },
+      }
+
+      await axios.post(`${BaseUrl}/posts`, formData, config)
       // resetForm()
       // setPreviewImage(null)
       // setPreviewImages([])
@@ -406,6 +414,15 @@ const AddPost = () => {
           </Form>
         )}
       </Formik>
+      {/* Barre de progression */}
+      {uploadProgress > 0 && uploadProgress < 100 && (
+        <div className="w-full bg-blue-400  my-10">
+          <div
+            className="bg-green-500 h-[2rem]"
+            style={{ width: `${uploadProgress}%` }}
+          />
+        </div>
+      )}
     </div>
   )
 }
