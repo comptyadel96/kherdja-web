@@ -137,9 +137,7 @@ function Posts() {
               //   "public",
               //   ""
               // )}`}
-              photo={`https://kherdja-backend.onrender.com/uploads/${post.photo
-                .split("/")
-                .pop()}`}
+              photo={post.photo}
               onClick={() => {
                 navigate("details/" + post._id)
               }}

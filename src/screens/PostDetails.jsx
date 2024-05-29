@@ -58,18 +58,8 @@ function PostDetails() {
     <div className="flex flex-col items-center lg:py-10 py-5 w-full">
       <PostShareButtons post={post} />
       {post && (
-        // <img
-        //   src={`https://kherdja-backend.onrender.com${post.photo.replace(
-        //     "public",
-        //     ""
-        //   )}`}
-        //   alt=""
-        //   className="lg:h-96 max-h-96 object-contain mt-3"
-        // />
         <img
-          src={`https://kherdja-backend.onrender.com/uploads/${path.basename(
-            post.photo
-          )}`}
+          src={post.photo}
           alt=""
           className="lg:h-96 max-h-96 object-contain mt-3"
         />
@@ -185,15 +175,7 @@ function PostDetails() {
                 <h3 className="lg:text-2xl text-xl"> Vidéo(s) :</h3>
                 <div className="flex items-center gap-6 flex-wrap">
                   {post.videos.map((vdo, index) => (
-                    <video
-                      src={`https://kherdja-backend.onrender.com/${vdo.replace(
-                        "public",
-                        ""
-                      )}`}
-                      controls
-                      className=""
-                      key={index}
-                    />
+                    <video src={vdo} controls className="" key={index} />
                   ))}
                 </div>
               </div>

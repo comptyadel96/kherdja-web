@@ -112,7 +112,7 @@ function Home() {
             {lastPosts.map((post, index) => (
               <div key={index} className="px-2">
                 <PostCard
-                  photo={`https://kherdja-backend.onrender.com${post.photo}`}
+                  photo={post.photo}
                   onClick={() => navigate("/posts/details/" + post._id)}
                   title={post.titre}
                   isHome
