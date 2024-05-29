@@ -55,7 +55,7 @@ const PostCard = React.forwardRef(
         {/* voir plus d'infos */}
         {hover && (
           <div className="absolute bottom-0 w-full z-10">
-            <button onClick={onClick} className="bg-yellow-300 w-full lg:py-1 ">
+            <button className="bg-yellow-300 w-full lg:py-1 ">
               Voir plus d&apos;infos
             </button>
           </div>

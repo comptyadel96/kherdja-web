@@ -58,11 +58,18 @@ function PostDetails() {
     <div className="flex flex-col items-center lg:py-10 py-5 w-full">
       <PostShareButtons post={post} />
       {post && (
+        // <img
+        //   src={`https://kherdja-backend.onrender.com${post.photo.replace(
+        //     "public",
+        //     ""
+        //   )}`}
+        //   alt=""
+        //   className="lg:h-96 max-h-96 object-contain mt-3"
+        // />
         <img
-          src={`https://kherdja-backend.onrender.com${post.photo.replace(
-            "public",
-            ""
-          )}`}
+          src={`https://kherdja-backend.onrender.com/uploads/${post.photo
+            .split("/")
+            .pop()}`}
           alt=""
           className="lg:h-96 max-h-96 object-contain mt-3"
         />

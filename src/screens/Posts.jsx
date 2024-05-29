@@ -71,7 +71,6 @@ function Posts() {
       setHasMore(false)
     }
   }
-  
 
   useEffect(() => {
     setPosts([]) // Réinitialise les posts lorsque le type change
@@ -79,18 +78,17 @@ function Posts() {
     getPosts(1) // Charge les posts pour la nouvelle catégorie
   }, [selectedType])
 
-
   useEffect(() => {
     if (page > 1) {
       getPosts(page)
     }
   }, [page])
 
-    const getDateFromDB = (date) => {
-      return (
-        date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
-      )
-    }
+  const getDateFromDB = (date) => {
+    return (
+      date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
+    )
+  }
 
   const Loading = () => (
     <div className="lg:w-96 object-contain flex justify-center items-center ">
@@ -135,10 +133,13 @@ function Posts() {
             <PostCard
               key={post._id}
               title={post.titre}
-              photo={`https://kherdja-backend.onrender.com${post.photo.replace(
-                "public",
-                ""
-              )}`}
+              // photo={`https://kherdja-backend.onrender.com${post.photo.replace(
+              //   "public",
+              //   ""
+              // )}`}
+              photo={`https://kherdja-backend.onrender.com/uploads/${post.photo
+                .split("/")
+                .pop()}`}
               onClick={() => {
                 navigate("details/" + post._id)
               }}
