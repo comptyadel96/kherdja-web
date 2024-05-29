@@ -67,9 +67,9 @@ function PostDetails() {
         //   className="lg:h-96 max-h-96 object-contain mt-3"
         // />
         <img
-          src={`https://kherdja-backend.onrender.com/uploads/${post.photo
-            .split("/")
-            .pop()}`}
+          src={`https://kherdja-backend.onrender.com/uploads/${path.basename(
+            post.photo
+          )}`}
           alt=""
           className="lg:h-96 max-h-96 object-contain mt-3"
         />
