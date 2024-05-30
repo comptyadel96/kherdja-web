@@ -157,10 +157,7 @@ function Home() {
         ) : (
           currentEvents.map((post) => (
             <PostCard
-              photo={`https://kherdja-backend.onrender.com/${post.photo.replace(
-                "public",
-                ""
-              )}`}
+              photo={post.photo}
               onClick={() => navigate("/posts/details/" + post._id)}
               title={post.titre}
               key={post._id}
@@ -191,10 +188,7 @@ function Home() {
         ) : (
           upcomingEvents.map((post) => (
             <PostCard
-              photo={`https://kherdja-backend.onrender.com/${post.photo.replace(
-                "public",
-                ""
-              )}`}
+              photo={post.photo}
               onClick={() => navigate("/posts/details/" + post._id)}
               title={post.titre}
               key={post._id}

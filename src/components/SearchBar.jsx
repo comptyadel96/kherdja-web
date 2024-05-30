@@ -66,10 +66,7 @@ const SearchBar = () => {
               key={index}
             >
               <img
-                src={`https://kherdja-backend.onrender.com${post.photo.replace(
-                  "public",
-                  ""
-                )}`}
+                src={post.photo}
                 alt=""
                 className="lg:w-12 w-8"
               />
