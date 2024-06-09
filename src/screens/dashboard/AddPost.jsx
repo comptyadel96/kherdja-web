@@ -13,6 +13,8 @@ import CustomFileInput from "../../components/CustomFileInput"
 import { registerLocale } from "react-datepicker"
 import { fr } from "date-fns/locale/fr"
 import CustomFilesInput from "../../components/CustomFilesInput"
+import ReactQuill from "react-quill"
+import "react-quill/dist/quill.snow.css"
 
 registerLocale("fr", fr)
 setDefaultLocale("fr")
@@ -201,6 +203,7 @@ const AddPost = () => {
         headers: {
           "Content-Type": "multipart/form-data", // Garder cet en-tête
         },
+        withCredentials: true,
       }
 
       await axios.post(`${BaseUrl}/posts`, formData, config)
@@ -209,7 +212,8 @@ const AddPost = () => {
       // setPreviewImages([])
       alert("Article publié avec succès !")
     } catch (error) {
-      console.error("Erreur lors de l'envoi de la requête:", error)
+      console.error("Erreur lors de l'envoi de la requête: ", error)
+      alert(error.response.data.message)
     } finally {
       setSubmitting(false)
     }
@@ -225,7 +229,7 @@ const AddPost = () => {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {({ isSubmitting, setFieldValue, handleSubmit }) => (
+        {({ isSubmitting, setFieldValue, handleSubmit, values }) => (
           <Form className="flex flex-col bg-gray-200 lg:min-w-[45%] lg:p-5 mb-4">
             <label className="font-semibold" htmlFor="titre">
               Titre de l'article :
@@ -284,11 +288,49 @@ const AddPost = () => {
             <label className="font-semibold lg:my-3" htmlFor="paragraphe">
               Contenu texte de l&apos;article
             </label>
-            <textarea
+            {/* <textarea
               className="min-h-44 bg-white shadow-md rounded-md border border-black  pl-2 pt-2"
               placeholder="blablablablablablaaaaaaaaa"
               name="paragraphe"
               onChange={(e) => setFieldValue("paragraphe", e.target.value)}
+            /> */}
+            <ReactQuill
+              value={values.paragraphe}
+              onChange={(content) => setFieldValue("paragraphe", content)}
+              className="min-h-44 bg-white shadow-md rounded-md border border-black pl-2 pt-2"
+              placeholder="blablablablablablaaaaaaaaa"
+              modules={{
+                toolbar: [
+                  [{ header: "1" }, { header: "2" }, { font: [] }],
+                  [{ size: [] }],
+                  ["bold", "italic", "underline", "strike", "blockquote"],
+                  [
+                    { list: "ordered" },
+                    { list: "bullet" },
+                    { indent: "-1" },
+                    { indent: "+1" },
+                  ],
+                  ["link", "image", "video"],
+                  ["clean"],
+                ],
+                clipboard: {
+                  matchVisual: false,
+                },
+              }}
+              formats={[
+                "header",
+                "font",
+                "size",
+                "bold",
+                "italic",
+                "underline",
+                "strike",
+                "blockquote",
+                "list",
+                "bullet",
+                "indent",
+                "link",
+              ]}
             />
             <p className="my-3 font-semibold">Catégorie de l&apos;article</p>
             {/* catégorie du poste */}
@@ -420,7 +462,10 @@ const AddPost = () => {
           <div
             className="bg-green-500 h-[2rem] flex justify-center items-center"
             style={{ width: `${uploadProgress}%` }}
-          > {uploadProgress}% </div>
+          >
+            {" "}
+            {uploadProgress}%{" "}
+          </div>
         </div>
       )}
     </div>

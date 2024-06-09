@@ -142,7 +142,7 @@ function Posts() {
                 navigate("details/" + post._id)
               }}
               ref={index === posts.length - 1 ? lastPostElementRef : null}
-              date={getDateFromDB(new Date(post.dateDebut))}
+              date={post.dateDebut && getDateFromDB(new Date(post.dateDebut))}
             />
           ))}
         </Suspense>

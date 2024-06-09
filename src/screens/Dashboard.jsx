@@ -47,7 +47,7 @@ function Dashboard() {
         <div className="lg:p-5 p-3 shadow-md border bg-white flex flex-col items-center gap-3">
           <MdArticle size={54} />
           <h2 className="lg:text-xl">
-             Gérer tous les articles
+             Gérer tous les posts
           </h2>
         </div>
       </div>

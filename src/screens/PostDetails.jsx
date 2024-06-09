@@ -180,7 +180,6 @@
 
 // export default PostDetails
 
-
 import axios from "axios"
 import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
@@ -242,34 +241,45 @@ function PostDetails() {
 
   return (
     <div className="flex flex-col items-center lg:py-10 py-5 w-full">
-      <PostShareButtons post={post} />
+      <div className="flex justify-between  w-full">
+        {post && (
+          <span className="lg: text-4xl px-4 py-2 bg-yellow-300">
+            {post.type}{" "}
+          </span>
+        )}
+        <PostShareButtons post={post} />
+      </div>
+
       {post && (
         <>
           {!isImageLoaded && (
             <Skeleton height={384} width={"32rem"} className="mt-3" />
           )}
-          <img
-            src={post.photo}
-            alt=""
-            className="lg:h-96 max-h-96 object-contain mt-3"
-            style={{ display: isImageLoaded ? "block" : "none" }}
-            onLoad={() => setIsImageLoaded(true)}
-          />
+          <div className="flex xl:flex-nowrap flex-wrap pr-3">
+            <img
+              src={post.photo}
+              alt=""
+              className="lg:max-h-[45rem] max-h-96 object-contain mt-3 border-r border-b pb-3 pr-3 border-r-yellow-400 border-b-yellow-400 "
+              style={{ display: isImageLoaded ? "block" : "none" }}
+              onLoad={() => setIsImageLoaded(true)}
+            />
+            <div className="flex flex-col lg:mx-6">
+              <h1 className="lg:text-4xl text-2xl lg:my-5 my-3 lg:mx-6 lg:max-w-[80%] max-w-[85%] truncate text-wrap ">
+                {post.titre}
+              </h1>
+              <p
+                className="lg:p-6 text-justify leading-loose lg:text-lg  border-t border-black  break-words"
+                style={{ wordWrap: "break-word", overflowWrap: "break-word" }}
+              >
+                {post.paragraphe}
+              </p>
+            </div>
+          </div>
         </>
       )}
-      <h1 className="lg:text-4xl text-2xl lg:my-5 my-3 lg:max-w-[75%] max-w-[85%] truncate text-wrap ">
-        {post && post.titre}{" "}
-      </h1>
 
       {post && (
-        <div className="flex flex-col lg:px-6 gap-6 w-full items-center">
-          <p
-            className="px-4 text-justify leading-loose lg:text-xl break-words"
-            style={{ wordWrap: "break-word", overflowWrap: "break-word" }}
-          >
-            {post.paragraphe}
-          </p>
-
+        <div className="flex flex-col lg:px-6 gap-6 w-full items-center my-4">
           <div className="flex items-center gap-10 self-start relative flex-wrap px-4">
             {/* infos */}
             <div className="relative flex">
@@ -335,25 +345,31 @@ function PostDetails() {
 
             {/* gallerie photo */}
             {post.images && post.images.length > 0 && (
-              <div className="flex flex-col gap-2 bg-gray-100 lg:p-6">
-                <h3 className="lg:text-2xl text-xl"> Gallerie photo </h3>
-                <div className="flex items-center gap-6 flex-wrap">
-                  {post.images.map((img, index) => (
-                    <a
-                      href={img}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      key={index}
-                    >
-                      <img
-                        src={img}
-                        alt="img"
-                        className="size-40"
-                        onLoad={() => setIsImageLoaded(true)}
-                      />
-                    </a>
-                  ))}
+              <div className="relative flex">
+                <div className="flex flex-col gap-2 bg-white border z-30 border-black rounded-md lg:p-9">
+                  <div className="flex items-center gap-2 self-start">
+                    <div className="w-7 h-1 bg-yellow-300" />
+                    <h2 className="lg:text-3xl text-lg">Gallerie photo</h2>
+                  </div>
+                  <div className="flex items-center gap-6 flex-wrap">
+                    {post.images.map((img, index) => (
+                      <a
+                        href={img}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        key={index}
+                      >
+                        <img
+                          src={img}
+                          alt="img"
+                          className="size-40"
+                          onLoad={() => setIsImageLoaded(true)}
+                        />
+                      </a>
+                    ))}
+                  </div>
                 </div>
+                <div className="absolute w-[95%] z-10 bg-yellow-300 h-[100%] -right-[1rem] top-3 border border-black rounded-md" />
               </div>
             )}
 

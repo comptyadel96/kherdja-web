@@ -116,12 +116,17 @@ function Home() {
                   onClick={() => navigate("/posts/details/" + post._id)}
                   title={post.titre}
                   isHome
-                  date={getDateFromDB(new Date(post.dateDebut))}
+                  date={
+                    post.dateDebut && getDateFromDB(new Date(post.dateDebut))
+                  }
                 />
               </div>
             ))}
           </Slider>
-          <button className="hover:bg-yellow-300 border border-yellow-300 text-yellow-300 hover:text-black mx-auto px-3 py-1 mt-5 rounded-md">
+          <button
+            onClick={() => navigate("/posts")}
+            className="hover:bg-yellow-300 border border-yellow-300 text-yellow-300 hover:text-black mx-auto px-3 py-1 mt-5 rounded-md"
+          >
             Voir tous les posts récents
           </button>
         </div>
