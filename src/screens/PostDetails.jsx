@@ -191,6 +191,7 @@ import Tourist from "../assets/animations/tourist.json"
 import Lottie from "lottie-react"
 import Skeleton from "react-loading-skeleton"
 import "react-loading-skeleton/dist/skeleton.css"
+import parse from "react-html-parser"
 
 function PostDetails() {
   const { id } = useParams()
@@ -255,7 +256,7 @@ function PostDetails() {
           {!isImageLoaded && (
             <Skeleton height={384} width={"32rem"} className="mt-3" />
           )}
-          <div className="flex xl:flex-nowrap flex-wrap pr-3">
+          <div className="flex xl:flex-nowrap flex-wrap pr-3 w-full ">
             <img
               src={post.photo}
               alt=""
@@ -263,16 +264,18 @@ function PostDetails() {
               style={{ display: isImageLoaded ? "block" : "none" }}
               onLoad={() => setIsImageLoaded(true)}
             />
-            <div className="flex flex-col lg:mx-6">
-              <h1 className="lg:text-4xl text-2xl lg:my-5 my-3 lg:mx-6 lg:max-w-[80%] max-w-[85%] truncate text-wrap ">
+            <div className="flex flex-col lg:mx-6 lg:w-[30%]">
+              <h1 className="lg:text-4xl text-2xl lg:my-5 my-3   truncate text-wrap ">
                 {post.titre}
               </h1>
-              <p
+              {/* <p
                 className="lg:p-6 text-justify leading-loose lg:text-lg  border-t border-black  break-words"
                 style={{ wordWrap: "break-word", overflowWrap: "break-word" }}
-              >
-                {post.paragraphe}
-              </p>
+              > */}
+              <div className=" text-justify break-words text-lg">
+                {parse(post.paragraphe)}
+              </div>
+              {/* </p> */}
             </div>
           </div>
         </>
@@ -362,7 +365,7 @@ function PostDetails() {
                         <img
                           src={img}
                           alt="img"
-                          className="size-40"
+                          className="lg:w-52 object-contain"
                           onLoad={() => setIsImageLoaded(true)}
                         />
                       </a>

@@ -19,6 +19,7 @@ import "react-quill/dist/quill.snow.css"
 registerLocale("fr", fr)
 setDefaultLocale("fr")
 
+
 const AddPost = () => {
   const [previewImage, setPreviewImage] = useState(null)
   const [previewImages, setPreviewImages] = useState([])
@@ -297,7 +298,7 @@ const AddPost = () => {
             <ReactQuill
               value={values.paragraphe}
               onChange={(content) => setFieldValue("paragraphe", content)}
-              className="min-h-44 bg-white shadow-md rounded-md border border-black pl-2 pt-2"
+              className="min-h-44 bg-white shadow-md quill-editor rounded-md border border-black pl-2 pt-2"
               placeholder="blablablablablablaaaaaaaaa"
               modules={{
                 toolbar: [
@@ -310,7 +311,8 @@ const AddPost = () => {
                     { indent: "-1" },
                     { indent: "+1" },
                   ],
-                  ["link", "image", "video"],
+                  [{ color: [] }, { background: [] }],
+                  ["link"],
                   ["clean"],
                 ],
                 clipboard: {
@@ -330,6 +332,8 @@ const AddPost = () => {
                 "bullet",
                 "indent",
                 "link",
+                "color", // Inclure le format de couleur
+                "background",
               ]}
             />
             <p className="my-3 font-semibold">Catégorie de l&apos;article</p>
