@@ -242,9 +242,9 @@ function PostDetails() {
 
   return (
     <div className="flex flex-col items-center lg:py-10 py-5 w-full">
-      <div className="flex justify-between  w-full">
+      <div className="flex justify-between flex-wrap w-full">
         {post && (
-          <span className="lg: text-4xl px-4 py-2 bg-yellow-300">
+          <span className="text-4xl px-4 py-2 lg:my-0 mb-4 bg-yellow-300">
             {post.type}{" "}
           </span>
         )}
@@ -260,11 +260,11 @@ function PostDetails() {
             <img
               src={post.photo}
               alt=""
-              className="lg:max-h-[45rem] max-h-96 object-contain mt-3 border-r border-b pb-3 pr-3 border-r-yellow-400 border-b-yellow-400 "
+              className="lg:max-h-[35rem] max-h-96 object-contain mt-3 border-r border-b pb-3 pr-3 border-r-yellow-400 border-b-yellow-400 "
               style={{ display: isImageLoaded ? "block" : "none" }}
               onLoad={() => setIsImageLoaded(true)}
             />
-            <div className="flex flex-col lg:mx-6 lg:w-[30%]">
+            <div className="flex flex-col lg:mx-6 lg:p-0 p-4">
               <h1 className="lg:text-4xl text-2xl lg:my-5 my-3   truncate text-wrap ">
                 {post.titre}
               </h1>

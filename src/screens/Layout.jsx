@@ -13,7 +13,7 @@ function Layout() {
           <img
             src="/images/kherdja-black.png"
             alt="kherdja logo"
-            className=" object-contain mb-2"
+            className=" object-contain mb-2 max-w-60"
           />
         </Link>
 
