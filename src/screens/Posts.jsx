@@ -8,9 +8,11 @@
 // } from "react"
 // import Lottie from "lottie-react"
 // import { useLocation, useNavigate } from "react-router-dom"
+// import { FiEdit, FiTrash2 } from "react-icons/fi" // Import des icônes
 // import BaseUrl from "../components/BaseUrl"
 // import PostCard from "../components/PostCard"
 // import Tourist from "../assets/animations/tourist.json"
+// import Profil from "./Profil"
 
 // function Posts() {
 //   const location = useLocation()
@@ -39,7 +41,6 @@
 //     },
 //     [loading, hasMore]
 //   )
-
 //   const fetchUser = async () => {
 //     try {
 //       const response = await axios.get(`${BaseUrl}/isAuthenticated`, {
@@ -172,19 +173,19 @@
 //                 ref={index === posts.length - 1 ? lastPostElementRef : null}
 //                 date={post.dateDebut && getDateFromDB(new Date(post.dateDebut))}
 //               />
-//               {user && user.isAdmin === true && (
-//                 <div className="absolute top-auto z-40 right-0 flex gap-2 p-2">
+//               {user && user.isAdmin && (
+//                 <div className="absolute top-2 right-0 flex gap-2 p-2 z-30">
 //                   <button
-//                     className="bg-blue-500 text-white px-2 py-1 rounded"
+//                     className="bg-blue-500 text-white p-2 rounded-full flex items-center justify-center"
 //                     onClick={() => navigate(`/posts/modify/${post._id}`)}
 //                   >
-//                     Modifier
+//                     <FiEdit size={16} />
 //                   </button>
 //                   <button
-//                     className="bg-red-500 text-white px-2 py-1 rounded"
+//                     className="bg-red-500 text-white p-2 rounded-full flex items-center justify-center"
 //                     onClick={() => handleDelete(post._id)}
 //                   >
-//                     Supprimer
+//                     <FiTrash2 size={16} />
 //                   </button>
 //                 </div>
 //               )}
@@ -204,16 +205,15 @@ import React, {
   useEffect,
   useState,
   useRef,
-  Suspense,
   useCallback,
+  Suspense,
 } from "react"
 import Lottie from "lottie-react"
 import { useLocation, useNavigate } from "react-router-dom"
-import { FiEdit, FiTrash2 } from "react-icons/fi" // Import des icônes
+import { FiEdit, FiTrash2 } from "react-icons/fi"
 import BaseUrl from "../components/BaseUrl"
 import PostCard from "../components/PostCard"
 import Tourist from "../assets/animations/tourist.json"
-import Profil from "./Profil"
 
 function Posts() {
   const location = useLocation()
@@ -302,10 +302,14 @@ function Posts() {
     }
   }, [page])
 
-  const getDateFromDB = (date) => {
-    return (
-      date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
-    )
+  const formatDate = (dateString) => {
+    const date = new Date(dateString)
+    if (isNaN(date)) return null
+    return date.toLocaleDateString("fr-FR", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })
   }
 
   const handleDelete = async (id) => {
@@ -372,21 +376,23 @@ function Posts() {
                   navigate("details/" + post._id)
                 }}
                 ref={index === posts.length - 1 ? lastPostElementRef : null}
-                date={post.dateDebut && getDateFromDB(new Date(post.dateDebut))}
+                date={post.dateDebut ? formatDate(post.dateDebut) : null}
               />
-              {user && user.isAdmin && (
-                <div className="absolute top-2 right-0 flex gap-2 p-2 z-30">
+              {user && user.role === "admin" && (
+                <div className="absolute top-2 right-2 flex space-x-2">
                   <button
-                    className="bg-blue-500 text-white p-2 rounded-full flex items-center justify-center"
-                    onClick={() => navigate(`/posts/modify/${post._id}`)}
+                    className="bg-yellow-300 p-2 rounded-full flex items-center justify-center shadow-md"
+                    onClick={() =>
+                      navigate("/modifierPost", { state: { post } })
+                    }
                   >
-                    <FiEdit size={16} />
+                    <FiEdit />
                   </button>
                   <button
-                    className="bg-red-500 text-white p-2 rounded-full flex items-center justify-center"
+                    className="bg-red-500 text-white p-2 rounded-full flex items-center justify-center shadow-md"
                     onClick={() => handleDelete(post._id)}
                   >
-                    <FiTrash2 size={16} />
+                    <FiTrash2 />
                   </button>
                 </div>
               )}
@@ -394,9 +400,14 @@ function Posts() {
           ))}
         </Suspense>
       </div>
-      {loading && <Loading />}
+      {loading && (
+        <div className="flex justify-center mt-10">
+          <Loading />
+        </div>
+      )}
     </div>
   )
 }
 
 export default Posts
+
