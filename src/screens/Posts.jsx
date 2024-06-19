@@ -251,6 +251,7 @@ function Posts() {
         },
       })
       setUser(response.data)
+      console.log(response.data)
     } catch (error) {
       console.error("Error fetching user data:", error)
     }
@@ -378,8 +379,8 @@ function Posts() {
                 ref={index === posts.length - 1 ? lastPostElementRef : null}
                 date={post.dateDebut ? formatDate(post.dateDebut) : null}
               />
-              {user && user.role === "admin" && (
-                <div className="absolute top-2 right-2 flex space-x-2">
+              {user && user.isAdmin == true && (
+                <div className="absolute top-2 right-2 flex space-x-2 z-40">
                   <button
                     className="bg-yellow-300 p-2 rounded-full flex items-center justify-center shadow-md"
                     onClick={() =>
@@ -410,4 +411,3 @@ function Posts() {
 }
 
 export default Posts
-
