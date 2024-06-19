@@ -383,9 +383,7 @@ function Posts() {
                 <div className="absolute top-2 right-2 flex space-x-2 z-40">
                   <button
                     className="bg-yellow-300 p-2 rounded-full flex items-center justify-center shadow-md"
-                    onClick={() =>
-                      navigate("/modifierPost", { state: { post } })
-                    }
+                    onClick={() => navigate(`/posts/modify/${post._id}`)}
                   >
                     <FiEdit />
                   </button>
