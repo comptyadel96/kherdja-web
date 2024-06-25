@@ -19,7 +19,8 @@ function Home() {
     try {
       const posts = await axios.get(`${BaseUrl}/posts`)
       const fetchedPosts = posts.data.posts
-      setLastPosts(fetchedPosts)
+      const filteredPosts = fetchPosts.filter((post) => post.aLaUne)
+      setLastPosts(filteredPosts)
 
       const currentDate = new Date()
 
@@ -73,7 +74,7 @@ function Home() {
         <div className="flex items-center justify-center mx-auto lg:mb-10">
           <div className="h-1 lg:w-20 w-7 bg-yellow-300 mx-2" />
           <h2 className="lg:text-4xl text-2xl lg:my-0 my-4 text-center">
-            Les posts les plus récents
+            À La Une
           </h2>
           <div className="h-1 lg:w-20 w-12 bg-yellow-300 mx-2" />
         </div>

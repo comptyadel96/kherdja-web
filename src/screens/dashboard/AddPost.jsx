@@ -15,10 +15,10 @@ import { fr } from "date-fns/locale/fr"
 import CustomFilesInput from "../../components/CustomFilesInput"
 import ReactQuill from "react-quill"
 import "react-quill/dist/quill.snow.css"
+import Switch from "react-switch"
 
 registerLocale("fr", fr)
 setDefaultLocale("fr")
-
 
 const AddPost = () => {
   const [previewImage, setPreviewImage] = useState(null)
@@ -75,6 +75,7 @@ const AddPost = () => {
     organisateur: "",
     images: [],
     videos: [],
+    aLaUne: false,
   }
 
   // tous les types de postes :
@@ -104,117 +105,51 @@ const AddPost = () => {
     "Bons plans",
   ]
 
-  // const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-  //   console.log(values)
-  //   try {
-  //     const formData = new FormData()
-  //     formData.append("titre", values.titre)
-  //     formData.append("paragraphe", values.paragraphe)
-  //     formData.append("dateDebut", values.dateDebut)
-  //     formData.append("heureDebut", values.heureDebut)
-  //     formData.append("prix", values.prix)
-  //     formData.append("organisateur", values.organisateur)
-  //     formData.append("type", values.type)
-  //     formData.append("lieu", values.lieu)
-  //     formData.append("photo", values.photo)
-  //     values.images.forEach((image) => {
-  //       formData.append("images", image)
-  //     })
-  //     await axios.post(`${BaseUrl}/posts`, formData, {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //       },
-  //     })
-  //     resetForm()
-  //     setPreviewImage(null) // Supprimer l'image affichée après l'envoi du formulaire
-  //     setPreviewImages([])
-
-  //     alert("Article publier avec succeés !")
-  //   } catch (error) {
-  //     console.error("Erreur lors de l'envoi de la requête:", error)
-  //   } finally {
-  //     setSubmitting(false)
-  //   }
-  // }
-
-  // const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-  //   console.log(values)
-  //   try {
-  //     const formData = new FormData()
-  //     formData.append("titre", values.titre)
-  //     formData.append("paragraphe", values.paragraphe)
-  //     formData.append("dateDebut", values.dateDebut)
-  //     formData.append("heureDebut", values.heureDebut)
-  //     formData.append("prix", values.prix)
-  //     formData.append("organisateur", values.organisateur)
-  //     formData.append("type", values.type)
-  //     formData.append("lieu", values.lieu)
-  //     formData.append("photo", values.photo)
-  //     values.images.forEach((image) => {
-  //       formData.append("images", image)
-  //     })
-  //     values.videos.forEach((video) => {
-  //       formData.append("videos", video)
-  //     })
-
-  //     await axios.post(`${BaseUrl}/posts`, formData, {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //       },
-  //     })
-  //     resetForm()
-  //     setPreviewImage(null)
-  //     setPreviewImages([])
-  //     alert("Article publié avec succès !")
-  //   } catch (error) {
-  //     console.error("Erreur lors de l'envoi de la requête:", error)
-  //   } finally {
-  //     setSubmitting(false)
-  //   }
-  // }
-
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
-      const formData = new FormData()
-      formData.append("titre", values.titre)
-      formData.append("paragraphe", values.paragraphe)
-      formData.append("dateDebut", values.dateDebut)
-      formData.append("heureDebut", values.heureDebut)
-      formData.append("prix", values.prix)
-      formData.append("organisateur", values.organisateur)
-      formData.append("type", values.type)
-      formData.append("lieu", values.lieu)
-      if (values.photo) {
-        formData.append("photo", values.photo)
-      }
-      values.images.forEach((image) => {
-        formData.append("images", image)
-      })
-      values.videos.forEach((video) => {
-        formData.append("videos", video)
-      })
-      // Configurer Axios pour suivre la progression
-      const config = {
-        onUploadProgress: (progressEvent) => {
-          const { loaded, total } = progressEvent
-          const progress = Math.round((loaded * 100) / total)
-          setUploadProgress(progress)
-          console.log(progress)
-        },
-        headers: {
-          "Content-Type": "multipart/form-data", // Garder cet en-tête
-        },
-        withCredentials: true,
-      }
+      // const formData = new FormData()
+      // formData.append("titre", values.titre)
+      // formData.append("paragraphe", values.paragraphe)
+      // formData.append("dateDebut", values.dateDebut)
+      // formData.append("heureDebut", values.heureDebut)
+      // formData.append("prix", values.prix)
+      // formData.append("organisateur", values.organisateur)
+      // formData.append("type", values.type)
+      // formData.append("lieu", values.lieu)
+      // if (values.photo) {
+      //   formData.append("photo", values.photo)
+      // }
+      // values.images.forEach((image) => {
+      //   formData.append("images", image)
+      // })
+      // values.videos.forEach((video) => {
+      //   formData.append("videos", video)
+      // })
+      // // Configurer Axios pour suivre la progression
+      // const config = {
+      //   onUploadProgress: (progressEvent) => {
+      //     const { loaded, total } = progressEvent
+      //     const progress = Math.round((loaded * 100) / total)
+      //     setUploadProgress(progress)
+      //     console.log(progress)
+      //   },
+      //   headers: {
+      //     "Content-Type": "multipart/form-data", // Garder cet en-tête
+      //   },
+      //   withCredentials: true,
+      // }
 
-      await axios.post(`${BaseUrl}/posts`, formData, config)
+      // await axios.post(`${BaseUrl}/posts`, formData, config)
       // resetForm()
       // setPreviewImage(null)
       // setPreviewImages([])
-      alert("Article publié avec succès !")
+      // alert("Article publié avec succès !")
+      console.log(values)
     } catch (error) {
       console.error("Erreur lors de l'envoi de la requête: ", error)
-      alert(error.response.data.message)
+      alert(
+        "Une erreur s'est produite.... contacter adel ou bien télécharger des images moins volumineuses ou bien la limite gratuite a été atteinte"
+      )
     } finally {
       setSubmitting(false)
     }
@@ -241,6 +176,19 @@ const AddPost = () => {
               placeholder="Le grand event arrive..."
             />
             <ErrorMessage name="titre" component="p" className="text-red-500" />
+
+            {/* À la une */}
+            <div className="flex items-center gap-4 my-3">
+              <h3 className="text-pink-400">À La Une ?</h3>
+              <Switch
+                onChange={() => setFieldValue("aLaUne", !values.aLaUne)}
+                checked={values.aLaUne}
+                onColor="#f0de11"
+                offColor="#f02211"
+                // onHandleColor="#0000"
+              />
+            </div>
+
             <label className="font-semibold lg:my-1" htmlFor="photo">
               Image de l&apos;article
             </label>
