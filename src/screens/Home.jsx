@@ -19,7 +19,8 @@ function Home() {
     try {
       const posts = await axios.get(`${BaseUrl}/posts`)
       const fetchedPosts = posts.data.posts
-      const filteredPosts = fetchPosts.filter((post) => post.aLaUne)
+      console.log(fetchedPosts)
+      const filteredPosts = fetchedPosts.filter((post) => post.aLaUne)
       setLastPosts(filteredPosts)
 
       const currentDate = new Date()
