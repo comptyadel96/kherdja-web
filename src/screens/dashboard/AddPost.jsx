@@ -107,43 +107,43 @@ const AddPost = () => {
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
-      // const formData = new FormData()
-      // formData.append("titre", values.titre)
-      // formData.append("paragraphe", values.paragraphe)
-      // formData.append("dateDebut", values.dateDebut)
-      // formData.append("heureDebut", values.heureDebut)
-      // formData.append("prix", values.prix)
-      // formData.append("organisateur", values.organisateur)
-      // formData.append("type", values.type)
-      // formData.append("lieu", values.lieu)
-      // if (values.photo) {
-      //   formData.append("photo", values.photo)
-      // }
-      // values.images.forEach((image) => {
-      //   formData.append("images", image)
-      // })
-      // values.videos.forEach((video) => {
-      //   formData.append("videos", video)
-      // })
-      // // Configurer Axios pour suivre la progression
-      // const config = {
-      //   onUploadProgress: (progressEvent) => {
-      //     const { loaded, total } = progressEvent
-      //     const progress = Math.round((loaded * 100) / total)
-      //     setUploadProgress(progress)
-      //     console.log(progress)
-      //   },
-      //   headers: {
-      //     "Content-Type": "multipart/form-data", // Garder cet en-tête
-      //   },
-      //   withCredentials: true,
-      // }
+      const formData = new FormData()
+      formData.append("titre", values.titre)
+      formData.append("paragraphe", values.paragraphe)
+      formData.append("dateDebut", values.dateDebut)
+      formData.append("heureDebut", values.heureDebut)
+      formData.append("prix", values.prix)
+      formData.append("organisateur", values.organisateur)
+      formData.append("type", values.type)
+      formData.append("lieu", values.lieu)
+      if (values.photo) {
+        formData.append("photo", values.photo)
+      }
+      values.images.forEach((image) => {
+        formData.append("images", image)
+      })
+      values.videos.forEach((video) => {
+        formData.append("videos", video)
+      })
+      // Configurer Axios pour suivre la progression
+      const config = {
+        onUploadProgress: (progressEvent) => {
+          const { loaded, total } = progressEvent
+          const progress = Math.round((loaded * 100) / total)
+          setUploadProgress(progress)
+          console.log(progress)
+        },
+        headers: {
+          "Content-Type": "multipart/form-data", // Garder cet en-tête
+        },
+        withCredentials: true,
+      }
 
-      // await axios.post(`${BaseUrl}/posts`, formData, config)
-      // resetForm()
-      // setPreviewImage(null)
-      // setPreviewImages([])
-      // alert("Article publié avec succès !")
+      await axios.post(`${BaseUrl}/posts`, formData, config)
+      resetForm()
+      setPreviewImage(null)
+      setPreviewImages([])
+      alert("Article publié avec succès !")
       console.log(values)
     } catch (error) {
       console.error("Erreur lors de l'envoi de la requête: ", error)

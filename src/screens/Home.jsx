@@ -14,12 +14,13 @@ function Home() {
   const [lastPosts, setLastPosts] = useState([])
   const [currentEvents, setCurrentEvents] = useState([])
   const [upcomingEvents, setUpcomingEvents] = useState([])
+  const [actus, setActus] = useState([])
 
   const fetchPosts = async () => {
     try {
       const posts = await axios.get(`${BaseUrl}/posts`)
       const fetchedPosts = posts.data.posts
-      console.log(fetchedPosts)
+      // console.log(fetchedPosts)
       const filteredPosts = fetchedPosts.filter((post) => post.aLaUne)
       setLastPosts(filteredPosts)
 
@@ -44,8 +45,20 @@ function Home() {
     }
   }
 
+  // fetch actus
+  const getActus = async () => {
+    try {
+      const actus = await axios.get(`${BaseUrl}/posts?type=News`)
+      setActus(actus.data.posts)
+      // console.log(actus.data.posts)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
     fetchPosts()
+    getActus()
   }, [])
 
   const isSameDay = (date1, date2) => {
@@ -148,11 +161,11 @@ function Home() {
       {/* En ce moment */}
       <div className="my-6 flex items-center">
         <div className="h-1 lg:w-14 w-7 bg-yellow-300 mx-2" />
-        <h2 className="lg:text-4xl text-2xl font-bold">En ce moment</h2>
+        <h2 className="lg:text-4xl text-2xl font-bold">Actus</h2>
         <div className="h-1 lg:w-14 w-7 bg-yellow-300 mx-2" />
       </div>
       <div className="flex mb-5 gap-4 flex-wrap justify-center">
-        {currentEvents.length === 0 ? (
+        {actus.length === 0 ? (
           <div className="flex flex-col items-center">
             <img
               src="/images/article.png"
@@ -160,11 +173,11 @@ function Home() {
               alt=""
             />
             <p className="my-2 lg:text-xl text-lg">
-              Aucun événement en cours pour le moment...
+              Pas d&apos;actualité pour le moment
             </p>
           </div>
         ) : (
-          currentEvents.map((post) => (
+          actus.map((post) => (
             <PostCard
               photo={post.photo}
               onClick={() => navigate("/posts/details/" + post._id)}

@@ -267,7 +267,10 @@ function Posts() {
           limit: 10,
         },
       })
-      const newPosts = response.data.posts
+      const newPosts =
+        selectedType !== "Hôtels"
+          ? response.data.posts
+          : response.data.posts.reverse()
 
       setPosts((prevPosts) => {
         const postIds = new Set(prevPosts.map((post) => post._id))
