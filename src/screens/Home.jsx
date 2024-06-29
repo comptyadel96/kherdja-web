@@ -23,6 +23,7 @@ function Home() {
       // console.log(fetchedPosts)
       const filteredPosts = fetchedPosts.filter((post) => post.aLaUne)
       setLastPosts(filteredPosts)
+      console.log(fetchedPosts)
 
       const currentDate = new Date()
 
