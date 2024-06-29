@@ -116,6 +116,7 @@ const AddPost = () => {
       formData.append("organisateur", values.organisateur)
       formData.append("type", values.type)
       formData.append("lieu", values.lieu)
+      formData.append("aLaUne", values.aLaUne)
       if (values.photo) {
         formData.append("photo", values.photo)
       }
@@ -140,7 +141,7 @@ const AddPost = () => {
       }
 
       await axios.post(`${BaseUrl}/posts`, formData, config)
-      resetForm()
+      // resetForm()
       setPreviewImage(null)
       setPreviewImages([])
       alert("Article publié avec succès !")
