@@ -256,30 +256,57 @@ function PostDetails() {
           {!isImageLoaded && (
             <Skeleton height={384} width={"32rem"} className="mt-3" />
           )}
-          <div className="flex xl:flex-nowrap flex-wrap pr-3 w-full ">
+          <div className="flex xl:flex-nowrap gap-2 flex-wrap  w-full ">
             <img
               src={post.photo}
               alt=""
-              className="lg:max-h-[35rem] max-h-96 object-contain mt-3 border-r border-b pb-3 pr-3 border-r-yellow-400 border-b-yellow-400 "
+              className={`lg:max-h-[35rem] ${
+                post.images && post.images.length > 0 ? "" : "mx-auto"
+              } max-h-96 object-contain mt-3`}
               style={{ display: isImageLoaded ? "block" : "none" }}
               onLoad={() => setIsImageLoaded(true)}
             />
-            <div className="flex flex-col lg:mx-6 lg:p-0 p-4">
-              <h1 className="lg:text-4xl text-2xl lg:my-5 my-3   truncate text-wrap ">
-                {post.titre}
-              </h1>
-              {/* <p
-                className="lg:p-6 text-justify leading-loose lg:text-lg  border-t border-black  break-words"
-                style={{ wordWrap: "break-word", overflowWrap: "break-word" }}
-              > */}
-              <div className=" text-justify break-words text-lg">
-                {parse(post.paragraphe)}
+            {/* gallerie photo */}
+            {post.images && post.images.length > 0 && (
+              <div className="flex items-center gap-2  flex-wrap relative  ">
+                {post.images.map((img, index) => (
+                  <a
+                    href={img}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative"
+                    key={index}
+                    onMouseEnter={(e) => console.log(index)}
+                  >
+                    
+                    <img
+                      src={img}
+                      alt="img"
+                      className={`${
+                        post.images.length > 2 ? "lg:w-52" : "lg:w-[30rem]"
+                      }  object-contain`}
+                      onLoad={() => setIsImageLoaded(true)}
+                    />
+                  </a>
+                ))}
               </div>
-              {/* </p> */}
-            </div>
+            )}
           </div>
         </>
       )}
+      <div className="flex flex-col justify-center  p-4 mx-auto">
+        <h1 className="lg:text-4xl text-2xl lg:my-5 my-3  lg:pl-2 border-l-4 border-l-yellow-300 truncate text-wrap ">
+          {post.titre}
+        </h1>
+        {/* <p
+                className="lg:p-6 text-justify leading-loose lg:text-lg  border-t border-black  break-words"
+                style={{ wordWrap: "break-word", overflowWrap: "break-word" }}
+              > */}
+        <div className=" text-justify break-words text-lg lg:max-w-[95%] ">
+          {parse(post.paragraphe)}
+        </div>
+        {/* </p> */}
+      </div>
 
       {post && (
         <div className="flex flex-col lg:px-6 gap-6 w-full items-center my-4">
@@ -345,36 +372,6 @@ function PostDetails() {
 
               <div className="absolute w-[90%] z-10 bg-yellow-300 h-[100%] -right-[1rem] top-3 border border-black rounded-md" />
             </div>
-
-            {/* gallerie photo */}
-            {post.images && post.images.length > 0 && (
-              <div className="relative flex">
-                <div className="flex flex-col gap-2 bg-white border z-30 border-black rounded-md lg:p-9">
-                  <div className="flex items-center gap-2 self-start">
-                    <div className="w-7 h-1 bg-yellow-300" />
-                    <h2 className="lg:text-3xl text-lg">Gallerie photo</h2>
-                  </div>
-                  <div className="flex items-center gap-6 flex-wrap">
-                    {post.images.map((img, index) => (
-                      <a
-                        href={img}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        key={index}
-                      >
-                        <img
-                          src={img}
-                          alt="img"
-                          className="lg:w-52 object-contain"
-                          onLoad={() => setIsImageLoaded(true)}
-                        />
-                      </a>
-                    ))}
-                  </div>
-                </div>
-                <div className="absolute w-[95%] z-10 bg-yellow-300 h-[100%] -right-[1rem] top-3 border border-black rounded-md" />
-              </div>
-            )}
 
             {/* vidéos */}
             {post.videos && post.videos.length > 0 && (

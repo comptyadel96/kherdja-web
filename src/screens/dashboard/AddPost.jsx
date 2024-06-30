@@ -142,8 +142,8 @@ const AddPost = () => {
 
       await axios.post(`${BaseUrl}/posts`, formData, config)
       // resetForm()
-      setPreviewImage(null)
-      setPreviewImages([])
+      // setPreviewImage(null)
+      // setPreviewImages([])
       alert("Article publié avec succès !")
       console.log(values)
     } catch (error) {
@@ -171,6 +171,7 @@ const AddPost = () => {
             <label className="font-semibold" htmlFor="titre">
               Titre de l'article :
             </label>
+
             <Field
               name="titre"
               className="shadow-md ml-2 my-2 border border-black rounded-md pl-1"
@@ -180,13 +181,15 @@ const AddPost = () => {
 
             {/* À la une */}
             <div className="flex items-center gap-4 my-3">
-              <h3 className="text-pink-400">À La Une ?</h3>
+              <h3 className="px-3 py-1 bg-yellow-300 border border-black rounded-lg">À La Une ?</h3>
               <Switch
-                onChange={() => setFieldValue("aLaUne", !values.aLaUne)}
+                onChange={(value) => {
+                  console.log(value)
+                  setFieldValue("aLaUne", value)
+                }}
                 checked={values.aLaUne}
                 onColor="#f0de11"
                 offColor="#f02211"
-                // onHandleColor="#0000"
               />
             </div>
 

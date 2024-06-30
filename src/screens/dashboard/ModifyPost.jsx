@@ -590,6 +590,7 @@ import ReactQuill from "react-quill"
 import { registerLocale } from "react-datepicker"
 import { fr } from "date-fns/locale/fr"
 import { useParams } from "react-router-dom"
+import Switch from "react-switch"
 
 registerLocale("fr", fr)
 Modal.setAppElement("#root")
@@ -684,66 +685,68 @@ const ModifyPost = ({}) => {
     "Bons plans",
   ]
 
-    const [initialValues, setInitialValues] = useState({
-      titre: "",
-      photo: null,
-      paragraphe: "",
-      lieu: "",
-      dateDebut: "",
-      heureDebut: "",
-      prix: "",
-      organisateur: "",
-      images: [],
-      videos: [],
-      type: "",
-    })
+  const [initialValues, setInitialValues] = useState({
+    titre: "",
+    photo: null,
+    paragraphe: "",
+    lieu: "",
+    dateDebut: "",
+    heureDebut: "",
+    prix: "",
+    organisateur: "",
+    images: [],
+    videos: [],
+    type: "",
+    aLaUne:"",
+  })
 
-    const isValidDate = (date) => {
-      return date instanceof Date && !isNaN(date)
-    }
+  const isValidDate = (date) => {
+    return date instanceof Date && !isNaN(date)
+  }
 
-    useEffect(() => {
-      const fetchPost = async () => {
-        try {
-          const response = await axios.get(`${BaseUrl}/posts/${id}`)
-          const post = response.data
-          setPost(post)
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const response = await axios.get(`${BaseUrl}/posts/${id}`)
+        const post = response.data
+        setPost(post)
 
-          const parsedDateDebut = new Date(post.dateDebut)
-          const parsedHeureDebut = new Date(post.heureDebut)
+        const parsedDateDebut = new Date(post.dateDebut)
+        const parsedHeureDebut = new Date(post.heureDebut)
 
-          setInitialValues({
-            titre: post.titre,
-            photo: post.photo,
-            paragraphe: post.paragraphe,
-            lieu: post.lieu,
-            dateDebut: isValidDate(parsedDateDebut)
-              ? parsedDateDebut
-              : new Date(),
-            heureDebut: isValidDate(parsedHeureDebut)
-              ? parsedHeureDebut
-              : new Date(),
-            prix: post.prix,
-            organisateur: post.organisateur,
-            images: post.images,
-            videos: post.videos,
-            type: post.type,
-          })
-          setSelectedOption(post.type)
-          setStartDate(
-            isValidDate(parsedDateDebut) ? parsedDateDebut : new Date()
-          )
-          setStartTime(
-            isValidDate(parsedHeureDebut) ? parsedHeureDebut : new Date()
-          )
-          setPreviewImage(post.photo)
-          setPreviewImages(post.images)
-        } catch (error) {
-          console.error("Erreur lors de la récupération de l'article:", error)
-        }
+        setInitialValues({
+          titre: post.titre,
+          photo: post.photo,
+          paragraphe: post.paragraphe,
+          lieu: post.lieu,
+          dateDebut: isValidDate(parsedDateDebut)
+            ? parsedDateDebut
+            : new Date(),
+          heureDebut: isValidDate(parsedHeureDebut)
+            ? parsedHeureDebut
+            : new Date(),
+          prix: post.prix,
+          organisateur: post.organisateur,
+          images: post.images,
+          videos: post.videos,
+          type: post.type,
+          aLaUne: post.aLaUne || null,
+        })
+        setSelectedOption(post.type)
+        setStartDate(
+          isValidDate(parsedDateDebut) ? parsedDateDebut : new Date()
+        )
+        setStartTime(
+          isValidDate(parsedHeureDebut) ? parsedHeureDebut : new Date()
+        )
+        setPreviewImage(post.photo)
+        setPreviewImages(post.images)
+      } catch (error) {
+        console.error("Erreur lors de la récupération de l'article:", error)
       }
-      fetchPost()
-    }, [id])
+    }
+    fetchPost()
+  }, [id])
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
@@ -781,6 +784,7 @@ const ModifyPost = ({}) => {
 
       await axios.put(`${BaseUrl}/posts/${id}`, formData, config)
       alert("Article modifié avec succès !")
+      console.log(values)
     } catch (error) {
       console.error("Erreur lors de l'envoi de la requête: ", error)
       alert(error.response.data.message)
@@ -824,6 +828,22 @@ const ModifyPost = ({}) => {
               placeholder="Le grand event arrive..."
             />
             <ErrorMessage name="titre" component="p" className="text-red-500" />
+            {/* À la une */}
+            <div className="flex items-center gap-4 my-3">
+              <h3 className="px-3 py-1 bg-yellow-300 border border-black rounded-lg">
+                À La Une ?
+              </h3>
+              <Switch
+                onChange={(value) => {
+                  console.log(value)
+                  setFieldValue("aLaUne", value)
+                }}
+                checked={values.aLaUne}
+                onColor="#f0de11"
+                offColor="#f02211"
+              />
+            </div>
+
             <label className="font-semibold lg:my-1" htmlFor="photo">
               Image de l&apos;article
             </label>
