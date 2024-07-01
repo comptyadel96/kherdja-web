@@ -256,19 +256,19 @@ function PostDetails() {
           {!isImageLoaded && (
             <Skeleton height={384} width={"32rem"} className="mt-3" />
           )}
-          <div className="flex xl:flex-nowrap gap-2 flex-wrap  w-full lg:mt-6 ">
+          <div className="flex p gap-2 flex-wrap  w-full lg:mt-6 ">
             <img
               src={post.photo}
               alt=""
               className={`lg:max-h-[35rem] ${
                 post.images && post.images.length > 0 ? "" : "mx-auto"
-              } max-h-96 object-contain rounded-md`}
+              } max-h-96 object-contain rounded-md mt-3`}
               style={{ display: isImageLoaded ? "block" : "none" }}
               onLoad={() => setIsImageLoaded(true)}
             />
             {/* gallerie photo */}
             {post.images && post.images.length > 0 && (
-              <div className="flex items-center gap-2  flex-wrap relative self-start bg-white ">
+              <div className="flex items-center gap-2  flex-wrap relative self-start bg-white  ">
                 {post.images.map((img, index) => (
                   <a
                     href={img}
@@ -284,7 +284,7 @@ function PostDetails() {
                       alt="img"
                       className={`${
                         post.images.length > 2 ? "lg:w-52" : "lg:w-[30rem]"
-                      }  object-contain`}
+                      }  object-contain w-48`}
                       onLoad={() => setIsImageLoaded(true)}
                     />
                   </a>
