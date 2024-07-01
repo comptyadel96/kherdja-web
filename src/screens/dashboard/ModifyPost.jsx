@@ -697,7 +697,7 @@ const ModifyPost = ({}) => {
     images: [],
     videos: [],
     type: "",
-    aLaUne:"",
+    aLaUne: "",
   })
 
   const isValidDate = (date) => {
@@ -759,6 +759,7 @@ const ModifyPost = ({}) => {
       formData.append("organisateur", values.organisateur)
       formData.append("type", values.type)
       formData.append("lieu", values.lieu)
+      formData.append("aLaUne", values.aLaUne)
       if (values.photo) {
         formData.append("photo", values.photo)
       }
@@ -813,6 +814,7 @@ const ModifyPost = ({}) => {
           photo: null,
           images: [],
           videos: [],
+          aLaUne: post.aLaUne || false,
         }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}

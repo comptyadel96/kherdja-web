@@ -241,7 +241,7 @@ function PostDetails() {
   }
 
   return (
-    <div className="flex flex-col items-center lg:py-10 py-5 w-full">
+    <div className="flex flex-col items-center lg:py-10 py-5 w-full bg-gray-100">
       <div className="flex justify-between flex-wrap w-full">
         {post && (
           <span className="text-4xl px-4 py-2 lg:my-0 mb-4 bg-yellow-300">
@@ -256,19 +256,19 @@ function PostDetails() {
           {!isImageLoaded && (
             <Skeleton height={384} width={"32rem"} className="mt-3" />
           )}
-          <div className="flex xl:flex-nowrap gap-2 flex-wrap  w-full ">
+          <div className="flex xl:flex-nowrap gap-2 flex-wrap  w-full lg:mt-6 ">
             <img
               src={post.photo}
               alt=""
               className={`lg:max-h-[35rem] ${
                 post.images && post.images.length > 0 ? "" : "mx-auto"
-              } max-h-96 object-contain mt-3`}
+              } max-h-96 object-contain rounded-md`}
               style={{ display: isImageLoaded ? "block" : "none" }}
               onLoad={() => setIsImageLoaded(true)}
             />
             {/* gallerie photo */}
             {post.images && post.images.length > 0 && (
-              <div className="flex items-center gap-2  flex-wrap relative  ">
+              <div className="flex items-center gap-2  flex-wrap relative self-start bg-white ">
                 {post.images.map((img, index) => (
                   <a
                     href={img}
@@ -294,7 +294,7 @@ function PostDetails() {
           </div>
         </>
       )}
-      <div className="flex flex-col justify-center  p-4 mx-auto">
+      <div className="flex flex-col justify-center  lg:p-8 p-4 mx-auto bg-white lg:max-w-[90%] lg:mt-8 border shadow">
         <h1 className="lg:text-4xl text-2xl lg:my-5 my-3  lg:pl-2 border-l-4 border-l-yellow-300 truncate text-wrap ">
           {post.titre}
         </h1>

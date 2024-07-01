@@ -114,7 +114,7 @@ function Navbar() {
   return (
     <>
       {/* desktop nav */}
-      <nav className="lg:flex hidden shadow-md items-center mb-4 justify-center relative mt-5 z-40">
+      <nav className="lg:flex hidden shadow-md items-center  justify-center relative mt-5 z-40">
         <ul className="bg-gradient-to-br from-yellow-300 to-yellow-400 py-3 gap-3 w-full flex font-semibold justify-center text-xl">
           <li
             className="mx-3"
