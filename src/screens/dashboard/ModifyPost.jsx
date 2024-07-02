@@ -605,6 +605,7 @@ const ModifyPost = ({}) => {
   const [startTime, setStartTime] = useState(new Date())
   const [startDate, setStartDate] = useState(new Date())
   const [uploadProgress, setUploadProgress] = useState(0)
+  const [isALaUne, setIsALaUne] = useState()
 
   // useEffect(() => {
   //   const fetchPost = async () => {
@@ -710,6 +711,7 @@ const ModifyPost = ({}) => {
         const response = await axios.get(`${BaseUrl}/posts/${id}`)
         const post = response.data
         setPost(post)
+        setIsALaUne(post.data.aLaUne)
 
         const parsedDateDebut = new Date(post.dateDebut)
         const parsedHeureDebut = new Date(post.heureDebut)
@@ -839,8 +841,9 @@ const ModifyPost = ({}) => {
                 onChange={(value) => {
                   console.log(value)
                   setFieldValue("aLaUne", value)
+                  setIsALaUne(!isALaUne)
                 }}
-                checked={post && post.aLaUne}
+                checked={post && isALaUne}
                 onColor="#f0de11"
                 offColor="#f02211"
               />
