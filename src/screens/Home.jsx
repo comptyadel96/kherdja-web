@@ -19,11 +19,12 @@ function Home() {
   const fetchPosts = async () => {
     try {
       const posts = await axios.get(`${BaseUrl}/posts`)
+      const aLaUne = await axios.get(`${BaseUrl}/posts/aLaUne`)
       const fetchedPosts = posts.data.posts
       // console.log(fetchedPosts)
-      const filteredPosts = fetchedPosts.filter((post) => post.aLaUne)
-      setLastPosts(filteredPosts)
-      console.log(fetchedPosts)
+      const filteredPosts = fetchedPosts.filter((post) => post.aLaUne === true)
+      setLastPosts(aLaUne.data)
+      console.log(aLaUne.data)
 
       const currentDate = new Date()
 
@@ -39,7 +40,7 @@ function Home() {
         }
       })
 
-      setCurrentEvents(current)
+      // setCurrentEvents(current)
       setUpcomingEvents(upcoming)
     } catch (error) {
       console.log(error)
@@ -97,7 +98,7 @@ function Home() {
         <div className="lg:py-16 py-4 relative bg-dot flex flex-col">
           <Slider
             autoplay
-            slidesToScroll={1}
+            slidesToScroll={2}
             slidesToShow={4}
             speed={1000}
             vertical={false} // Assurez-vous que vertical soit défini sur false
