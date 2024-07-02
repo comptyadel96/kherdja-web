@@ -47,7 +47,7 @@ function Navbar() {
       })
       if (currUser.status === 200) {
         setConnected(true)
-        console.log(currUser.data)
+        // console.log(currUser.data)
       } else {
         setConnected(false)
       }

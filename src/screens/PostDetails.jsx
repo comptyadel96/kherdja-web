@@ -203,7 +203,7 @@ function PostDetails() {
   const getPost = async () => {
     try {
       const post = await axios.get(`${BaseUrl}/posts/${id}`)
-      console.log(post.data)
+      // console.log(post.data)
       setPost(post.data)
       setTimeout(() => {
         setLoading(false)
