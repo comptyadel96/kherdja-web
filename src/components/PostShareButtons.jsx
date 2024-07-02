@@ -68,7 +68,7 @@ import { FaSquareXTwitter } from "react-icons/fa6"
 
 const PostShareButtons = ({ post }) => {
   // URL du post
-  const postUrl = `https://kherdja.netlify.app/posts/details/${
+  const postUrl = `https://kherdja.com/posts/details/${
     post && post._id
   }`
 

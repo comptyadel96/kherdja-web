@@ -840,7 +840,7 @@ const ModifyPost = ({}) => {
                   console.log(value)
                   setFieldValue("aLaUne", value)
                 }}
-                checked={values.aLaUne}
+                checked={post && post.aLaUne}
                 onColor="#f0de11"
                 offColor="#f02211"
               />
