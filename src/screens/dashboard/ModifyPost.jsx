@@ -711,7 +711,7 @@ const ModifyPost = ({}) => {
         const response = await axios.get(`${BaseUrl}/posts/${id}`)
         const post = response.data
         setPost(post)
-        setIsALaUne(post.data.aLaUne)
+        setIsALaUne(post && post.aLaUne)
 
         const parsedDateDebut = new Date(post.dateDebut)
         const parsedHeureDebut = new Date(post.heureDebut)
