@@ -68,7 +68,7 @@ function Navbar() {
     const subMenuItems = {
       Actus: [
         { type: "News", label: "News" },
-        { type: "Poeple", label: "Poeple" },
+        { type: "Poeple", label: "People" },
       ],
       Culture: [
         { type: "Concert et musique", label: "Concert et musique" },
@@ -93,7 +93,7 @@ function Navbar() {
       ],
       Voyage: [
         { type: "Hôtels", label: "Hôtels" },
-        { type: "Maisons d'hôtes", label: "Maisons d'hôtes" },
+        { type: "Maisons d'hôtes", label: "Camping et Maisons d'hôtes" },
         { type: "Excursions", label: "Excursions" },
       ],
     }
@@ -115,9 +115,9 @@ function Navbar() {
     <>
       {/* desktop nav */}
       <nav className="lg:flex hidden shadow-md items-center  justify-center relative mt-5 z-40">
-        <ul className="bg-gradient-to-br from-yellow-300 to-yellow-400 py-3 gap-3 w-full flex font-semibold justify-center text-xl">
+        <ul className="bg-gradient-to-br from-yellow-300 to-yellow-400 py-3 xl:gap-3 gap-1 w-full flex font-semibold justify-center xl:text-xl">
           <li
-            className="mx-3"
+            className="xl:mx-3 mx-2"
             onMouseEnter={() => handleMouseEnter("Actus")}
             onMouseLeave={handleMouseLeave}
           >
@@ -131,7 +131,7 @@ function Navbar() {
             )}
           </li>
           <li
-            className="mx-3"
+            className="xl:mx-3 mx-2"
             onMouseEnter={() => handleMouseEnter("Culture")}
             onMouseLeave={handleMouseLeave}
           >
@@ -150,7 +150,7 @@ function Navbar() {
             )}
           </li>
           <li
-            className="mx-3"
+            className="xl:mx-3 mx-2"
             onMouseEnter={() => handleMouseEnter("Ou manger")}
             onMouseLeave={handleMouseLeave}
           >
@@ -164,7 +164,7 @@ function Navbar() {
             )}
           </li>
           <li
-            className="mx-3"
+            className="xl:mx-3 mx-2"
             onMouseEnter={() => handleMouseEnter("Loisir")}
             onMouseLeave={handleMouseLeave}
           >
@@ -178,7 +178,7 @@ function Navbar() {
             )}
           </li>
           <li
-            className="mx-3"
+            className="xl:mx-3 mx-2"
             onMouseEnter={() => handleMouseEnter("Voyage")}
             onMouseLeave={handleMouseLeave}
           >
