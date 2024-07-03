@@ -81,9 +81,9 @@ function Home() {
 
   return (
     <div className="flex flex-col items-center bg-gray-100">
-      <div className="lg:w-[55%] w-[95%] flex md:mt-4 justify-center items-center">
-        <img src="/images/logo-ooredoo.png" alt="" className="object-contain" />
-      </div>
+      {/* <div className="lg:w-[55%] w-[95%] flex md:mt-4 justify-center items-center">
+        <img src="/images/logo-ooredoo.png" alt="" className="object-contain w-full" />
+      </div> */}
 
       {/* Carrousel de publications importantes */}
       <div className="rounded-xl w-[95%] lg:my-20 my-10">
@@ -152,13 +152,13 @@ function Home() {
       </div>
 
       {/* Banniére pub 2 */}
-      <div className="w-full flex justify-center">
+      {/* <div className="w-full flex justify-center">
         <img
           src="/images/samsung.jpeg"
           alt=""
           className="object-fill lg:w-[70%] w-full h-44"
         />
-      </div>
+      </div> */}
 
       {/* En ce moment */}
       <div className="my-6 flex items-center">
@@ -192,13 +192,13 @@ function Home() {
       </div>
 
       {/* Banniére pub 3 */}
-      <div className="w-full flex justify-center mb-5">
+      {/* <div className="w-full flex justify-center mb-5">
         <img
           src="/images/fanta.jpg"
           alt=""
           className="object-fill lg:w-[60%] w-full h-44"
         />
-      </div>
+      </div> */}
 
       {/* Prochainement */}
       <div className="lg:my-5 flex items-center">
