@@ -606,6 +606,7 @@ const ModifyPost = ({}) => {
   const [startDate, setStartDate] = useState(new Date())
   const [uploadProgress, setUploadProgress] = useState(0)
   const [isALaUne, setIsALaUne] = useState()
+  const [count, setCount] = useState(0)
 
   // useEffect(() => {
   //   const fetchPost = async () => {
@@ -748,7 +749,7 @@ const ModifyPost = ({}) => {
       }
     }
     fetchPost()
-  }, [id])
+  }, [id, count])
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
@@ -793,6 +794,24 @@ const ModifyPost = ({}) => {
       alert(error.response.data.message)
     } finally {
       setSubmitting(false)
+    }
+  }
+
+  // delete photo
+  const deletePhoto = async (photoId) => {
+    try {
+      const request = await axios.post(
+        `${BaseUrl}/posts/deletePhoto`,
+        { photo: photoId, postId: post._id },
+        {
+          withCredentials: true,
+        }
+      )
+      if (request.status == 200) {
+        setCount((prev) => prev + 1)
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -870,25 +889,36 @@ const ModifyPost = ({}) => {
             <ErrorMessage name="photo" component="div" />
 
             {/* images gallerie */}
-            <div className="my-3  ">
-              <CustomFilesInput
-                onChange={(selectedFiles) => {
-                  setPreviewImages(selectedFiles)
-                  setFieldValue(
-                    "images",
-                    selectedFiles.filter((file) =>
-                      file.type.startsWith("image")
-                    )
-                  )
-                  setFieldValue(
-                    "videos",
-                    selectedFiles.filter((file) =>
-                      file.type.startsWith("video")
-                    )
-                  )
-                }}
-              />
+            <div className="my-3 flex gap-3 flex-wrap w-full">
+              {previewImages.map((img, index) => (
+                <div className="relative" key={index}>
+                  <button
+                    onClick={() => {
+                      deletePhoto(img)
+                      console.log(img)
+                    }}
+                    type="button"
+                    className="absolute bg-white text-xs px-3 rounded-sm text-red-600"
+                  >
+                    Supprimer la photo
+                  </button>
+                  <img src={img} className="object contain lg:max-w-40" />
+                </div>
+              ))}
             </div>
+            <CustomFilesInput
+              onChange={(selectedFiles) => {
+                setPreviewImages(selectedFiles)
+                setFieldValue(
+                  "images",
+                  selectedFiles.filter((file) => file.type.startsWith("image"))
+                )
+                setFieldValue(
+                  "videos",
+                  selectedFiles.filter((file) => file.type.startsWith("video"))
+                )
+              }}
+            />
 
             {/* paragraphe */}
             <label className="font-semibold lg:my-3" htmlFor="paragraphe">
