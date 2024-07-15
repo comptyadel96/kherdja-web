@@ -2,7 +2,7 @@ import React from "react"
 
 function Footer() {
   return (
-    <div className="flex lg:items-center flex-row  justify-evenly bg-gray-200 mt-auto lg:py-3 py-2">
+    <div className="flex lg:items-center flex-row  justify-evenly bg-white mt-auto lg:py-3 py-2">
       <div className="flex flex-col lg:mx-3 mx-1">
         <img
           src="/images/kherdja-black.png"

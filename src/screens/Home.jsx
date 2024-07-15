@@ -6,7 +6,7 @@ import PostCard from "../components/PostCard"
 import axios from "axios"
 import BaseUrl from "../components/BaseUrl"
 import { useNavigate } from "react-router-dom"
-
+import parse from "react-html-parser"
 import "../index.css"
 
 function Home() {
@@ -21,9 +21,8 @@ function Home() {
       const posts = await axios.get(`${BaseUrl}/posts`)
       const aLaUne = await axios.get(`${BaseUrl}/posts/aLaUne`)
       const fetchedPosts = posts.data.posts
-      // console.log(fetchedPosts)
-      const filteredPosts = fetchedPosts.filter((post) => post.aLaUne === true)
-      setLastPosts(aLaUne.data)
+
+      setLastPosts(aLaUne.data.slice(1))
       console.log(aLaUne.data)
 
       const currentDate = new Date()
@@ -40,7 +39,6 @@ function Home() {
         }
       })
 
-      // setCurrentEvents(current)
       setUpcomingEvents(upcoming)
     } catch (error) {
       console.log(error)
@@ -80,7 +78,7 @@ function Home() {
   // actus culture  excursion ( 20 dérniers posts )
 
   return (
-    <div className="flex flex-col items-center bg-gray-100">
+    <div className="flex flex-col items-center bg-striped  bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-yellow-50 via-white to-yellow-50">
       {/* <div className="lg:w-[55%] w-[95%] flex md:mt-4 justify-center items-center">
         <img src="/images/logo-ooredoo.png" alt="" className="object-contain w-full" />
       </div> */}
@@ -95,7 +93,25 @@ function Home() {
           <div className="h-1 lg:w-20 w-12 bg-yellow-300 mx-2" />
         </div>
 
-        <div className="lg:py-16 py-4 relative bg-dot flex flex-col">
+        <div className="lg:py-16 py-4 relative bg-dot min-h-[60vh] flex flex-col">
+          {lastPosts[0] && (
+            <div className="mx-auto  lg:mb-6 flex ">
+              <img
+                src={lastPosts[0].photo}
+                alt=""
+                className="object-contain w-[50%] "
+              />
+              <div className="flex flex-col items-center w-[45%] ">
+                <h2 className="lg:text-5xl text-2xl lg:my-5 my-3 pl-2 border-l-4 border-l-yellow-300 mx-auto text-white">
+                  {lastPosts[0].titre}{" "}
+                </h2>
+                <div className="text-justify break-words text-white lg:text-xl lg:max-w-[95%] lg:ml-6">
+                  {parse(lastPosts[0].paragraphe)}
+                </div>
+                <button className="px-3 py-1 bg-yellow-400 rounded">Voir Les Details</button>
+              </div>
+            </div>
+          )}
           <Slider
             autoplay
             slidesToScroll={2}

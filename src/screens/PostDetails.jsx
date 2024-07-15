@@ -1,5 +1,5 @@
 // import axios from "axios"
-// import React, { Suspense, useEffect, useState } from "react"
+// import React, { useEffect, useState } from "react"
 // import { useParams } from "react-router-dom"
 // import BaseUrl from "../components/BaseUrl"
 // import PostShareButtons from "../components/PostShareButtons"
@@ -7,10 +7,13 @@
 // import { FaPerson } from "react-icons/fa6"
 // import Tourist from "../assets/animations/tourist.json"
 // import Lottie from "lottie-react"
+// import Skeleton from "react-loading-skeleton"
+// import "react-loading-skeleton/dist/skeleton.css"
+// import parse from "react-html-parser"
 
 // function PostDetails() {
 //   const { id } = useParams()
-//   const [post, setPost] = useState()
+//   const [post, setPost] = useState(null)
 //   const [loading, setLoading] = useState(true)
 //   const [noPost, setNoPost] = useState(false)
 //   const [isImageLoaded, setIsImageLoaded] = useState(false)
@@ -18,7 +21,7 @@
 //   const getPost = async () => {
 //     try {
 //       const post = await axios.get(`${BaseUrl}/posts/${id}`)
-//       console.log(post.data)
+//       // console.log(post.data)
 //       setPost(post.data)
 //       setTimeout(() => {
 //         setLoading(false)
@@ -32,6 +35,10 @@
 //   useEffect(() => {
 //     getPost()
 //   }, [id])
+
+//   const isValidDate = (date) => {
+//     return date instanceof Date && !isNaN(date)
+//   }
 
 //   const Loading = () => (
 //     <div className="lg:w-96 object-contain flex justify-center items-center ">
@@ -50,34 +57,80 @@
 //   if (noPost) {
 //     return (
 //       <div className="flex justify-center items-center">
-//         <p>OOps, ce post à été supprimer ou bien déplacer</p>
+//         <p>OOps, ce post a été supprimé ou bien déplacé</p>
 //       </div>
 //     )
 //   }
 
 //   return (
-//     <div className="flex flex-col items-center lg:py-10 py-5 w-full">
-//       <PostShareButtons post={post} />
+//     <div className="flex flex-col items-center lg:py-10 py-5 w-full bg-gray-100">
+//       <div className="flex justify-between flex-wrap w-full">
+//         {post && (
+//           <span className="text-4xl px-4 py-2 lg:my-0 mb-4 bg-yellow-300">
+//             {post.type}{" "}
+//           </span>
+//         )}
+//         <PostShareButtons post={post} />
+//       </div>
+
 //       {post && (
-//         <img
-//           src={post.photo}
-//           alt=""
-//           className="lg:h-96 max-h-96 object-contain mt-3"
-//         />
+//         <>
+//           {!isImageLoaded && (
+//             <Skeleton height={384} width={"32rem"} className="mt-3" />
+//           )}
+//           <div className="flex p gap-2 flex-wrap  w-full lg:mt-6 ">
+//             <img
+//               src={post.photo}
+//               alt=""
+//               className={`lg:max-h-[35rem] ${
+//                 post.images && post.images.length > 0 ? "" : "mx-auto"
+//               } max-h-96 object-contain rounded-md mt-3`}
+//               style={{ display: isImageLoaded ? "block" : "none" }}
+//               onLoad={() => setIsImageLoaded(true)}
+//             />
+//             {/* gallerie photo */}
+//             {post.images && post.images.length > 0 && (
+//               <div className="flex items-center gap-2  flex-wrap relative self-start bg-white  ">
+//                 {post.images.map((img, index) => (
+//                   <a
+//                     href={img}
+//                     target="_blank"
+//                     rel="noopener noreferrer"
+//                     className="relative"
+//                     key={index}
+//                     onMouseEnter={(e) => console.log(index)}
+//                   >
+//                     <img
+//                       src={img}
+//                       alt="img"
+//                       className={`${
+//                         post.images.length > 2 ? "lg:w-52" : "lg:w-[30rem]"
+//                       }  object-contain w-48`}
+//                       onLoad={() => setIsImageLoaded(true)}
+//                     />
+//                   </a>
+//                 ))}
+//               </div>
+//             )}
+//           </div>
+//         </>
 //       )}
-//       <h1 className="lg:text-4xl text-2xl lg:my-5 my-3 lg:max-w-[75%] max-w-[85%] truncate text-wrap ">
-//         {post && post.titre}{" "}
-//       </h1>
+//       <div className="flex flex-col justify-center  lg:p-8 p-4 mx-auto bg-white lg:max-w-[90%] lg:mt-8 border shadow">
+//         <h1 className="lg:text-4xl text-2xl lg:my-5 my-3  lg:pl-2 border-l-4 border-l-yellow-300 truncate text-wrap ">
+//           {post.titre}
+//         </h1>
+//         {/* <p
+//                 className="lg:p-6 text-justify leading-loose lg:text-lg  border-t border-black  break-words"
+//                 style={{ wordWrap: "break-word", overflowWrap: "break-word" }}
+//               > */}
+//         <div className=" text-justify break-words text-lg lg:max-w-[95%] ">
+//           {parse(post.paragraphe)}
+//         </div>
+//         {/* </p> */}
+//       </div>
 
 //       {post && (
-//         <div className="flex flex-col lg:px-6 gap-6 w-full items-center">
-//           <p
-//             className="px-4 text-justify leading-loose lg:text-xl break-words"
-//             style={{ wordWrap: "break-word", overflowWrap: "break-word" }}
-//           >
-//             {post.paragraphe}
-//           </p>
-
+//         <div className="flex flex-col lg:px-6 gap-6 w-full items-center my-4">
 //           <div className="flex items-center gap-10 self-start relative flex-wrap px-4">
 //             {/* infos */}
 //             <div className="relative flex">
@@ -95,7 +148,7 @@
 //                   </div>
 //                 )}
 //                 {/* date debut et heure */}
-//                 {post.dateDebut && (
+//                 {post.dateDebut && isValidDate(new Date(post.dateDebut)) && (
 //                   <div className="flex items-center gap-2">
 //                     <FaCalendar />
 //                     <p>
@@ -130,7 +183,7 @@
 //                 )}
 //                 {post.createdAt && (
 //                   <p className="">
-//                     Publier le :{" "}
+//                     Publié le :{" "}
 //                     <span className="text-gray-400 text-sm">
 //                       {post.createdAt.slice(0, 10)}
 //                     </span>
@@ -140,25 +193,6 @@
 
 //               <div className="absolute w-[90%] z-10 bg-yellow-300 h-[100%] -right-[1rem] top-3 border border-black rounded-md" />
 //             </div>
-
-//             {/* gallerie photo */}
-//             {post.images && post.images.length > 0 && (
-//               <div className="flex flex-col gap-2 bg-gray-100 lg:p-6">
-//                 <h3 className="lg:text-2xl text-xl"> Gallerie photo </h3>
-//                 <div className="flex items-center gap-6 flex-wrap">
-//                   {post.images.map((img, index) => (
-//                     <a
-//                       href={img}
-//                       target="_blank"
-//                       rel="noopener noreferrer"
-//                       key={index}
-//                     >
-//                       <img  src={img} alt="img" className="size-40"  />
-//                     </a>
-//                   ))}
-//                 </div>
-//               </div>
-//             )}
 
 //             {/* vidéos */}
 //             {post.videos && post.videos.length > 0 && (
@@ -192,6 +226,8 @@ import Lottie from "lottie-react"
 import Skeleton from "react-loading-skeleton"
 import "react-loading-skeleton/dist/skeleton.css"
 import parse from "react-html-parser"
+import Gallery from "react-photo-gallery"
+import Carousel, { Modal, ModalGateway } from "react-images"
 
 function PostDetails() {
   const { id } = useParams()
@@ -199,11 +235,12 @@ function PostDetails() {
   const [loading, setLoading] = useState(true)
   const [noPost, setNoPost] = useState(false)
   const [isImageLoaded, setIsImageLoaded] = useState(false)
+  const [currentImage, setCurrentImage] = useState(0)
+  const [viewerIsOpen, setViewerIsOpen] = useState(false)
 
   const getPost = async () => {
     try {
       const post = await axios.get(`${BaseUrl}/posts/${id}`)
-      // console.log(post.data)
       setPost(post.data)
       setTimeout(() => {
         setLoading(false)
@@ -217,6 +254,10 @@ function PostDetails() {
   useEffect(() => {
     getPost()
   }, [id])
+
+  const isValidDate = (date) => {
+    return date instanceof Date && !isNaN(date)
+  }
 
   const Loading = () => (
     <div className="lg:w-96 object-contain flex justify-center items-center ">
@@ -240,8 +281,28 @@ function PostDetails() {
     )
   }
 
+  const openLightbox = (event, { photo, index }) => {
+    setCurrentImage(index)
+    setViewerIsOpen(true)
+  }
+
+  const closeLightbox = () => {
+    setCurrentImage(0)
+    setViewerIsOpen(false)
+  }
+
+  const photos = post.images
+    ? post.images.map((img) => ({
+        src: img,
+        width: 4,
+        height: 3,
+        className: "lg:w-[13rem] 2xl:w-[16rem]",
+        sizes: ["(min-width: 480px) 50vw,(min-width: 1024px) 33.3vw,100vw"],
+      }))
+    : []
+
   return (
-    <div className="flex flex-col items-center lg:py-10 py-5 w-full bg-gray-100">
+    <div className="flex flex-col items-center lg:py-10 py-5 w-full px-1 bg-gray-100">
       <div className="flex justify-between flex-wrap w-full">
         {post && (
           <span className="text-4xl px-4 py-2 lg:my-0 mb-4 bg-yellow-300">
@@ -268,44 +329,34 @@ function PostDetails() {
             />
             {/* gallerie photo */}
             {post.images && post.images.length > 0 && (
-              <div className="flex items-center gap-2  flex-wrap relative self-start bg-white  ">
-                {post.images.map((img, index) => (
-                  <a
-                    href={img}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="relative"
-                    key={index}
-                    onMouseEnter={(e) => console.log(index)}
-                  >
-                    
-                    <img
-                      src={img}
-                      alt="img"
-                      className={`${
-                        post.images.length > 2 ? "lg:w-52" : "lg:w-[30rem]"
-                      }  object-contain w-48`}
-                      onLoad={() => setIsImageLoaded(true)}
-                    />
-                  </a>
-                ))}
+              <div className="flex flex-col gap-2 lg:mt-6">
+                <Gallery photos={photos} targetRowHeight={2}  onClick={openLightbox} />
+                <ModalGateway>
+                  {viewerIsOpen ? (
+                    <Modal className="justify-center flex items-center" onClose={closeLightbox}>
+                      <Carousel
+                        currentIndex={currentImage}
+                        views={photos.map((x) => ({
+                          ...x,
+                          srcset: x.srcSet,
+                          caption: x.title,
+                        }))}
+                      />
+                    </Modal>
+                  ) : null}
+                </ModalGateway>
               </div>
             )}
           </div>
         </>
       )}
-      <div className="flex flex-col justify-center  lg:p-8 p-4 mx-auto bg-white lg:max-w-[90%] lg:mt-8 border shadow">
-        <h1 className="lg:text-4xl text-2xl lg:my-5 my-3  lg:pl-2 border-l-4 border-l-yellow-300 truncate text-wrap ">
+      <div className="flex flex-col justify-center lg:p-8 p-4 mx-auto bg-white lg:max-w-[90%] lg:mt-8 border shadow">
+        <h1 className="lg:text-4xl text-2xl lg:my-5 my-3 pl-2 border-l-4 border-l-yellow-300 truncate text-wrap ">
           {post.titre}
         </h1>
-        {/* <p
-                className="lg:p-6 text-justify leading-loose lg:text-lg  border-t border-black  break-words"
-                style={{ wordWrap: "break-word", overflowWrap: "break-word" }}
-              > */}
-        <div className=" text-justify break-words text-lg lg:max-w-[95%] ">
+        <div className="text-justify break-words text-lg lg:max-w-[95%]">
           {parse(post.paragraphe)}
         </div>
-        {/* </p> */}
       </div>
 
       {post && (
@@ -327,7 +378,7 @@ function PostDetails() {
                   </div>
                 )}
                 {/* date debut et heure */}
-                {post.dateDebut && (
+                {post.dateDebut && isValidDate(new Date(post.dateDebut)) && (
                   <div className="flex items-center gap-2">
                     <FaCalendar />
                     <p>
@@ -348,7 +399,7 @@ function PostDetails() {
                     <FaDollarSign />
                     <p>
                       {post.prix}{" "}
-                      <span className="text-red-500 font-bold"> Da</span>{" "}
+                      {/* <span className="text-red-500 font-bold"> Da</span>{" "} */}
                     </p>
                   </div>
                 )}

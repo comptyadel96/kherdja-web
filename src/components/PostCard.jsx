@@ -110,7 +110,7 @@ const PostCard = React.forwardRef(
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
         className={`flex flex-col
-        ${isHome && "bg-black"}
+        ${isHome ? "bg-black" : "bg-white"}
         z-10 items-center relative my-3 overflow-hidden pb-3 rounded-lg shadow-md mx-2 gap-3 lg:max-w-lg max-w-sm cursor-pointer `}
       >
         {imageLoaded ? (
@@ -161,4 +161,3 @@ const PostCard = React.forwardRef(
 )
 
 export default PostCard
-
