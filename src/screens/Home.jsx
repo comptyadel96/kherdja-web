@@ -93,9 +93,9 @@ function Home() {
           <div className="h-1 lg:w-20 w-12 bg-yellow-300 mx-2" />
         </div>
 
-        <div className="lg:py-16 py-4 relative bg-dot min-h-[60vh] flex flex-col">
+        <div className="lg:py-16  py-4 relative bg-dot lg:min-h-[60vh] flex flex-col">
           {lastPosts[0] && (
-            <div className="mx-auto  lg:mb-6 flex ">
+            <div className="mx-auto  lg:mb-6 lg:flex hidden ">
               <img
                 src={lastPosts[0].photo}
                 alt=""
@@ -108,7 +108,12 @@ function Home() {
                 <div className="text-justify break-words text-white lg:text-xl lg:max-w-[95%] lg:ml-6">
                   {parse(lastPosts[0].paragraphe)}
                 </div>
-                <button className="px-3 py-1 bg-yellow-400 rounded">Voir Les Details</button>
+                <button
+                  onClick={() => navigate("/posts/details/" + lastPosts[0]._id)}
+                  className="px-3 py-1 bg-yellow-400 rounded"
+                >
+                  Voir Les Details
+                </button>
               </div>
             </div>
           )}
