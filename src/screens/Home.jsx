@@ -22,7 +22,7 @@ function Home() {
       const aLaUne = await axios.get(`${BaseUrl}/posts/aLaUne`)
       const fetchedPosts = posts.data.posts
 
-      setLastPosts(aLaUne.data.slice(1))
+      setLastPosts(aLaUne.data)
       console.log(aLaUne.data)
 
       const currentDate = new Date()
@@ -101,7 +101,7 @@ function Home() {
                 alt=""
                 className="object-contain w-[50%] "
               />
-              <div className="flex flex-col items-center w-[45%] ">
+              <div className="flex flex-col items-center w-[45%] ml-5 ">
                 <h2 className="lg:text-5xl text-2xl lg:my-5 my-3 pl-2 border-l-4 border-l-yellow-300 mx-auto text-white">
                   {lastPosts[0].titre}{" "}
                 </h2>
