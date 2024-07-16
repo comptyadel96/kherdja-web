@@ -8,8 +8,13 @@ import BaseUrl from "../components/BaseUrl"
 import { useNavigate } from "react-router-dom"
 import parse from "react-html-parser"
 import "../index.css"
-
+import ReactGA from "react-ga4"
 function Home() {
+  ReactGA.send({
+    hitType: "pageview",
+    page: "/",
+    title: "Page d'accueil",
+  })
   const navigate = useNavigate()
   const [lastPosts, setLastPosts] = useState([])
   const [currentEvents, setCurrentEvents] = useState([])

@@ -330,10 +330,17 @@ function PostDetails() {
             {/* gallerie photo */}
             {post.images && post.images.length > 0 && (
               <div className="flex flex-col gap-2 lg:mt-6">
-                <Gallery photos={photos} targetRowHeight={2}  onClick={openLightbox} />
+                <Gallery
+                  photos={photos}
+                  targetRowHeight={2}
+                  onClick={openLightbox}
+                />
                 <ModalGateway>
                   {viewerIsOpen ? (
-                    <Modal className="justify-center flex items-center" onClose={closeLightbox}>
+                    <Modal
+                      className="justify-center flex items-center"
+                      onClose={closeLightbox}
+                    >
                       <Carousel
                         currentIndex={currentImage}
                         views={photos.map((x) => ({

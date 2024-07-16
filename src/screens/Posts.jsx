@@ -3,16 +3,17 @@
 //   useEffect,
 //   useState,
 //   useRef,
-//   Suspense,
 //   useCallback,
+//   Suspense,
 // } from "react"
 // import Lottie from "lottie-react"
 // import { useLocation, useNavigate } from "react-router-dom"
-// import { FiEdit, FiTrash2 } from "react-icons/fi" // Import des icônes
+// import { FiEdit, FiTrash2 } from "react-icons/fi"
 // import BaseUrl from "../components/BaseUrl"
 // import PostCard from "../components/PostCard"
 // import Tourist from "../assets/animations/tourist.json"
-// import Profil from "./Profil"
+
+// import ReactGa from "react-ga4"
 
 // function Posts() {
 //   const location = useLocation()
@@ -27,6 +28,12 @@
 //   const [user, setUser] = useState(null)
 
 //   const observer = useRef()
+
+//   ReactGa.send({
+//     hitType: "pageview",
+//     page: "/posts",
+//     title: "Page de posts",
+//   })
 
 //   const lastPostElementRef = useCallback(
 //     (node) => {
@@ -50,6 +57,7 @@
 //         },
 //       })
 //       setUser(response.data)
+//       // console.log(response.data)
 //     } catch (error) {
 //       console.error("Error fetching user data:", error)
 //     }
@@ -65,7 +73,10 @@
 //           limit: 10,
 //         },
 //       })
-//       const newPosts = response.data.posts
+//       const newPosts =
+//         selectedType !== "Hôtels"
+//           ? response.data.posts
+//           : response.data.posts.reverse()
 
 //       setPosts((prevPosts) => {
 //         const postIds = new Set(prevPosts.map((post) => post._id))
@@ -101,10 +112,14 @@
 //     }
 //   }, [page])
 
-//   const getDateFromDB = (date) => {
-//     return (
-//       date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
-//     )
+//   const formatDate = (dateString) => {
+//     const date = new Date(dateString)
+//     if (isNaN(date)) return null
+//     return date.toLocaleDateString("fr-FR", {
+//       year: "numeric",
+//       month: "long",
+//       day: "numeric",
+//     })
 //   }
 
 //   const handleDelete = async (id) => {
@@ -171,21 +186,21 @@
 //                   navigate("details/" + post._id)
 //                 }}
 //                 ref={index === posts.length - 1 ? lastPostElementRef : null}
-//                 date={post.dateDebut && getDateFromDB(new Date(post.dateDebut))}
+//                 date={post.dateDebut ? formatDate(post.dateDebut) : null}
 //               />
-//               {user && user.isAdmin && (
-//                 <div className="absolute top-2 right-0 flex gap-2 p-2 z-30">
+//               {user && user.isAdmin == true && (
+//                 <div className="absolute top-2 right-2 flex space-x-2 z-40">
 //                   <button
-//                     className="bg-blue-500 text-white p-2 rounded-full flex items-center justify-center"
+//                     className="bg-yellow-300 p-2 rounded-full flex items-center justify-center shadow-md"
 //                     onClick={() => navigate(`/posts/modify/${post._id}`)}
 //                   >
-//                     <FiEdit size={16} />
+//                     <FiEdit />
 //                   </button>
 //                   <button
-//                     className="bg-red-500 text-white p-2 rounded-full flex items-center justify-center"
+//                     className="bg-red-500 text-white p-2 rounded-full flex items-center justify-center shadow-md"
 //                     onClick={() => handleDelete(post._id)}
 //                   >
-//                     <FiTrash2 size={16} />
+//                     <FiTrash2 />
 //                   </button>
 //                 </div>
 //               )}
@@ -193,7 +208,11 @@
 //           ))}
 //         </Suspense>
 //       </div>
-//       {loading && <Loading />}
+//       {loading && (
+//         <div className="flex justify-center mt-10">
+//           <Loading />
+//         </div>
+//       )}
 //     </div>
 //   )
 // }
@@ -215,6 +234,8 @@ import BaseUrl from "../components/BaseUrl"
 import PostCard from "../components/PostCard"
 import Tourist from "../assets/animations/tourist.json"
 
+import ReactGa from "react-ga4"
+
 function Posts() {
   const location = useLocation()
   const navigate = useNavigate()
@@ -229,6 +250,20 @@ function Posts() {
 
   const observer = useRef()
 
+  ReactGa.send({
+    hitType: "pageview",
+    page: "/posts",
+    title: "Page de posts",
+  })
+
+  if (selectedType) {
+    ReactGa.event({
+      category: "Category View",
+      action: "View Category",
+      label: selectedType,
+    })
+  }
+
   const lastPostElementRef = useCallback(
     (node) => {
       if (loading) return
@@ -242,6 +277,7 @@ function Posts() {
     },
     [loading, hasMore]
   )
+
   const fetchUser = async () => {
     try {
       const response = await axios.get(`${BaseUrl}/isAuthenticated`, {
