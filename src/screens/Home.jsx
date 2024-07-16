@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom"
 import parse from "react-html-parser"
 import "../index.css"
 import ReactGA from "react-ga4"
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton"
 function Home() {
   ReactGA.send({
     hitType: "pageview",
@@ -20,6 +21,7 @@ function Home() {
   const [currentEvents, setCurrentEvents] = useState([])
   const [upcomingEvents, setUpcomingEvents] = useState([])
   const [actus, setActus] = useState([])
+  const [imageLoaded, setImageLoaded] = useState(false)
 
   const fetchPosts = async () => {
     try {
@@ -101,11 +103,28 @@ function Home() {
         <div className="lg:py-16  py-4 relative bg-dot lg:min-h-[60vh] flex flex-col">
           {lastPosts[0] && (
             <div className="mx-auto  lg:mb-6 lg:flex hidden ">
-              <img
-                src={lastPosts[0].photo}
-                alt=""
-                className="object-contain w-[50%] "
-              />
+              {imageLoaded ? (
+                <img
+                  src={lastPosts[0].photo}
+                  alt=""
+                  className="object-contain w-[50%] "
+                  onLoad={() => setImageLoaded(true)}
+                />
+              ) : (
+                <SkeletonTheme baseColor="#202020" highlightColor="#444">
+                  <Skeleton height={450} width={"50rem"} className="my-2" />
+                </SkeletonTheme>
+              )}
+
+              {!imageLoaded && (
+                <img
+                  src={lastPosts[0].photo}
+                  // alt={title}
+                  style={{ display: "none" }}
+                  onLoad={() => setImageLoaded(true)}
+                />
+              )}
+
               <div className="flex flex-col items-center w-[45%] ml-5 ">
                 <h2 className="lg:text-5xl text-2xl lg:my-5 my-3 pl-2 border-l-4 border-l-yellow-300 mx-auto text-white">
                   {lastPosts[0].titre}{" "}
@@ -168,12 +187,14 @@ function Home() {
               </div>
             ))}
           </Slider>
-          <button
-            onClick={() => navigate("/posts")}
-            className="hover:bg-yellow-300 border border-yellow-300 text-yellow-300 hover:text-black mx-auto px-3 py-1 mt-5 rounded-md"
-          >
-            Voir tous les posts récents
-          </button>
+          {lastPosts && lastPosts.length > 0 && (
+            <button
+              onClick={() => navigate("/posts")}
+              className="hover:bg-yellow-300 border border-yellow-300 text-yellow-300 hover:text-black mx-auto px-3 py-1 mt-5 rounded-md"
+            >
+              Voir tous les posts récents
+            </button>
+          )}
         </div>
       </div>
 
