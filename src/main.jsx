@@ -15,7 +15,7 @@ import ModifyPost from "./screens/dashboard/ModifyPost" // Importez le composant
 
 import ReactGA from "react-ga4"
 
-ReactGA.initialize("G-P21J5FR9C4")
+ReactGA.initialize("G-WRN8T37N5J")
 
 
 const router = createBrowserRouter([
