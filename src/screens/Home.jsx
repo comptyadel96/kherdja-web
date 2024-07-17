@@ -100,7 +100,7 @@ function Home() {
           <div className="h-1 lg:w-20 w-12 bg-yellow-300 mx-2" />
         </div>
 
-        <div className="lg:py-16  py-4 relative bg-dot lg:min-h-[60vh] flex flex-col">
+        <div className="lg:py-16  py-4 relative bg-dot lg:min-h-[60vh] min-h-[42vh] flex flex-col">
           {lastPosts[0] && (
             <div className="mx-auto  lg:mb-6 lg:flex hidden ">
               {imageLoaded ? (
