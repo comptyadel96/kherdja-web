@@ -10,6 +10,9 @@
 // import Skeleton from "react-loading-skeleton"
 // import "react-loading-skeleton/dist/skeleton.css"
 // import parse from "react-html-parser"
+// import Gallery from "react-photo-gallery"
+// import Carousel, { Modal, ModalGateway } from "react-images"
+// import { Helmet } from "react-helmet"
 
 // function PostDetails() {
 //   const { id } = useParams()
@@ -17,11 +20,12 @@
 //   const [loading, setLoading] = useState(true)
 //   const [noPost, setNoPost] = useState(false)
 //   const [isImageLoaded, setIsImageLoaded] = useState(false)
+//   const [currentImage, setCurrentImage] = useState(0)
+//   const [viewerIsOpen, setViewerIsOpen] = useState(false)
 
 //   const getPost = async () => {
 //     try {
 //       const post = await axios.get(`${BaseUrl}/posts/${id}`)
-//       // console.log(post.data)
 //       setPost(post.data)
 //       setTimeout(() => {
 //         setLoading(false)
@@ -62,8 +66,36 @@
 //     )
 //   }
 
+//   const openLightbox = (event, { photo, index }) => {
+//     setCurrentImage(index)
+//     setViewerIsOpen(true)
+//   }
+
+//   const closeLightbox = () => {
+//     setCurrentImage(0)
+//     setViewerIsOpen(false)
+//   }
+
+//   const photos = post.images
+//     ? post.images.map((img) => ({
+//         src: img,
+//         width: 4,
+//         height: 3,
+//         className: "lg:w-[13rem] 2xl:w-[16rem]",
+//         sizes: ["(min-width: 480px) 50vw,(min-width: 1024px) 33.3vw,100vw"],
+//       }))
+//     : []
+
 //   return (
-//     <div className="flex flex-col items-center lg:py-10 py-5 w-full bg-gray-100">
+//     <div className="flex flex-col items-center lg:py-10 py-5 w-full px-1 bg-gray-100">
+//       <Helmet>
+//         <meta
+//           name="description"
+//           content="Découvrez les meilleurs sorties, événements, hôtels, restaurants, concerts, musiques et bons plans en Algérie sur kherdja.com. Planifiez votre prochain voyage avec nos guides et recommandations."
+//         />
+//         <meta name="robots" content="index, follow" />
+//         <title>Kherdja - Sorties et Événements en Algérie</title>
+//       </Helmet>
 //       <div className="flex justify-between flex-wrap w-full">
 //         {post && (
 //           <span className="text-4xl px-4 py-2 lg:my-0 mb-4 bg-yellow-300">
@@ -90,43 +122,41 @@
 //             />
 //             {/* gallerie photo */}
 //             {post.images && post.images.length > 0 && (
-//               <div className="flex items-center gap-2  flex-wrap relative self-start bg-white  ">
-//                 {post.images.map((img, index) => (
-//                   <a
-//                     href={img}
-//                     target="_blank"
-//                     rel="noopener noreferrer"
-//                     className="relative"
-//                     key={index}
-//                     onMouseEnter={(e) => console.log(index)}
-//                   >
-//                     <img
-//                       src={img}
-//                       alt="img"
-//                       className={`${
-//                         post.images.length > 2 ? "lg:w-52" : "lg:w-[30rem]"
-//                       }  object-contain w-48`}
-//                       onLoad={() => setIsImageLoaded(true)}
-//                     />
-//                   </a>
-//                 ))}
+//               <div className="flex flex-col gap-2 lg:mt-6">
+//                 <Gallery
+//                   photos={photos}
+//                   targetRowHeight={2}
+//                   onClick={openLightbox}
+//                 />
+//                 <ModalGateway>
+//                   {viewerIsOpen ? (
+//                     <Modal
+//                       className="justify-center flex items-center"
+//                       onClose={closeLightbox}
+//                     >
+//                       <Carousel
+//                         currentIndex={currentImage}
+//                         views={photos.map((x) => ({
+//                           ...x,
+//                           srcset: x.srcSet,
+//                           caption: x.title,
+//                         }))}
+//                       />
+//                     </Modal>
+//                   ) : null}
+//                 </ModalGateway>
 //               </div>
 //             )}
 //           </div>
 //         </>
 //       )}
-//       <div className="flex flex-col justify-center  lg:p-8 p-4 mx-auto bg-white lg:max-w-[90%] lg:mt-8 border shadow">
-//         <h1 className="lg:text-4xl text-2xl lg:my-5 my-3  lg:pl-2 border-l-4 border-l-yellow-300 truncate text-wrap ">
+//       <div className="flex flex-col justify-center lg:p-8 p-4 mx-auto bg-white lg:max-w-[90%] lg:mt-8 border shadow">
+//         <h1 className="lg:text-4xl text-2xl lg:my-5 my-3 pl-2 border-l-4 border-l-yellow-300 truncate text-wrap ">
 //           {post.titre}
 //         </h1>
-//         {/* <p
-//                 className="lg:p-6 text-justify leading-loose lg:text-lg  border-t border-black  break-words"
-//                 style={{ wordWrap: "break-word", overflowWrap: "break-word" }}
-//               > */}
-//         <div className=" text-justify break-words text-lg lg:max-w-[95%] ">
+//         <div className="text-justify break-words text-lg lg:max-w-[95%]">
 //           {parse(post.paragraphe)}
 //         </div>
-//         {/* </p> */}
 //       </div>
 
 //       {post && (
@@ -169,7 +199,7 @@
 //                     <FaDollarSign />
 //                     <p>
 //                       {post.prix}{" "}
-//                       <span className="text-red-500 font-bold"> Da</span>{" "}
+//                       {/* <span className="text-red-500 font-bold"> Da</span>{" "} */}
 //                     </p>
 //                   </div>
 //                 )}
@@ -228,6 +258,7 @@ import "react-loading-skeleton/dist/skeleton.css"
 import parse from "react-html-parser"
 import Gallery from "react-photo-gallery"
 import Carousel, { Modal, ModalGateway } from "react-images"
+import { Helmet } from "react-helmet"
 
 function PostDetails() {
   const { id } = useParams()
@@ -303,6 +334,20 @@ function PostDetails() {
 
   return (
     <div className="flex flex-col items-center lg:py-10 py-5 w-full px-1 bg-gray-100">
+      <Helmet>
+        <meta
+          name="description"
+          content={`Découvrez ${
+            post
+              ? post.titre
+              : "les meilleurs événements, hôtels, restaurants, concerts, musiques et bons plans en Algérie sur kherdja.com. Planifiez votre prochain voyage avec nos guides et recommandations."
+          }`}
+        />
+        <meta name="robots" content="index, follow" />
+        <title>
+          {post ? post.titre : "Kherdja - Sorties et Événements en Algérie"}
+        </title>
+      </Helmet>
       <div className="flex justify-between flex-wrap w-full">
         {post && (
           <span className="text-4xl px-4 py-2 lg:my-0 mb-4 bg-yellow-300">
@@ -320,7 +365,7 @@ function PostDetails() {
           <div className="flex p gap-2 flex-wrap  w-full lg:mt-6 ">
             <img
               src={post.photo}
-              alt=""
+              alt={post.titre}
               className={`lg:max-h-[35rem] ${
                 post.images && post.images.length > 0 ? "" : "mx-auto"
               } max-h-96 object-contain rounded-md mt-3`}

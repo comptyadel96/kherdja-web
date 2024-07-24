@@ -10,6 +10,9 @@ import parse from "react-html-parser"
 import "../index.css"
 import ReactGA from "react-ga4"
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton"
+import { Helmet } from "react-helmet"
+
+
 function Home() {
   ReactGA.send({
     hitType: "pageview",
@@ -89,6 +92,15 @@ function Home() {
       {/* <div className="lg:w-[55%] w-[95%] flex md:mt-4 justify-center items-center">
         <img src="/images/logo-ooredoo.png" alt="" className="object-contain w-full" />
       </div> */}
+
+      <Helmet>
+        <meta
+          name="description"
+          content="Découvrez les meilleurs sorties, événements, hôtels, restaurants, concerts, musiques et bons plans en Algérie sur kherdja.com. Planifiez votre prochain voyage avec nos guides et recommandations."
+        />
+        <meta name="robots" content="index, follow" />
+        <title>Kherdja - Sorties et Événements en Algérie</title>
+      </Helmet>
 
       {/* Carrousel de publications importantes */}
       <div className="rounded-xl w-[95%] lg:my-20 my-10">
