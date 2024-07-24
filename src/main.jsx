@@ -12,11 +12,16 @@ import Posts from "./screens/Posts"
 import PostDetails from "./screens/PostDetails"
 import AddPost from "./screens/dashboard/AddPost"
 import ModifyPost from "./screens/dashboard/ModifyPost" // Importez le composant ModifyPost
-
+import TagManager from "react-gtm-module"
 import ReactGA from "react-ga4"
 
-ReactGA.initialize("G-WRN8T37N5J")
+const tagManagerArgs = {
+  gtmId: "GTM-KLJH9GGD",
+}
 
+TagManager.initialize(tagManagerArgs)
+
+ReactGA.initialize("G-WRN8T37N5J")
 
 const router = createBrowserRouter([
   {
