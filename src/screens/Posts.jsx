@@ -99,7 +99,7 @@ function Posts() {
 
       setTimeout(() => {
         setLoading(false)
-      }, 1000)
+      }, 500)
     } catch (error) {
       if (page === 1) {
         setNoPosts(true)

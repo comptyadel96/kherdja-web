@@ -64,7 +64,7 @@ const PostCard = React.forwardRef(
         {date && isValidDate(new Date(date)) && (
           <div className="flex items-center">
             <FaClock className={`${isHome && "text-yellow-300"}`} />
-            <p className="ml-1 text-sm text-gray-400">{date}</p>
+            <p className="ml-1 text-sm text-gray-600">{date}</p>
           </div>
         )}
 
