@@ -96,7 +96,7 @@ function Home() {
       <Helmet>
         <meta
           name="description"
-          content="Découvrez les meilleurs sorties, événements, hôtels, restaurants, concerts, musiques et bons plans en Algérie sur kherdja.com. Planifiez votre prochain voyage avec nos guides et recommandations."
+          content="Découvrez les meilleurs sorties, événements, hôtels, restaurants, concerts, Randonnées, musiques et bons plans en Algérie sur kherdja, Planifiez votre prochain voyage et vacances avec nos guides et recommandations."
         />
         <meta name="robots" content="index, follow" />
         <title>Kherdja - Sorties et Événements en Algérie</title>
@@ -222,7 +222,7 @@ function Home() {
       {/* En ce moment */}
       <div className="my-6 flex items-center">
         <div className="h-1 lg:w-14 w-7 bg-yellow-300 mx-2" />
-        <h2 className="lg:text-4xl text-2xl font-bold">Actus</h2>
+        <h2 className="lg:text-4xl text-2xl font-bold">Actualité</h2>
         <div className="h-1 lg:w-14 w-7 bg-yellow-300 mx-2" />
       </div>
       <div className="flex mb-5 gap-4 flex-wrap justify-center">
